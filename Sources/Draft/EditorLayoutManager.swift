@@ -72,7 +72,7 @@ final class EditorLayoutManager: NSLayoutManager {
             let glyphs = glyphRange(forCharacterRange: label.range, actualCharacterRange: nil)
             let box = boundingRect(forGlyphRange: glyphs, in: container)
             let size = (storage.attribute(.font, at: label.range.location, effectiveRange: nil) as? NSFont)?.pointSize ?? 16
-            let font = NSFont.systemFont(ofSize: round(size * 0.62), weight: .semibold)
+            let font = NSFont.systemFont(ofSize: round(size * 0.7), weight: .semibold)
             let text = NSAttributedString(string: "H\(label.level)", attributes: [.font: font, .foregroundColor: label.color])
             let baseline = lineFragmentRect(forGlyphAt: glyphs.location, effectiveRange: nil).minY + location(forGlyphAt: glyphs.location).y
             text.draw(at: NSPoint(x: origin.x + box.maxX - text.size().width, y: origin.y + baseline - font.ascender))
