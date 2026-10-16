@@ -638,12 +638,14 @@ final class AssistantViewController: NSViewController, NSTextViewDelegate {
         let list = AgentSession.history()
         if list.isEmpty { menu.addItem(withTitle: L("No conversations yet"), action: nil, keyEquivalent: "").isEnabled = false }
         for c in list.prefix(50) {
-            let item = MenuClosureItem(title: c.title) { [weak self] in self?.open(c.id) }
+            let item = NSMenuItem()
             let detail = "\(c.backend.title) · \(format.localizedString(for: c.updated, relativeTo: Date()))"
-            let string = NSMutableAttributedString(string: c.title, attributes: [.font: NSFont.menuFont(ofSize: 0)])
-            string.append(NSAttributedString(string: "\n" + detail, attributes: [.font: NSFont.menuFont(ofSize: 11), .foregroundColor: NSColor.secondaryLabelColor]))
-            item.attributedTitle = string
-            item.state = c.id == session.id ? .on : .off
+            item.view = HistoryRow(title: c.title, detail: detail, current: c.id == session.id,
+                                   open: { [weak self] in self?.open(c.id) },
+                                   delete: { [weak self, weak menu, weak item] in
+                                       self?.session.delete(c.id)
+                                       if let item { menu?.removeItem(item) }
+                                   })
             menu.addItem(item)
         }
         if !list.isEmpty {
@@ -669,6 +671,66 @@ final class AssistantViewController: NSViewController, NSTextViewDelegate {
         sendButton.contentTintColor = Palette.current != nil ? Theme.caret : .controlAccentColor
         sendButton.toolTip = session.running ? L("Stop") : L("Send (Return)")
     }
+}
+
+// A history menu row: ✓ on the open conversation, title over backend and time, a trash button at the right.
+// Clicking the row opens the conversation; the trash deletes it and leaves the menu open.
+private final class HistoryRow: NSView {
+    private let onOpen: () -> Void
+    private let onDelete: () -> Void
+    private let title: String
+    private let detail: String
+    private let label = NSTextField(labelWithString: "")
+    private let check = NSImageView(image: NSImage(systemSymbolName: "checkmark", accessibilityDescription: nil)!)
+    private let trash = NSButton()
+
+    init(title: String, detail: String, current: Bool, open: @escaping () -> Void, delete: @escaping () -> Void) {
+        self.title = title
+        self.detail = detail
+        onOpen = open
+        onDelete = delete
+        super.init(frame: NSRect(x: 0, y: 0, width: 300, height: 40))
+        check.frame = NSRect(x: 10, y: 22, width: 12, height: 12)
+        check.symbolConfiguration = .init(pointSize: 11, weight: .semibold)
+        check.isHidden = !current
+        label.frame = NSRect(x: 26, y: 3, width: 236, height: 34)
+        label.maximumNumberOfLines = 2
+        label.lineBreakMode = .byTruncatingTail
+        trash.frame = NSRect(x: 268, y: 10, width: 20, height: 20)
+        trash.image = NSImage(systemSymbolName: "trash", accessibilityDescription: L("Delete"))
+        trash.isBordered = false
+        trash.toolTip = L("Delete")
+        trash.target = self
+        trash.action = #selector(remove)
+        [check, label, trash].forEach(addSubview)
+    }
+    required init?(coder: NSCoder) { fatalError() }
+
+    private var lit: Bool { enclosingMenuItem?.isHighlighted == true }
+
+    override func viewWillDraw() {
+        let fg = lit ? NSColor.selectedMenuItemTextColor : .labelColor
+        let string = NSMutableAttributedString(string: title, attributes: [.font: NSFont.menuFont(ofSize: 0), .foregroundColor: fg])
+        string.append(NSAttributedString(string: "\n" + detail, attributes: [.font: NSFont.menuFont(ofSize: 11),
+                                                                            .foregroundColor: lit ? fg : .secondaryLabelColor]))
+        label.attributedStringValue = string
+        check.contentTintColor = fg
+        trash.contentTintColor = lit ? fg : .secondaryLabelColor
+        super.viewWillDraw()
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        guard lit else { return }
+        NSColor.selectedContentBackgroundColor.setFill()
+        NSBezierPath(roundedRect: bounds.insetBy(dx: 5, dy: 0), xRadius: 4, yRadius: 4).fill()
+    }
+
+    override func mouseUp(with event: NSEvent) {
+        enclosingMenuItem?.menu?.cancelTracking()
+        onOpen()
+    }
+
+    @objc private func remove() { onDelete() }
 }
 
 // A rounded fill (and optional hairline) behind a message or a card.

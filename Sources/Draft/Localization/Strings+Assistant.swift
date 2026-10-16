@@ -38,6 +38,7 @@ extension L10n {
         // History menu
         "No conversations yet": "還沒有對話紀錄",
         "Delete This Conversation": "刪除目前這段對話",
+        "Delete": "刪除",
 
         // Tool activity and errors
         "Read %@": "讀取 %@",
