@@ -532,7 +532,7 @@ final class AssistantViewController: NSViewController, NSTextViewDelegate {
         let old = label("", size: 13, color: LibraryStyle.paletteText)
         old.attributedStringValue = NSAttributedString(string: edit.find, attributes: [
             .font: NSFont.systemFont(ofSize: 13), .foregroundColor: LibraryStyle.paletteSecondaryText,
-            .strikethroughStyle: NSUnderlineStyle.single.rawValue, .backgroundColor: NSColor.systemRed.withAlphaComponent(0.12)])
+            .strikethroughStyle: NSUnderlineStyle.single.rawValue])
         old.isSelectable = false
         old.toolTip = L("Click to show it in the document")
         old.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(reveal(_:))))
@@ -541,7 +541,7 @@ final class AssistantViewController: NSViewController, NSTextViewDelegate {
             let new = label("", size: 13, color: LibraryStyle.paletteText)
             new.attributedStringValue = NSAttributedString(string: edit.replace, attributes: [
                 .font: NSFont.systemFont(ofSize: 13), .foregroundColor: LibraryStyle.paletteText,
-                .backgroundColor: NSColor.systemGreen.withAlphaComponent(0.16)])
+                .backgroundColor: Theme.caret.withAlphaComponent(0.16)])
             parts.addArrangedSubview(new)
         }
 
