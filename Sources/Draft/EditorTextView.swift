@@ -284,7 +284,7 @@ final class EditorTextView: NSTextView {
                         let level = (self.string as NSString).substring(with: hashes).filter { $0 == "#" }.count
                         layoutManager.addTemporaryAttribute(.foregroundColor, value: NSColor.clear, forCharacterRange: hashes)
                         headingLabels.append(.init(range: NSRange(location: hashes.location, length: level), level: level,
-                                                   color: isFocused(span) ? Theme.text.withAlphaComponent(0.55) : Theme.focusDimSyntax))
+                                                   color: isFocused(span) ? Theme.text.withAlphaComponent(0.8) : Theme.focusDimSyntax))
                     }
                 case .strong, .emphasis:
                     break
