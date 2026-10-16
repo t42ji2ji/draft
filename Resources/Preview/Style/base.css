@@ -1,0 +1,621 @@
+/*
+  Draft preview: the stylesheet every template shares.
+
+  The page is <body data-document>; Swift drives <html> through Template.js:
+  its class list (mac, center-headings, emphasis-mark | emphasis-italic,
+  content-size-*, *-mark, plus .night-mode in dark appearance), its lang
+  (x-default or x-default-<cjk>) and an inline padding-top/bottom inset.
+
+  Rules here read custom properties. Each template's template.css imports a
+  profile (serif.css, sans.css or writer.css) that sets the numbers, then names
+  its faces. Lengths written "a/b" in comments are px at the reference size b.
+*/
+
+@import url("fonts.css");
+
+
+/* ── Settings ─────────────────────────────────────────────────────────────── */
+
+:root {
+    /* Faces (template.css) */
+    --face: serif;
+    --code-face: monospace;
+    --fallback: serif;
+    --emphasis: "Draft Emphasis";
+    --emphasis-cjk-wide: "Draft Emphasis Spaced";   /* ja, ko */
+    --emphasis-glyph: "\E000";
+
+    /* CJK families per language, used after the text face (template or profile) */
+    --cjk-tc: "Draft PingFang TC", "Draft PingFang SC";
+    --cjk-sc: "Draft PingFang SC", "Draft PingFang TC";
+    --cjk-hk: "Draft PingFang HK", "Draft PingFang SC";
+    --cjk-ja: "Draft Hiragino Sans";
+    --cjk-ko: "Draft SD Gothic";
+
+    /* Size and leading. --lh picks a column of the size table below. */
+    --root-size: 18px;
+    --lh-a: 160;        /* Plex and Quattro */
+    --lh-b: 170;        /* Mono and Duo */
+    --lh: var(--lh-a);
+    --lh-band: 0;       /* window width adjustment */
+    --leading: calc((var(--lh) + var(--lh-band)) / 100);
+    --print-size: 13px;
+    --lh-print: 155;
+    --measure: 37.5em;
+    --gutter: 24px;
+
+    /* Colour */
+    --text: #1a1a1a;
+    --page: #fcfcfc;
+    --code-fill: rgba(36, 36, 36, 0.055);
+    --rule: var(--text);            /* hr, Mono/Duo/Quattro blockquote */
+    --table-rule: #e6e6e6;          /* table top, bottom and head/body divider */
+
+    /* Vertical rhythm (profile) */
+    --space: 1.6667em;              /* top margin of every block */
+    --h1-size: 1em;
+    --h1-leading: var(--leading);
+    --h1-space: var(--space);       /* above and below */
+    --h2-size: 1em;
+    --h2-leading: var(--leading);
+    --h2-space-above: var(--space);
+    --h2-space-below: var(--space);
+    --h-space: var(--space);        /* above h3–h6 */
+    --h34-leading: var(--leading);
+    --h1-after-h1: 0;
+    --h2-after-h1: 0;
+    --h1-after-h2: 0;
+    --h2-after-h2: 0;
+    --hr-above: var(--space);
+    --hr-below: var(--space);
+
+    /* Lists, quotes, tables, notes, code, tasks (profile) */
+    --list-indent: 1.5rem;
+    --list-indent-wide: 2.2222rem;  /* 40/18, from 760px */
+    --bullet: "• ";
+    --bullet-offset: -1.1111em;
+    --quote-margin-start: 0;
+    --quote-margin-end: auto;
+    --quote-padding: 1em;
+    --quote-ul-shift: 0;
+    --quote-ol-shift: 0;
+    --table-size: 0.8333rem;        /* 15/18 */
+    --table-leading: 1.6;           /* 24/15 */
+    --notes-size: 0.8889rem;        /* 16/18 */
+    --notes-leading: 1.6875;        /* 27/16 */
+    --code-size: 0.94em;
+    --task-ol-shift: 0.5em;         /* × leading: lines ordinals 1–9 up with the text */
+    --check-position: 40% 40%;
+    --check-size: 50%;
+
+    /* Padding given as a share of the column below 1080px, fixed above */
+    --caption-above: 1.852%;        /* 20/1080 */
+    --caption-below: 0.926%;        /* 10/1080 */
+    --cell-padding-y: 0.926%;
+    --cell-padding-x: 0.926%;
+    --quote-heading-above: 1.944%;  /* 21/1080 */
+    --quote-heading-padding: 0.926%;
+    --notes-above: 4.167%;          /* 45/1080 */
+    --notes-rule-above: 7.895%;
+}
+
+html.night-mode {
+    --text: #cccccc;
+    --page: #101010;
+    --code-fill: rgba(245, 245, 245, 0.06);
+    --table-rule: #333333;
+}
+
+/* Content size (Settings › Preview text size); both leading columns per size. */
+html.content-size-4xs  { --root-size: 11px; --lh-a: 170; --lh-b: 180; }
+html.content-size-3xs  { --root-size: 12px; --lh-a: 169; --lh-b: 179; }
+html.content-size-2xs  { --root-size: 13px; --lh-a: 168; --lh-b: 179; }
+html.content-size-xs   { --root-size: 14px; --lh-a: 167; --lh-b: 178; }
+html.content-size-s    { --root-size: 15px; --lh-a: 166; --lh-b: 177; }
+html.content-size-m    { --root-size: 16px; --lh-a: 165; --lh-b: 176; }
+html.content-size-l    { --root-size: 18px; --lh-a: 164; --lh-b: 175; }
+html.content-size-xl   { --root-size: 20px; --lh-a: 163; --lh-b: 173; }
+html.content-size-2xl  { --root-size: 24px; --lh-a: 159; --lh-b: 169; }
+html.content-size-3xl  { --root-size: 28px; --lh-a: 155; --lh-b: 165; }
+html.content-size-4xl  { --root-size: 32px; --lh-a: 151; --lh-b: 161; }
+html.content-size-5xl  { --root-size: 36px; --lh-a: 147; --lh-b: 157; }
+html.content-size-6xl  { --root-size: 42px; --lh-a: 142; --lh-b: 151; }
+html.content-size-7xl  { --root-size: 48px; --lh-a: 137; --lh-b: 145; }
+html.content-size-8xl  { --root-size: 54px; --lh-a: 132; --lh-b: 139; }
+html.content-size-9xl  { --root-size: 60px; --lh-a: 127; --lh-b: 133; }
+html.content-size-10xl { --root-size: 72px; --lh-a: 123; --lh-b: 128; }
+
+@media screen and (max-width: 414px) { :root { --lh-band: -10; } }
+@media screen and (min-width: 1251px) { :root { --lh-band: 10; } }
+@media (min-width: 480px) { :root { --gutter: 48px; } }
+@media (min-width: 640px) { :root { --gutter: 72px; } }
+@media (min-width: 1080px) {
+    :root {
+        --caption-above: 10px;
+        --caption-below: 10px;
+        --cell-padding-y: 10px;
+        --quote-heading-above: 21px;
+        --quote-heading-padding: 10px;
+        --notes-above: 45px;
+        --notes-rule-above: 60px;
+    }
+}
+
+
+/* ── Language ─────────────────────────────────────────────────────────────── */
+
+/*
+  A lang (on <html> from Swift, or on any element in raw HTML) chooses the CJK
+  families and the side of the emphasis dots. The family list is rebuilt on
+  that element only; descendants inherit it, so code keeps its own face.
+*/
+
+[lang|="ja"], [lang^="x-default-ja"] {
+    --cjk: var(--cjk-ja),;
+    --emphasis: var(--emphasis-cjk-wide);
+    --em-side: over right;
+}
+[lang|="ko"], [lang^="x-default-ko"] {
+    --cjk: var(--cjk-ko),;
+    --emphasis: var(--emphasis-cjk-wide);
+    --em-side: over right;
+}
+[lang|="zh"], [lang^="x-default-zh"] {
+    --cjk: var(--cjk-sc),;
+    --em-side: under right;
+}
+[lang|="zh-Hant"], [lang^="x-default-zh-Hant"] { --cjk: var(--cjk-tc),; }
+[lang|="zh-Hant-HK"], [lang^="x-default-zh-Hant-HK"] { --cjk: var(--cjk-hk),; }
+
+/* --cjk carries its own trailing comma and is absent outside CJK languages. */
+html, [lang] {
+    font-family: var(--face), var(--emphasis), var(--cjk,) var(--fallback);
+}
+
+code, kbd, samp, pre {
+    font-family: var(--code-face), var(--cjk,) monospace;
+}
+
+/*
+  Emphasis. With emphasis-mark, em in a CJK language is upright with a dot per
+  character; elsewhere it stays italic. With emphasis-italic it is italic
+  everywhere (and so are h4, h5 and captions, below).
+*/
+
+em {
+    font-synthesis: style;
+}
+
+.emphasis-mark em:is(:lang(ja), :lang(ko), :lang(zh), :lang(x-default-ja), :lang(x-default-ko), :lang(x-default-zh)) {
+    font-style: normal;
+    -webkit-text-emphasis-style: var(--emphasis-glyph);
+    text-emphasis-style: var(--emphasis-glyph);
+    -webkit-text-emphasis-position: var(--em-side);
+    text-emphasis-position: var(--em-side);
+}
+
+.emphasis-italic :is(h4, h5, figcaption, caption) {
+    font-style: italic;
+}
+
+
+/* ── Page ─────────────────────────────────────────────────────────────────── */
+
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: var(--root-size);
+    line-height: var(--leading);
+    color: var(--text);
+    background-color: var(--page);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    box-sizing: content-box;
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    overflow-wrap: break-word;
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+}
+
+body > :first-child {
+    margin-top: 0;
+}
+
+a {
+    color: inherit;
+}
+
+/* A user <style> block must not push its neighbour down. */
+style + * {
+    margin-top: 0;
+}
+
+
+/* ── Blocks ───────────────────────────────────────────────────────────────── */
+
+p, ul, ol, dl, figure, blockquote, pre, table {
+    margin: var(--space) auto 0;
+}
+
+:is(h3, h4, h5) + :is(p, ul, ol, dl, figure, blockquote, pre, table) {
+    margin-top: 0;
+}
+
+
+/* ── Headings ─────────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+h1 {
+    font-size: var(--h1-size);
+    line-height: var(--h1-leading);
+    margin: var(--h1-space) 0;
+}
+
+h2 {
+    font-size: var(--h2-size);
+    line-height: var(--h2-leading);
+    margin: var(--h2-space-above) 0 var(--h2-space-below);
+}
+
+h3, h4, h5, h6 {
+    font-size: 1em;
+    margin: var(--h-space) 0 0;
+}
+
+h3, h4 {
+    line-height: var(--h34-leading);
+}
+
+h5 {
+    font-weight: 500;
+}
+
+h1 + h1 { margin-top: var(--h1-after-h1); }
+h1 + h2 { margin-top: var(--h2-after-h1); }
+h2 + h1 { margin-top: var(--h1-after-h2); }
+h2 + h2 { margin-top: var(--h2-after-h2); }
+
+:is(h1, h2, h3, h4, h5, h6) + :is(h3, h4, h5, h6) {
+    margin-top: 0;
+}
+
+.center-headings :is(h1, h2, h3, h4, h5) {
+    text-align: center;
+}
+
+/* h6 is a run-in heading: it floats into the start of the next paragraph. */
+h6 {
+    float: left;
+    margin-right: 0.5em;
+}
+
+h6 + *, h6 + p + * {
+    clear: both;
+}
+
+h6 + p {
+    clear: none;
+}
+
+:is(h1, h2, h3, h4, h5) + h6 + *, hr + h6 {
+    margin-top: 0;
+}
+
+
+/* ── Lists ────────────────────────────────────────────────────────────────── */
+
+ul, ol {
+    padding-left: var(--list-indent);
+}
+
+@media (min-width: 760px) {
+    ul, ol {
+        padding-left: var(--list-indent-wide);
+    }
+}
+
+ul {
+    list-style: none;
+}
+
+ul > li::before {
+    content: var(--bullet);
+    float: left;
+    margin-left: var(--bullet-offset);
+}
+
+li:empty::after {
+    content: "";
+    display: inline-block;
+}
+
+:is(li, dt, dd, th, td) :is(ul, ol, dl) {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+li > :is(p, pre, figure, img) {
+    margin-top: 0;
+}
+
+dd {
+    margin-left: 2.2222rem;
+}
+
+
+/* ── Task lists ───────────────────────────────────────────────────────────── */
+
+/*
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled [checked]>…
+  The box hangs one line-height into the gutter and is drawn as a mask filled
+  with the text colour, so it follows light, dark and palette colours.
+*/
+
+ul > .task-list-item::before {
+    content: none;
+}
+
+ol > .task-list-item {
+    margin-left: calc(var(--leading) * var(--task-ol-shift));
+    padding-left: calc(var(--leading) * var(--task-ol-shift));
+}
+
+.task-list-item-checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    float: left;
+    width: calc(var(--leading) * 1em);
+    height: calc(var(--leading) * 1em);
+    margin: 0 0 0 calc(var(--leading) * -1em);
+    padding: 0;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    opacity: 1;
+    background-color: currentColor;
+    -webkit-mask: var(--box) var(--check-position) / var(--check-size) no-repeat;
+    mask: var(--box) var(--check-position) / var(--check-size) no-repeat;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    --box: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><rect x='.5' y='.5' width='11' height='11' rx='2.5' fill='none' stroke='black'/></svg>");
+}
+
+.task-list-item-checkbox:checked {
+    --box: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><rect x='.5' y='.5' width='11' height='11' rx='2.5' fill='none' stroke='black'/><path d='M3.25 6.25l1.85 1.85 3.65-4.2' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+
+/* ── Quotes ───────────────────────────────────────────────────────────────── */
+
+blockquote {
+    margin-left: var(--quote-margin-start);
+    margin-right: var(--quote-margin-end);
+    padding-left: var(--quote-padding);
+    padding-right: var(--quote-padding);
+}
+
+blockquote > ul { margin-left: var(--quote-ul-shift); }
+blockquote > ol { margin-left: var(--quote-ol-shift); }
+
+blockquote > :is(h1, h2, h3, h4, h5):first-child {
+    margin-top: var(--quote-heading-above);
+    padding-top: var(--quote-heading-padding);
+}
+
+
+/* ── Rules, figures, tables ───────────────────────────────────────────────── */
+
+hr {
+    clear: both;
+    height: 0;
+    margin: var(--hr-above) auto var(--hr-below);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+    border: 0;
+}
+
+figure img {
+    display: block;
+}
+
+figure > pre {
+    margin-top: 0;
+}
+
+figcaption {
+    text-align: center;
+}
+
+figcaption, caption {
+    padding-top: var(--caption-above);
+    padding-bottom: var(--caption-below);
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-top: 1px solid var(--table-rule);
+    border-bottom: 1px solid var(--table-rule);
+    font-size: var(--table-size);
+    line-height: var(--table-leading);
+    font-variant-numeric: tabular-nums;
+}
+
+tbody {
+    border-top: 1px solid var(--table-rule);
+}
+
+caption {
+    caption-side: bottom;
+    font-size: 1rem;
+}
+
+/* Column alignment arrives as inline text-align on th and td. */
+th, td {
+    padding: var(--cell-padding-y) var(--cell-padding-x);
+    vertical-align: top;
+    text-align: left;
+}
+
+th {
+    font-weight: 700;
+}
+
+
+/* ── Code ─────────────────────────────────────────────────────────────────── */
+
+pre, code, kbd, samp {
+    border-radius: 2px;
+    white-space: pre-wrap;
+    background-color: var(--code-fill);
+    font-size: var(--code-size);
+}
+
+code, kbd, samp {
+    padding: 0.0833em 0.1667em 0.1667em;
+}
+
+pre {
+    padding: 1rem;
+    overflow: hidden;
+}
+
+pre :is(code, kbd, samp) {
+    font-size: 1em;
+    padding: 0;
+    background: transparent;
+}
+
+:is(h1, h2, h3, h4, h5, h6) code {
+    line-height: normal;
+}
+
+
+/* ── Inline ───────────────────────────────────────────────────────────────── */
+
+sup, sub {
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+
+/* ── Footnotes ────────────────────────────────────────────────────────────── */
+
+.footnotes {
+    margin-top: var(--notes-above);
+    break-before: avoid;
+    font-size: var(--notes-size);
+    line-height: var(--notes-leading);
+}
+
+.footnotes hr {
+    margin-top: var(--notes-rule-above);
+    break-after: avoid;
+}
+
+.footnotes p {
+    margin: 0 auto;
+}
+
+@media (min-width: 1080px) {
+    .footnotes ol {
+        padding-left: 0;
+    }
+}
+
+
+/* ── header.html, footer.html, title.html ─────────────────────────────────── */
+
+.header, .footer {
+    max-height: 90pt;
+    margin: 30px auto;
+    text-align: center;
+}
+
+#title, .title {
+    height: 100%;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* ── Print and PDF ────────────────────────────────────────────────────────── */
+
+@media print {
+    :root {
+        --leading: calc(var(--lh-print) / 100);
+    }
+
+    html {
+        font-size: var(--print-size);
+        background: transparent;
+    }
+
+    body {
+        max-width: 365pt;
+        padding: 12pt 50pt;
+    }
+
+    /* Black ink, except math, which may carry its own \color. */
+    :not(.katex, .katex *), :not(.katex *)::before, :not(.katex *)::after {
+        color: #000 !important;
+        text-shadow: none !important;
+    }
+
+    hr {
+        border-color: #000;
+    }
+
+    h1, h2, h3, h4, h5, img, figure {
+        break-inside: avoid;
+        break-after: avoid;
+    }
+
+    /* An invisible 50px tail keeps a heading off the bottom of a page. */
+    :is(h1, h2, h3, h4, h5)::after {
+        content: "";
+        display: block;
+        height: 50px;
+        margin-bottom: -50px;
+    }
+
+    p {
+        widows: 3;
+        orphans: 3;
+    }
+
+    .footnote, .TOC a {
+        text-decoration: none;
+    }
+
+    .reversefootnote {
+        display: none;
+    }
+}

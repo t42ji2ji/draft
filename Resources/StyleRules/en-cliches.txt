@@ -1,0 +1,389 @@
+// Cliches and stock phrases (English). Draft's own list.
+// Format: {+|-};{modifiers};{marks: start,length ...};{anchors: 6,offset = word boundary};{text}
+// Matching is case-insensitive; '-' lines are exceptions that suppress overlapping hits.
++;;0,21;6,0 6,21;at the end of the day
++;;0,21;6,0 6,21;think outside the box
++;;0,15;6,0 6,15;outside the box
++;;0,17;6,0 6,17;low-hanging fruit
++;;0,17;6,0 6,17;low hanging fruit
++;;0,15;6,0 6,15;move the needle
++;;0,11;6,0 6,11;circle back
++;;0,10;6,0 6,10;touch base
++;;0,12;6,0 6,12;game changer
++;;0,12;6,0 6,12;game-changer
++;;0,11;6,0 6,11;gamechanger
++;;0,14;6,0 6,14;paradigm shift
++;;0,7;6,0 6,7;win-win
++;;0,19;6,0 6,19;best of both worlds
++;;0,14;6,0 6,14;the new normal
++;;0,19;6,0 6,19;unprecedented times
++;;0,21;6,0 6,21;these uncertain times
++;;0,23;6,0 6,23;these challenging times
++;;0,18;6,0 6,18;these trying times
++;;0,21;6,0 6,21;these difficult times
++;;0,27;6,0 6,27;in today's fast-paced world
++;;0,27;6,0 6,27;in today’s fast-paced world
++;;0,16;6,0 6,16;in today's world
++;;0,16;6,0 6,16;in today’s world
++;;0,19;6,0 6,19;in this day and age
++;;0,22;6,0 6,22;since the dawn of time
++;;0,27;6,0 6,27;since the beginning of time
++;;0,21;6,0 6,21;since time immemorial
++;;0,20;6,0 6,20;from time immemorial
++;;0,18;6,0 6,18;now more than ever
++;;0,19;6,0 6,19;it's no secret that
++;;0,19;6,0 6,19;it’s no secret that
++;;0,20;6,0 6,20;it is no secret that
++;;0,15;6,0 6,15;make no mistake
++;;0,16;6,0 6,16;it is what it is
++;;0,24;6,0 6,24;avoid it like the plague
++;;0,26;6,0 6,26;avoid them like the plague
++;;0,15;6,0 6,15;like the plague
++;;0,18;6,0 6,18;back to square one
++;;0,25;6,0 6,25;back to the drawing board
++;;0,15;6,0 6,15;ballpark figure
++;;0,15;6,0 6,15;bite the bullet
++;;0,20;6,0 6,20;beat around the bush
++;;0,13;6,0 6,13;break the ice
++;;0,17;6,0 6,17;by the same token
++;;0,21;6,0 6,21;calm before the storm
++;;0,16;6,0 6,16;cut to the chase
++;;0,18;6,0 6,18;dead as a doornail
++;;0,14;6,0 6,14;dead as a dodo
++;;0,21;6,0 6,21;easier said than done
++;;0,31;6,0 6,31;every cloud has a silver lining
++;;0,13;6,0 6,13;silver lining
++;;0,19;6,0 6,19;few and far between
++;;0,15;6,0 6,15;fit as a fiddle
++;;0,16;6,0 6,16;flash in the pan
++;;0,20;6,0 6,20;at the drop of a hat
++;;0,22;6,0 6,22;hit the ground running
++;;0,19;6,0 6,19;in the nick of time
++;;0,18;6,0 6,18;last but not least
++;;0,23;6,0 6,23;leave no stone unturned
++;;0,30;6,0 6,30;light at the end of the tunnel
++;;0,20;6,0 6,20;needle in a haystack
++;;0,19;6,0 6,19;only time will tell
++;;0,14;6,0 6,14;time will tell
++;;0,13;6,0 6,13;piece of cake
++;;0,25;6,0 6,25;plenty of fish in the sea
++;;0,27;6,0 6,27;plenty more fish in the sea
++;;0,22;6,0 6,22;read between the lines
++;;0,14;6,0 6,14;sick and tired
++;;0,15;6,0 6,15;the bottom line
++;;0,20;6,0 6,20;elephant in the room
++;;0,18;6,0 6,18;tip of the iceberg
++;;0,26;6,0 6,26;to make a long story short
++;;0,16;6,0 6,16;long story short
++;;0,17;6,0 6,17;under the weather
++;;0,25;6,0 6,25;when all is said and done
++;;0,19;6,0 6,19;without further ado
++;;0,24;6,0 6,24;worth its weight in gold
++;;0,17;6,0 6,17;all walks of life
++;;0,19;6,0 6,19;level playing field
++;;0,13;6,0 6,13;perfect storm
++;;0,18;6,0 6,18;ahead of the curve
++;;0,16;6,0 6,16;behind the curve
++;;0,13;6,0 6,13;raise the bar
++;;0,17;6,0 6,17;push the envelope
++;;0,20;6,0 6,20;pushing the envelope
++;;0,16;6,0 6,16;on the same page
++;;0,9;6,0 6,9;deep dive
++;;0,25;6,0 6,25;take it to the next level
++;;0,12;6,0 6,12;cutting-edge
++;;0,12;6,0 6,12;cutting edge
++;;0,16;6,0 6,16;state-of-the-art
++;;0,16;6,0 6,16;state of the art
++;;0,11;6,0 6,11;world-class
++;;0,13;6,0 6,13;best-in-class
++;;0,13;6,0 6,13;going forward
++;;0,16;6,0 6,16;at this juncture
++;;0,19;6,0 6,19;the rest is history
++;;0,20;6,0 6,20;blessing in disguise
++;;0,31;6,0 6,31;actions speak louder than words
++;;0,20;6,0 6,20;add insult to injury
++;;0,10;6,0 6,10;all in all
++;;0,22;6,0 6,22;all things being equal
++;;0,21;6,0 6,21;as luck would have it
++;;0,19;6,0 6,19;as old as the hills
++;;0,15;6,0 6,15;as good as gold
++;;0,18;6,0 6,18;cool as a cucumber
++;;0,19;6,0 6,19;at a loss for words
++;;0,21;6,0 6,21;back against the wall
++;;0,22;6,0 6,22;backs against the wall
++;;0,19;6,0 6,19;bend over backwards
++;;0,22;6,0 6,22;better late than never
++;;0,28;6,0 6,28;beyond the shadow of a doubt
++;;0,26;6,0 6,26;beyond a shadow of a doubt
++;;0,18;6,0 6,18;bigger fish to fry
++;;0,22;6,0 6,22;more than you can chew
++;;0,22;6,0 6,22;more than one can chew
++;;0,21;6,0 6,21;more than he can chew
++;;0,22;6,0 6,22;more than she can chew
++;;0,23;6,0 6,23;more than they can chew
++;;0,21;6,0 6,21;more than we can chew
++;;0,20;6,0 6,20;more than I can chew
++;;0,22;6,0 6,22;blood, sweat and tears
++;;0,23;6,0 6,23;blood, sweat, and tears
++;;0,14;6,0 6,14;bored to tears
++;;0,14;6,0 6,14;bored to death
++;;0,15;6,0 6,15;scared to death
++;;0,21;6,0 6,21;burn the midnight oil
++;;0,19;6,0 6,19;by leaps and bounds
++;;0,12;6,0 6,12;can of worms
++;;0,28;6,0 6,28;see the forest for the trees
++;;0,26;6,0 6,26;see the wood for the trees
++;;0,19;6,0 6,19;champing at the bit
++;;0,19;6,0 6,19;chomping at the bit
++;;0,13;6,0 6,13;crystal clear
++;;0,21;6,0 6,21;cry over spilled milk
++;;0,19;6,0 6,19;cry over spilt milk
++;;0,22;6,0 6,22;cross that bridge when
++;;0,10;6,0 6,10;dark horse
++;;0,17;6,0 6,17;dead in the water
++;;0,19;6,0 6,19;count your chickens
++;;0,18;6,0 6,18;drop in the bucket
++;;0,17;6,0 6,17;drop in the ocean
++;;0,23;6,0 6,23;every fiber of my being
++;;0,14;6,0 6,14;face the music
++;;0,23;6,0 6,23;fall through the cracks
++;;0,18;6,0 6,18;fly off the handle
++;;0,20;6,0 6,20;get the ball rolling
++;;0,9;6,0;give 110%
++;;0,16;6,0 6,16;give 110 percent
++;;0,17;6,0 6,17;go the extra mile
++;;0,14;6,0 6,14;the extra mile
++;;0,11;6,0 6,11;good as new
++;;0,27;6,0 6,27;the grass is always greener
++;;0,15;6,0 6,15;head over heels
++;;0,13;6,0 6,13;heart of gold
++;;0,24;6,0 6,24;hit the nail on the head
++;;0,16;6,0 6,16;hold your horses
++;;0,13;6,0 6,13;in a nutshell
++;;0,29;6,0 6,29;in the grand scheme of things
++;;0,18;6,0 6,18;not rocket science
++;;0,26;6,0 6,26;not exactly rocket science
++;;0,28;6,0 6,28;just what the doctor ordered
++;;0,21;6,0 6,21;keep your eyes peeled
++;;0,29;6,0 6,29;kill two birds with one stone
++;;0,24;6,0 6,24;knock it out of the park
++;;0,13;6,0 6,13;labor of love
++;;0,14;6,0 6,14;labour of love
++;;0,16;6,0 6,16;larger than life
++;;0,26;6,0 6,26;let the cat out of the bag
++;;0,27;6,0 6,27;like a kid in a candy store
++;;0,14;6,0 6,14;like clockwork
++;;0,14;6,0 6,14;live and learn
++;;0,22;6,0 6,22;lock, stock and barrel
++;;0,23;6,0 6,23;lock, stock, and barrel
++;;0,23;6,0 6,23;more than meets the eye
++;;0,17;6,0 6,17;nip it in the bud
++;;0,17;6,0 6,17;nipped in the bud
++;;0,16;6,0 6,16;no pain, no gain
++;;0,33;6,0 6,33;not the sharpest tool in the shed
++;;0,19;6,0 6,19;off the beaten path
++;;0,20;6,0 6,20;off the beaten track
++;;0,13;6,0 6,13;on cloud nine
++;;0,11;6,0 6,11;on thin ice
++;;0,19;6,0 6,19;once in a blue moon
++;;0,15;6,0 6,15;out of the blue
++;;0,13;6,0 6,13;over the moon
++;;0,18;6,0 6,18;par for the course
++;;0,18;6,0 6,18;with flying colors
++;;0,19;6,0 6,19;with flying colours
++;;0,13;6,0 6,13;pass the buck
++;;0,14;6,0 6,14;play it by ear
++;;0,22;6,0 6,22;pull out all the stops
++;;0,31;6,0 6,31;put all your eggs in one basket
++;;0,27;6,0 6,27;all your eggs in one basket
++;;0,16;6,0 6,16;quiet as a mouse
++;;0,19;6,0 6,19;rain on your parade
++;;0,17;6,0 6,17;rain on my parade
++;;0,20;6,0 6,20;rain on their parade
++;;0,18;6,0 6,18;rain on his parade
++;;0,18;6,0 6,18;rain on her parade
++;;0,18;6,0 6,18;rain on our parade
++;;0,18;6,0 6,18;reinvent the wheel
++;;0,13;6,0 6,13;rule of thumb
++;;0,14;6,0 6,14;second to none
++;;0,14;6,0 6,14;see eye to eye
++;;0,18;6,0 6,18;shoot for the moon
++;;0,16;6,0 6,16;sleep like a log
++;;0,16;6,0 6,16;slept like a log
++;;0,17;6,0 6,17;slowly but surely
++;;0,15;6,0 6,15;so far, so good
++;;0,14;6,0 6,14;so far so good
++;;0,22;6,0 6,22;stand the test of time
++;;0,22;6,0 6,22;stood the test of time
++;;0,27;6,0 6,27;stick out like a sore thumb
++;;0,28;6,0 6,28;sticks out like a sore thumb
++;;0,31;6,0 6,31;straight from the horse's mouth
++;;0,31;6,0 6,31;straight from the horse’s mouth
++;;0,26;6,0 6,26;take the bull by the horns
++;;0,25;6,0 6,25;the ball is in your court
++;;0,24;6,0 6,24;the ball's in your court
++;;0,24;6,0 6,24;the ball’s in your court
++;;0,15;6,0 6,15;the big picture
++;;0,20;6,0 6,20;the whole nine yards
++;;0,23;6,0 6,23;the writing on the wall
++;;0,25;6,0 6,25;throw caution to the wind
++;;0,18;6,0 6,18;throw in the towel
++;;0,18;6,0 6,18;threw in the towel
++;;0,10;6,0 6,10;time flies
++;;0,17;6,0 6,17;to the bitter end
++;;0,14;6,0 6,14;tried and true
++;;0,16;6,0 6,16;tried and tested
++;;0,20;6,0 6,20;turn over a new leaf
++;;0,17;6,0 6,17;two peas in a pod
++;;0,16;6,0 6,16;uncharted waters
++;;0,19;6,0 6,19;uncharted territory
++;;0,15;6,0 6,15;under the radar
++;;0,24;6,0 6,24;until the cows come home
++;;0,13;6,0 6,13;up in the air
++;;0,22;6,0 6,22;water under the bridge
++;;0,24;6,0 6,24;when push comes to shove
++;;0,16;6,0 6,16;wild goose chase
++;;0,16;6,0 6,16;wild-goose chase
++;;0,13;6,0 6,13;words fail me
++;;0,16;6,0 6,16;word to the wise
++;;0,25;6,0 6,25;judge a book by its cover
++;;0,18;6,0 6,18;ace up your sleeve
++;;0,16;6,0 6,16;ace up my sleeve
++;;0,17;6,0 6,17;ace up his sleeve
++;;0,17;6,0 6,17;ace up her sleeve
++;;0,19;6,0 6,19;ace up their sleeve
++;;0,17;6,0 6,17;ace up our sleeve
++;;0,17;6,0 6,17;all hands on deck
++;;0,18;6,0 6,18;apples and oranges
++;;0,18;6,0 6,18;bang for your buck
++;;0,17;6,0 6,17;bang for the buck
++;;0,18;6,0 6,18;bells and whistles
++;;0,31;6,0 6,31;between a rock and a hard place
++;;0,18;6,0 6,18;bring to the table
++;;0,18;6,0 6,18;drink the Kool-Aid
++;;0,18;6,0 6,18;drank the Kool-Aid
++;;0,11;6,0 6,11;on my radar
++;;0,12;6,0 6,12;on our radar
++;;0,13;6,0 6,13;on your radar
++;;0,22;6,0 6,22;run it up the flagpole
++;;0,15;6,0 6,15;take it offline
++;;0,14;6,0 6,14;thought leader
++;;0,18;6,0 6,18;thought leadership
++;;0,9;6,0 6,9;value-add
++;;0,19;6,0 6,19;actionable insights
++;;0,17;6,0 6,17;circle the wagons
++;;0,14;6,0 6,14;boil the ocean
++;;0,14;6,0 6,14;ducks in a row
++;;0,13;6,0 6,13;heavy lifting
++;;0,12;6,0 6,12;secret sauce
++;;0,13;6,0 6,13;special sauce
++;;0,18;6,0 6,18;double-edged sword
++;;0,18;6,0 6,18;double edged sword
++;;0,14;6,0 6,14;Achilles' heel
++;;0,14;6,0 6,14;Achilles’ heel
++;;0,13;6,0 6,13;Achilles heel
++;;0,9;6,0 6,9;acid test
++;;0,11;6,0 6,11;ivory tower
++;;0,15;6,0 6,15;moment of truth
++;;0,12;6,0 6,12;quantum leap
++;;0,10;6,0 6,10;sea change
++;;0,14;6,0 6,14;a far cry from
++;;0,16;6,0 6,16;all over the map
++;;0,12;6,0 6,12;at long last
++;;0,20;6,0 6,20;at the crack of dawn
++;;0,12;6,0 6,12;bated breath
++;;0,15;6,0 6,15;baptism of fire
++;;0,15;6,0 6,15;baptism by fire
++;;0,14;6,0 6,14;blind as a bat
++;;0,15;6,0 6,15;brave new world
++;;0,16;6,0 6,16;bright and early
++;;0,13;6,0 6,13;busy as a bee
++;;0,19;6,0 6,19;by hook or by crook
++;;0,18;6,0 6,18;clean as a whistle
++;;0,26;6,0 6,26;conspicuous by its absence
++;;0,16;6,0 6,16;dyed in the wool
++;;0,16;6,0 6,16;dyed-in-the-wool
++;;0,11;6,0 6,11;easy as pie
++;;0,15;6,0 6,15;fair and square
++;;0,29;6,0 6,29;fly by the seat of your pants
++;;0,27;6,0 6,27;fly by the seat of my pants
++;;0,28;6,0 6,28;fly by the seat of our pants
++;;0,30;6,0 6,30;fly by the seat of their pants
++;;0,28;6,0 6,28;fly by the seat of his pants
++;;0,28;6,0 6,28;fly by the seat of her pants
++;;0,16;6,0 6,16;food for thought
++;;0,15;6,0 6,15;green with envy
++;;0,13;6,0 6,13;hard as nails
++;;0,24;6,0 6,24;head and shoulders above
++;;0,16;6,0 6,16;in the same boat
++;;0,21;6,0 6,21;in the final analysis
++;;0,18;6,0 6,18;takes two to tango
++;;0,21;6,0 6,21;jump on the bandwagon
++;;0,23;6,0 6,23;jumped on the bandwagon
++;;0,17;6,0 6,17;last-ditch effort
++;;0,13;6,0 6,13;lean and mean
++;;0,18;6,0 6,18;light as a feather
++;;0,22;6,0 6,22;like a bat out of hell
++;;0,20;6,0 6,20;method to my madness
++;;0,21;6,0 6,21;method to the madness
++;;0,21;6,0 6,21;method to his madness
++;;0,21;6,0 6,21;method to her madness
++;;0,23;6,0 6,23;method to their madness
++;;0,32;6,0 6,32;nothing ventured, nothing gained
++;;0,15;6,0 6,15;older than dirt
++;;0,19;6,0 6,19;on pins and needles
++;;0,19;6,0 6,19;pretty as a picture
++;;0,23;6,0 6,23;pure as the driven snow
++;;0,21;6,0 6,21;raining cats and dogs
++;;0,12;6,0 6,12;ripe old age
++;;0,15;6,0 6,15;sharp as a tack
++;;0,15;6,0 6,15;smart as a whip
++;;0,18;6,0 6,18;stubborn as a mule
++;;0,16;6,0 6,16;thick as thieves
++;;0,11;6,0 6,11;ugly as sin
++;;0,16;6,0 6,16;white as a sheet
++;;0,22;6,0 6,22;in the blink of an eye
++;;0,25;6,0 6,25;in the heat of the moment
++;;0,23;6,0 6,23;on the tip of my tongue
++;;0,18;6,0 6,18;jack of all trades
++;;0,12;6,0 6,12;hit the spot
++;;0,14;6,0 6,14;a dime a dozen
++;;0,12;6,0 6,12;dime a dozen
++;;0,21;6,0 6,21;cost an arm and a leg
++;;0,22;6,0 6,22;costs an arm and a leg
++;;0,21;6,0 6,21;the icing on the cake
++;;0,17;6,0 6,17;icing on the cake
++;;0,17;6,0 6,17;the cherry on top
++;;0,12;6,0 6,12;over the top
++;;0,15;6,0 6,15;a stone's throw
++;;0,15;6,0 6,15;a stone’s throw
++;;0,18;6,0 6,18;in the same breath
++;;0,16;6,0 6,16;the lion's share
++;;0,16;6,0 6,16;the lion’s share
++;;0,14;6,0 6,14;the last straw
++;;0,37;6,0 6,37;the straw that broke the camel's back
++;;0,37;6,0 6,37;the straw that broke the camel’s back
++;;0,20;6,0 6,20;the tip of my tongue
++;;0,20;6,0 6,20;rise to the occasion
++;;0,21;6,0 6,21;a whole new ball game
++;;0,20;6,0 6,20;a whole new ballgame
++;;0,16;6,0 6,16;a slippery slope
++;;0,14;6,0 6,14;slippery slope
++;;0,15;6,0 6,15;spill the beans
++;;0,14;6,0 6,14;steal the show
++;;0,14;6,0 6,14;stole the show
++;;0,24;6,0 6,24;the world is your oyster
++;;0,22;6,0 6,22;the world is my oyster
++;;0,9;6,0 6,9;think big
++;;0,24;6,0 6,24;thinking outside the box
++;;0,22;6,0 6,22;through thick and thin
++;;0,17;6,0 6,17;tighten our belts
++;;0,17;6,0 6,17;tighten your belt
++;;0,16;6,0 6,16;turn a blind eye
++;;0,18;6,0 6,18;turned a blind eye
++;;0,19;6,0 6,19;under the same roof
++;;0,13;6,0 6,13;when pigs fly
++;;0,39;6,0 6,39;you can't have your cake and eat it too
++;;0,39;6,0 6,39;you can’t have your cake and eat it too
++;;0,25;6,0 6,25;have your cake and eat it
++;;0,21;6,0 6,21;your mileage may vary

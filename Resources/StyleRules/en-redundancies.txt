@@ -1,0 +1,539 @@
+// Redundant words; only the struck part is marked (English). Draft's own list.
+// Format: {+|-};{modifiers};{marks: start,length ...};{anchors: 6,offset = word boundary};{text}
+// Matching is case-insensitive; '-' lines are exceptions that suppress overlapping hits.
++;;0,5;6,0 6,11;added bonus
++;;0,5;6,0 6,11;extra bonus
++;;0,3;6,0 6,10;end result
++;;0,5;6,0 6,13;final outcome
++;;0,4;6,0 6,12;past history
++;;0,4;6,0;past experience
++;;0,4;6,0 6,13;past memories
++;;0,4;6,0 6,14;past precedent
++;;0,4;6,0;free gift
++;;0,8;6,0 6,14;each and every
++;;0,9;6,0 6,18;first and foremost
++;;0,7;6,0 6,16;advance planning
++;;0,7;6,0 6,15;advance warning
++;;0,7;6,0 6,14;advance notice
++;;0,7;6,0;advance reservation
++;;0,7;6,0 6,15;advance preview
++;;0,7;6,0 6,16;forward planning
++;;5,5;6,0 6,10;plan ahead
++;;6,5;6,0 6,11;plans ahead
++;;8,5;6,0 6,13;planned ahead
++;;9,5;6,0 6,14;planning ahead
++;;5,10;6,0 6,15;plan in advance
++;;6,10;6,0 6,16;plans in advance
++;;8,10;6,0 6,18;planned in advance
++;;9,10;6,0 6,19;planning in advance
++;;5,10;6,0 6,15;warn in advance
++;;6,10;6,0 6,16;warns in advance
++;;7,10;6,0 6,17;warned in advance
++;;8,10;6,0 6,18;warning in advance
++;;0,8;6,0 6,15;all-time record
++;;0,11;6,0 6,18;alternative choice
++;;0,5;6,0;armed gunm
++;;4,7;6,0 6,11;ATM machine
++;;4,6;6,0 6,10;PIN number
++;;5,6;6,0 6,11;ISBN number
++;;4,6;6,0 6,10;VIN number
++;;4,6;6,0 6,10;GPS system
++;;4,7;6,0 6,11;LCD display
++;;4,4;6,0 6,8;UPC code
++;;4,5;6,0 6,9;HIV virus
++;;4,4;6,0 6,8;SAT test
++;;0,5;6,0 6,18;basic fundamentals
++;;0,5;6,0 6,16;basic essentials
++;;0,9;6,0 6,20;important essentials
++;;0,5;6,0 6,13;brief summary
++;;0,5;6,0 6,13;short summary
++;;0,5;6,0 6,12;brief moment
++;;6,11;6,0 6,17;brief in duration
++;;0,5;6,0 6,15;close proximity
++;;3,5;6,0 6,18;in close proximity
++;;0,5;6,0 6,14;close scrutiny
++;;0,7;6,0 6,16;careful scrutiny
++;;9,8;6,0 6,17;assemble together
++;;10,8;6,0 6,18;assembles together
++;;10,8;6,0 6,18;assembled together
++;;11,8;6,0 6,19;assembling together
++;;7,8;6,0 6,15;attach together
++;;9,8;6,0 6,17;attaches together
++;;9,8;6,0 6,17;attached together
++;;10,8;6,0 6,18;attaching together
++;;6,8;6,0 6,14;blend together
++;;7,8;6,0 6,15;blends together
++;;8,8;6,0 6,16;blended together
++;;9,8;6,0 6,17;blending together
++;;8,8;6,0 6,16;cluster together
++;;9,8;6,0 6,17;clusters together
++;;10,8;6,0 6,18;clustered together
++;;11,8;6,0 6,19;clustering together
++;;12,8;6,0 6,20;collaborate together
++;;13,8;6,0 6,21;collaborates together
++;;13,8;6,0 6,21;collaborated together
++;;14,8;6,0 6,22;collaborating together
++;;8,8;6,0 6,16;collect together
++;;9,8;6,0 6,17;collects together
++;;10,8;6,0 6,18;collected together
++;;11,8;6,0 6,19;collecting together
++;;8,8;6,0 6,16;combine together
++;;9,8;6,0 6,17;combines together
++;;9,8;6,0 6,17;combined together
++;;10,8;6,0 6,18;combining together
++;;8,8;6,0 6,16;connect together
++;;9,8;6,0 6,17;connects together
++;;10,8;6,0 6,18;connected together
++;;11,8;6,0 6,19;connecting together
++;;10,8;6,0 6,18;cooperate together
++;;11,8;6,0 6,19;cooperates together
++;;11,8;6,0 6,19;cooperated together
++;;12,8;6,0 6,20;cooperating together
++;;5,8;6,0 6,13;fuse together
++;;6,8;6,0 6,14;fuses together
++;;6,8;6,0 6,14;fused together
++;;7,8;6,0 6,15;fusing together
++;;7,8;6,0 6,15;gather together
++;;8,8;6,0 6,16;gathers together
++;;9,8;6,0 6,17;gathered together
++;;10,8;6,0 6,18;gathering together
++;;7,8;6,0 6,15;huddle together
++;;8,8;6,0 6,16;huddles together
++;;8,8;6,0 6,16;huddled together
++;;9,8;6,0 6,17;huddling together
++;;10,8;6,0 6,18;integrate together
++;;11,8;6,0 6,19;integrates together
++;;11,8;6,0 6,19;integrated together
++;;12,8;6,0 6,20;integrating together
++;;5,8;6,0 6,13;join together
++;;6,8;6,0 6,14;joins together
++;;7,8;6,0 6,15;joined together
++;;8,8;6,0 6,16;joining together
++;;5,8;6,0 6,13;meet together
++;;6,8;6,0 6,14;meets together
++;;4,8;6,0 6,12;met together
++;;8,8;6,0 6,16;meeting together
++;;5,8;6,0 6,13;meld together
++;;6,8;6,0 6,14;melds together
++;;7,8;6,0 6,15;melded together
++;;8,8;6,0 6,16;melding together
++;;6,8;6,0 6,14;merge together
++;;7,8;6,0 6,15;merges together
++;;7,8;6,0 6,15;merged together
++;;8,8;6,0 6,16;merging together
++;;4,8;6,0 6,12;mix together
++;;6,8;6,0 6,14;mixes together
++;;6,8;6,0 6,14;mixed together
++;;7,8;6,0 6,15;mixing together
++;;7,8;6,0 6,15;splice together
++;;8,8;6,0 6,16;splices together
++;;8,8;6,0 6,16;spliced together
++;;9,8;6,0 6,17;splicing together
++;;6,8;6,0 6,14;unite together
++;;7,8;6,0 6,15;unites together
++;;7,8;6,0 6,15;united together
++;;8,8;6,0 6,16;uniting together
++;;5,8;6,0 6,13;weld together
++;;6,8;6,0 6,14;welds together
++;;7,8;6,0 6,15;welded together
++;;8,8;6,0 6,16;welding together
++;;0,5;6,0 6,19;joint collaboration
++;;0,5;6,0 6,17;joint cooperation
++;;0,6;6,0 6,18;mutual cooperation
++;;15,14;6,0 6,29;mutual respect for each other
++;;8,15;6,0 6,23;compete with each other
++;;9,15;6,0 6,24;competes with each other
++;;9,15;6,0 6,24;competed with each other
++;;10,15;6,0 6,25;competing with each other
++;;9,15;6,0 6,24;interact with each other
++;;10,15;6,0 6,25;interacts with each other
++;;11,15;6,0 6,26;interacted with each other
++;;12,15;6,0 6,27;interacting with each other
++;;0,9;6,0 6,15;component parts
++;;10,10;6,0 6,20;consensus of opinion
++;;0,7;6,0 6,17;general consensus
++;;0,7;6,0;current trend
++;;0,3;6,0;new innovation
++;;0,3;6,0;new invention
++;;0,3;6,0;new breakthrough
++;;0,5;6,0;major breakthrough
++;;0,3;6,0;new recruit
++;;0,4;6,0;true fact
++;;0,6;6,0;actual fact
++;;0,10;6,0;unexpected surprise
++;;0,10;6,0;unexpected emergenc
++;;0,7;6,0;foreign import
++;;0,6;6,0 6,12;future plans
++;;0,6;6,0 6,12;honest truth
++;;0,7;6,0;invited guest
++;;0,4;6,0;overexaggerat
++;;0,3;6,0;preplan
++;;0,2;6,0 6,12;irregardless
++;;0,8;6,0;personal opinion
++;;9,11;6,0 6,20;postpone until later
++;;10,11;6,0 6,21;postpones until later
++;;10,11;6,0 6,21;postponed until later
++;;11,11;6,0 6,22;postponing until later
++;;6,11;6,0 6,17;delay until later
++;;7,11;6,0 6,18;delays until later
++;;8,11;6,0 6,19;delayed until later
++;;9,11;6,0 6,20;delaying until later
++;;11,3;6,0 6,17;the reason why is
++;;14,7;6,0 6,21;the reason is because
++;;15,7;6,0 6,22;the reason was because
++;;7,5;6,0 6,12;repeat again
++;;8,5;6,0 6,13;repeats again
++;;9,5;6,0 6,14;repeated again
++;;10,5;6,0 6,15;repeating again
++;;10,5;6,0 6,15;reiterate again
++;;11,5;6,0 6,16;reiterates again
++;;11,5;6,0 6,16;reiterated again
++;;12,5;6,0 6,17;reiterating again
++;;6,5;6,0 6,11;recur again
++;;7,5;6,0 6,12;recurs again
++;;9,5;6,0 6,14;recurred again
++;;10,5;6,0 6,15;recurring again
++;;7,5;6,0 6,12;resume again
++;;8,5;6,0 6,13;resumes again
++;;8,5;6,0 6,13;resumed again
++;;9,5;6,0 6,14;resuming again
++;;8,5;6,0 6,13;reunite again
++;;9,5;6,0 6,14;reunites again
++;;9,5;6,0 6,14;reunited again
++;;10,5;6,0 6,15;reuniting again
++;;8,5;6,0 6,13;revisit again
++;;9,5;6,0 6,14;revisits again
++;;10,5;6,0 6,15;revisited again
++;;11,5;6,0 6,16;revisiting again
++;;5,5;6,0 6,10;redo again
++;;7,5;6,0 6,12;redoes again
++;;6,5;6,0 6,11;redid again
++;;8,5;6,0 6,13;redoing again
++;;8,5;6,0 6,13;restart again
++;;9,5;6,0 6,14;restarts again
++;;10,5;6,0 6,15;restarted again
++;;11,5;6,0 6,16;restarting again
++;;8,5;6,0 6,13;rebuild again
++;;9,5;6,0 6,14;rebuilds again
++;;8,5;6,0 6,13;rebuilt again
++;;11,5;6,0 6,16;rebuilding again
++;;7,4;6,0 6,11;revert back
++;;8,4;6,0 6,12;reverts back
++;;9,4;6,0 6,13;reverted back
++;;10,4;6,0 6,14;reverting back
++;;7,4;6,0 6,11;return back
++;;8,4;6,0 6,12;returns back
++;;9,4;6,0 6,13;returned back
++;;10,4;6,0 6,14;returning back
++;;6,4;6,0 6,10;refer back
++;;7,4;6,0 6,11;refers back
++;;9,4;6,0 6,13;referred back
++;;10,4;6,0 6,14;referring back
++;;6,4;6,0 6,10;reply back
++;;8,4;6,0 6,12;replies back
++;;8,4;6,0 6,12;replied back
++;;9,4;6,0 6,13;replying back
++;;7,4;6,0 6,11;recall back
++;;8,4;6,0 6,12;recalls back
++;;9,4;6,0 6,13;recalled back
++;;10,4;6,0 6,14;recalling back
++;;7,4;6,0 6,11;recede back
++;;8,4;6,0 6,12;recedes back
++;;8,4;6,0 6,12;receded back
++;;9,4;6,0 6,13;receding back
++;;8,4;6,0 6,12;regress back
++;;10,4;6,0 6,14;regresses back
++;;10,4;6,0 6,14;regressed back
++;;11,4;6,0 6,15;regressing back
++;;8,4;6,0 6,12;retreat back
++;;9,4;6,0 6,13;retreats back
++;;10,4;6,0 6,14;retreated back
++;;11,4;6,0 6,15;retreating back
++;;7,4;6,0 6,11;rewind back
++;;8,4;6,0 6,12;rewinds back
++;;8,4;6,0 6,12;rewound back
++;;10,4;6,0 6,14;rewinding back
++;;0,4;6,0;safe haven
++;;0,4;6,0 6,14;same identical
++;;0,5;6,0 6,10;exact same
++;;5,5;6,0 6,10;same exact
++;;0,5;6,0;exact replica
++;;0,5;6,0;small speck
++;;0,6;6,0;sudden impulse
++;;0,6;6,0;sudden explosion
++;;0,3;6,0 6,9;sum total
++;;11,12;6,0 6,23;surrounded on all sides
++;;0,10;6,0 6,21;completely surrounded
++;;0,10;6,0;completely eliminat
++;;0,10;6,0;completely destroy
++;;0,10;6,0;completely finish
++;;0,10;6,0 6,15;completely full
++;;0,8;6,0 6,17;complete monopoly
++;;0,8;6,0;entirely eliminat
++;;11,10;6,0 6,21;eradicate* completely
++;;0,10;6,0;completely eradicat
++;;0,13;6,0;unintentional mistake
++;;0,10;6,0;unintended mistake
++;;0,5;6,0;usual custom
++;;0,5;6,0;usual habit
++;;0,7;6,0;regular routine
++;;0,4;6,0 6,11;very unique
++;;0,4;6,0 6,11;most unique
++;;0,5;6,0 6,12;quite unique
++;;0,6;6,0 6,13;rather unique
++;;0,7;6,0 6,14;totally unique
++;;0,10;6,0 6,17;completely unique
++;;0,8;6,0 6,15;somewhat unique
++;;0,6;6,0 6,13;really unique
++;;7,2;6,0 6,9;ascend up
++;;8,2;6,0 6,10;ascends up
++;;9,2;6,0 6,11;ascended up
++;;10,2;6,0 6,12;ascending up
++;;8,4;6,0 6,12;descend down
++;;9,4;6,0 6,13;descends down
++;;10,4;6,0 6,14;descended down
++;;11,4;6,0 6,15;descending down
++;;6,4;6,0 6,10;kneel down
++;;7,4;6,0 6,11;kneels down
++;;6,4;6,0 6,10;knelt down
++;;9,4;6,0 6,13;kneeling down
++;;6,2;6,0 6,8;hoist up
++;;7,2;6,0 6,9;hoists up
++;;8,2;6,0 6,10;hoisted up
++;;9,2;6,0 6,11;hoisting up
++;;4,6;6,0 6,10;lag behind
++;;5,6;6,0 6,11;lags behind
++;;7,6;6,0 6,13;lagged behind
++;;8,6;6,0 6,14;lagging behind
++;;8,5;6,0 6,13;proceed ahead
++;;9,5;6,0 6,14;proceeds ahead
++;;10,5;6,0 6,15;proceeded ahead
++;;11,5;6,0 6,16;proceeding ahead
++;;8,7;6,0 6,15;advance forward
++;;9,7;6,0 6,16;advances forward
++;;9,7;6,0 6,16;advanced forward
++;;10,7;6,0 6,17;advancing forward
++;;9,3;6,0 6,12;protrude out
++;;10,3;6,0 6,13;protrudes out
++;;10,3;6,0 6,13;protruded out
++;;11,3;6,0 6,14;protruding out
++;;6,6;6,0 6,12;orbit around
++;;7,6;6,0 6,13;orbits around
++;;8,6;6,0 6,14;orbited around
++;;9,6;6,0 6,15;orbiting around
++;;10,6;6,0 6,16;circulate around
++;;11,6;6,0 6,17;circulates around
++;;11,6;6,0 6,17;circulated around
++;;12,6;6,0 6,18;circulating around
++;;10,4;6,0 6,14;penetrate into
++;;11,4;6,0 6,15;penetrates into
++;;11,4;6,0 6,15;penetrated into
++;;12,4;6,0 6,16;penetrating into
++;;7,5;6,0 6,12;pursue after
++;;8,5;6,0 6,13;pursues after
++;;8,5;6,0 6,13;pursued after
++;;9,5;6,0 6,14;pursuing after
++;;9,9;6,0 6,18;continue to remain
++;;10,9;6,0 6,19;continues to remain
++;;10,9;6,0 6,19;continued to remain
++;;11,9;6,0 6,20;continuing to remain
++;;11,8;6,0 6,19;depreciate in value
++;;12,8;6,0 6,20;depreciates in value
++;;12,8;6,0 6,20;depreciated in value
++;;13,8;6,0 6,21;depreciating in value
++;;11,8;6,0 6,19;appreciate in value
++;;12,8;6,0 6,20;appreciates in value
++;;12,8;6,0 6,20;appreciated in value
++;;13,8;6,0 6,21;appreciating in value
++;;10,10;6,0 6,20;disappear from sight
++;;11,10;6,0 6,21;disappears from sight
++;;12,10;6,0 6,22;disappeared from sight
++;;13,10;6,0 6,23;disappearing from sight
++;;7,9;6,0 6,16;evolve over time
++;;8,9;6,0 6,17;evolves over time
++;;8,9;6,0 6,17;evolved over time
++;;9,9;6,0 6,18;evolving over time
++;;5,7;6,0 6,12;grow in size
++;;6,7;6,0 6,13;grows in size
++;;5,7;6,0 6,12;grew in size
++;;6,7;6,0 6,13;grown in size
++;;8,7;6,0 6,15;growing in size
++;;7,7;6,0 6,14;glance briefly
++;;8,7;6,0 6,15;glances briefly
++;;8,7;6,0 6,15;glanced briefly
++;;9,7;6,0 6,16;glancing briefly
++;;6,6;6,0 6,12;shout loudly
++;;7,6;6,0 6,13;shouts loudly
++;;8,6;6,0 6,14;shouted loudly
++;;9,6;6,0 6,15;shouting loudly
++;;8,14;6,0 6,22;commute back and forth
++;;9,14;6,0 6,23;commutes back and forth
++;;9,14;6,0 6,23;commuted back and forth
++;;10,14;6,0 6,24;commuting back and forth
++;;10,14;6,0 6,24;vacillate back and forth
++;;11,14;6,0 6,25;vacillates back and forth
++;;11,14;6,0 6,25;vacillated back and forth
++;;12,14;6,0 6,26;vacillating back and forth
++;;10,14;6,0 6,24;oscillate back and forth
++;;11,14;6,0 6,25;oscillates back and forth
++;;11,14;6,0 6,25;oscillated back and forth
++;;12,14;6,0 6,26;oscillating back and forth
++;;9,8;6,0 6,17;strangle to death
++;;10,8;6,0 6,18;strangles to death
++;;10,8;6,0 6,18;strangled to death
++;;11,8;6,0 6,19;strangling to death
++;;11,18;6,0 6,29;introduced for the first time
++;;7,13;6,0 6,20;during the course of
++;;9,6;6,0 6,15;enclosed herein
++;;13,5;6,0 6,18;estimated at about
++;;13,13;6,0 6,26;estimated at approximately
++;;0,5;6,0 6,12;equal halves
++;;4,9;6,0 6,13;few in number
++;;7,11;6,0 6,18;filled to capacity
++;;0,5;6,0;false pretense
++;;0,6;6,0 6,10;frozen ice
++;;0,6;6,0 6,13;frozen tundra
++;;0,7;6,0;harmful injur
++;;0,6;6,0;hollow tube
++;;10,13;6,0 6,23;look back in retrospect
++;;13,13;6,0 6,26;looking back in retrospect
++;;0,6;6,0 6,16;mental telepathy
++;;0,7;6,0;natural instinct
++;;5,6;6,0 6,11;none at all
++;;10,12;6,0 6,22;nostalgia for the past
++;;0,3;6,0 6,11;now pending
++;;4,2;6,0 6,6;off of
++;;8,2;6,0 6,10;outside of
++;;7,2;6,0 6,9;inside of
++;;0,3;6,0;old adage
++;;0,3;6,0;old clich
++;;0,3;6,0;old proverb
++;;0,4;6,0;oral conversation
++;;0,7;6,0 6,13;pair of twins
++;;0,7;6,0;passing fad
++;;7,7;6,0 6,14;period of time
++;;0,7;6,0;present incumbent
++;;0,7;6,0 6,13;rate of speed
++;;6,8;6,0 6,14;round in shape
++;;7,8;6,0 6,15;square in shape
++;;6,7;6,0 6,13;small in size
++;;6,7;6,0 6,13;large in size
++;;4,7;6,0 6,11;big in size
++;;5,7;6,0 6,12;huge in size
++;;5,7;6,0 6,12;tiny in size
++;;5,9;6,0 6,14;tall in height
++;;7,4;6,0 6,11;seldom ever
++;;7,4;6,0 6,11;rarely ever
++;;0,5;6,0;still persist
++;;0,5;6,0;still remain
++;;0,5;6,0;sworn affidavit
++;;5,14;6,0 6,19;a.m. in the morning
++;;5,16;6,0 6,21;p.m. in the afternoon
++;;5,14;6,0 6,19;p.m. in the evening
++;;5,6;6,0 6,11;time period
++;;5,4;6,0 6,9;tuna fish
++;;6,12;6,0 6,18;until such time as
++;;0,9;6,0 6,17;universal panacea
++;;0,7;6,0 6,17;various different
++;;0,4;6,0;wall mural
++;;6,16;6,0 6,22;while at the same time
++;;4,8;6,0 6,12;red in color
++;;5,8;6,0 6,13;blue in color
++;;6,8;6,0 6,14;green in color
++;;7,8;6,0 6,15;yellow in color
++;;6,8;6,0 6,14;black in color
++;;6,8;6,0 6,14;white in color
++;;6,8;6,0 6,14;brown in color
++;;5,8;6,0 6,13;pink in color
++;;7,8;6,0 6,15;purple in color
++;;7,8;6,0 6,15;orange in color
++;;5,8;6,0 6,13;gray in color
++;;5,8;6,0 6,13;grey in color
++;;4,9;6,0 6,13;red in colour
++;;5,9;6,0 6,14;blue in colour
++;;6,9;6,0 6,15;green in colour
++;;7,9;6,0 6,16;yellow in colour
++;;6,9;6,0 6,15;black in colour
++;;6,9;6,0 6,15;white in colour
++;;6,9;6,0 6,15;brown in colour
++;;5,9;6,0 6,14;pink in colour
++;;7,9;6,0 6,16;purple in colour
++;;7,9;6,0 6,16;orange in colour
++;;5,9;6,0 6,14;gray in colour
++;;5,9;6,0 6,14;grey in colour
++;;3,12;6,0 6,23;in the month of January
++;;3,12;6,0 6,24;in the month of February
++;;3,12;6,0 6,21;in the month of March
++;;3,12;6,0 6,21;in the month of April
++;;3,12;6,0 6,19;in the month of May
++;;3,12;6,0 6,20;in the month of June
++;;3,12;6,0 6,20;in the month of July
++;;3,12;6,0 6,22;in the month of August
++;;3,12;6,0 6,25;in the month of September
++;;3,12;6,0 6,23;in the month of October
++;;3,12;6,0 6,24;in the month of November
++;;3,12;6,0 6,24;in the month of December
++;;8,10;6,0 6,18;audible to the ear
++;;10,11;6,0 6,21;biography of his life
++;;10,11;6,0 6,21;biography of her life
++;;10,13;6,0 6,23;biography of their life
++;;14,15;6,0 6,29;autobiography of his own life
++;;14,11;6,0 6,25;autobiography of his life
++;;14,15;6,0 6,29;autobiography of her own life
++;;14,11;6,0 6,25;autobiography of her life
++;;14,17;6,0 6,31;autobiography of their own life
++;;14,13;6,0 6,27;autobiography of their life
++;;8,10;6,0 6,18;bouquet of flowers
++;;6,10;6,0 6,16;cameo appearance
++;;7,9;6,0 6,16;crisis situation
++;;10,9;6,0 6,19;emergency situation
++;;0,8;6,0;definite decision
++;;0,9;6,0;desirable benefit
++;;0,9;6,0;difficult dilemma
++;;0,6;6,0;direct confrontation
++;;10,6;6,0 6,16;doctorate degree
++;;0,5;6,0 6,16;early beginnings
++;;0,4;6,0;dead corpse
++;;0,6;6,0;fellow classmate
++;;0,6;6,0;fellow colleague
++;;0,6;6,0;fellow countrym
++;;0,3;6,0;hot water heater
++;;6,8;6,0 6,14;knots per hour
++;;0,4;6,0 6,13;more superior
++;;0,4;6,0 6,13;most favorite
++;;0,4;6,0 6,14;most favourite
++;;0,9;6,0;necessary requirement
++;;0,9;6,0;necessary prerequisite
++;;0,9;6,0;temporary reprieve
++;;0,9;6,0;anonymous stranger
++;;0,6;6,0;annual anniversar
++;;0,7;6,0 6,16;already existing
++;;7,10;6,0 6,17;add an additional
++;;0,5;6,0 6,9;as of yet
++;;4,7;6,0 6,11;bald-headed
++;;0,4;6,0 6,10;both alike
++;;0,6;6,0 6,11;if and when
++;;8,2;6,0 6,10;equally as
++;;6,5;6,0 6,11;widow woman
++;;0,4;6,0 6,10;bare naked
++;;0,4;6,0 6,10;cold frost
++;;0,10;6,0 6,17;sufficient enough
++;;0,5;6,0;armed militant
++;;0,8;6,0;ultimate goal
++;;0,5;6,0;final conclusion
++;;0,6;6,0 6,16;future prospects
++;;0,5;6,0;sneak preview
++;;0,5;6,0 6,11;first began
++;;0,10;6,0 6,18;originally created
++;;0,7;6,0 6,17;totally unanimous
++;;0,9;6,0 6,19;unanimous consensus
++;;0,13;6,0;undergraduate student
++;;8,8;6,0 6,21;at this point in time
++;;8,9;6,0 6,22;at this moment in time
++;;0,20;6,0 6,20;due to the fact that
++;;0,22;6,0 6,22;owing to the fact that
++;;0,21;6,0 6,21;despite the fact that
++;;0,25;6,0 6,25;in spite of the fact that
++;;0,25;6,0 6,25;in light of the fact that
++;;0,24;6,0 6,24;in view of the fact that
++;;0,27;6,0 6,27;regardless of the fact that

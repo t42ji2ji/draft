@@ -1,0 +1,100 @@
+/*
+  Profile shared by Mono, Duo and Quattro (the iA Writer variable faces).
+  The grid is a 29px line on a 16px reference size, so most lengths are n/16 em.
+  These faces also get two axes driven from here: weight, which follows the
+  text size and appearance, and SPCG (letter spacing), which follows the
+  window width and the text size.
+*/
+
+:root {
+    --lh: var(--lh-b);
+    --lh-print: 170;
+    --print-size: 12px;
+    --measure: 38em;
+    --space: 1.8125em;              /* 29/16 */
+
+    --h1-space: 1.8125em;
+    --h2-space-above: 1.8125em;
+    --h2-space-below: 1.8125em;
+    --h-space: 1.8125em;
+    --h1-after-h1: -0.9375em;       /* -15/16 */
+    --h2-after-h1: -0.9375em;
+    --h1-after-h2: -0.9375em;
+    --h2-after-h2: -0.9375em;
+    --hr-above: 1.8125em;           /* 29/16 */
+    --hr-below: 1.75em;             /* 28/16: one px less for the line itself */
+
+    --list-indent: 2.4286em;        /* 34/14 */
+    --list-indent-wide: 2.5em;      /* 40/16 */
+    --bullet: "– ";
+    --bullet-offset: -1.25em;       /* -20/16 */
+    --quote-ol-shift: 3.776%;       /* 29/768 */
+    --quote-heading-padding: 0.5em; /* 8/16 */
+    --table-size: 0.875em;          /* 14/16 */
+    --table-leading: 1.7143;        /* 24/14 */
+    --code-size: 1em;
+    --check-position: 25% 50%;
+    --check-size: 58%;
+
+    /* Full-width punctuation that fits the grid comes before the system CJK font. */
+    --emphasis-cjk-wide: "Draft Emphasis";
+    --cjk-tc: "Draft FullSpace TC", "Draft PingFang TC", "Draft PingFang SC";
+    --cjk-sc: "Draft FullSpace SC", "Draft PingFang SC", "Draft PingFang TC";
+    --cjk-hk: "Draft FullSpace TC", "Draft PingFang HK", "Draft PingFang SC";
+    --cjk-ja: "Draft FullSpace JA", "Draft Hiragino Sans";
+    --cjk-ko: "Draft FullSpace KR", "Draft SD Gothic";
+
+    /* Axes: --spcg picks the Mono/Duo (md) or Quattro (q) columns. */
+    --wght: 400;
+    --spcg-md: 15;
+    --spcg-q: 1;
+    --spcg-adj-md: 0;
+    --spcg-adj-q: 0;
+    --spcg: calc(var(--spcg-md) + var(--spcg-adj-md));
+}
+
+blockquote {
+    border-left: 1px solid var(--rule);
+}
+
+@media (min-width: 768px) {
+    :root { --quote-ol-shift: 29px; }
+}
+
+
+/* ── Axes ─────────────────────────────────────────────────────────────────── */
+
+html {
+    font-variation-settings: "SPCG" var(--spcg);
+}
+
+html.content-size-4xs  { --wght: 490; --spcg-adj-md: 22; --spcg-adj-q: 22; }
+html.content-size-3xs  { --wght: 482; --spcg-adj-md: 18; --spcg-adj-q: 18; }
+html.content-size-2xs  { --wght: 475; --spcg-adj-md: 14; --spcg-adj-q: 14; }
+html.content-size-xs   { --wght: 470; --spcg-adj-md: 8;  --spcg-adj-q: 8; }
+html.content-size-s    { --wght: 465; --spcg-adj-md: 4;  --spcg-adj-q: 4; }
+html.content-size-m    { --wght: 460; --spcg-adj-md: 2;  --spcg-adj-q: 2; }
+html.content-size-l    { --wght: 455; }
+html.content-size-xl   { --wght: 450; }
+html.content-size-2xl  { --wght: 445; }
+html.content-size-3xl  { --wght: 440; --spcg-adj-md: -1; --spcg-adj-q: -1; }
+html.content-size-4xl  { --wght: 435; --spcg-adj-md: -2; --spcg-adj-q: -1; }
+html.content-size-5xl  { --wght: 430; --spcg-adj-md: -3; --spcg-adj-q: -2; }
+html.content-size-6xl  { --wght: 420; --spcg-adj-md: -4; --spcg-adj-q: -3; }
+html.content-size-7xl  { --wght: 420; --spcg-adj-md: -5; --spcg-adj-q: -4; }
+html.content-size-8xl  { --wght: 420; --spcg-adj-md: -6; --spcg-adj-q: -5; }
+html.content-size-9xl  { --wght: 420; --spcg-adj-md: -7; --spcg-adj-q: -6; }
+html.content-size-10xl { --wght: 420; --spcg-adj-md: -8; --spcg-adj-q: -7; }
+
+@media screen and (max-width: 414px) { :root { --spcg-md: 10; --spcg-q: 0; } }
+@media screen and (min-width: 1251px) { :root { --spcg-md: 20; --spcg-q: 2; } }
+@media print { :root { --spcg-md: 20; --spcg-q: 0; } }
+
+/*
+  The size-dependent weight is for Retina screens and print. macOS renders
+  heavier than the reference, hence -35; light text on dark loses another 20.
+*/
+@media (min-resolution: 2dppx), print {
+    html { font-weight: calc(var(--wght) - 35); }
+    html.night-mode { font-weight: calc(var(--wght) - 55); }
+}

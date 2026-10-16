@@ -1,0 +1,62 @@
+extension L10n {
+    static let settings: [String: String] = [
+        // Settings window
+        "Settings": "設定",
+        "Colours": "配色",
+        "Paper": "紙張",
+        "Text": "文字",
+        "Opacity": "不透明度",
+        "Cursor:": "游標：",
+        "Use Palette's": "使用配色",
+        "Font:": "字體：",
+        "Text size:": "大小：",
+        "Line length:": "行寬：",
+        "%d characters": "%d 字元",
+        "Highlight:": "螢光筆：",
+        "Chinese emphasis:": "中文強調：",
+        "Language:": "語言：",
+        "Follow System": "跟隨系統",
+
+        // Settings.Typeface, Highlight, CJKEmphasis
+        "Monospaced": "等寬",
+        "Duospaced": "雙寬",
+        "Yellow": "黃色",
+        "Orange": "橘色",
+        "Pink": "粉紅色",
+        "Purple": "紫色",
+        "Blue": "藍色",
+        "Green": "綠色",
+        "Emphasis Mark": "著重號",
+        "Italic": "斜體",
+
+        // Palettes
+        "Cream": "米紙",
+        "System": "系統",
+        "Ivory": "象牙",
+        "Moss": "苔",
+        "Fog": "霧",
+        "Xuan": "宣紙",
+        "Typewriter": "打字機",
+        "Air Mail": "航空信",
+        "Pencil": "鉛筆",
+        "Mint": "薄荷",
+        "Lamplight": "夜讀",
+        "Ink": "墨水藍",
+        "Chalkboard": "黑板",
+        "Espresso": "午夜咖啡",
+        "Deep Sea": "深海",
+        "Burgundy": "酒紅",
+        "Graphite": "石墨",
+        "Dusk": "紫夜",
+        "Smoke": "煙",
+
+        // Paper patterns
+        "Paper|None": "無格線",
+        "Ruled": "橫線",
+        "Notebook": "筆記本",
+        "Squares": "方格",
+        "Fine Squares": "細方格",
+        "Dots": "點陣",
+        "Manuscript": "稿紙格",
+    ]
+}

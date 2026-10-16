@@ -1,0 +1,42 @@
+/*
+  Sans profile (IBM Plex Sans). The grid is a 30px line on an 18px reference
+  size, so most lengths below are n/18 em.
+*/
+
+:root {
+    --space: 1.6667em;              /* 30/18 */
+
+    --h1-size: 1.2778em;            /* 23/18 */
+    --h1-leading: 1.3043;           /* 30/23 */
+    --h1-space: 2.6087em;           /* 60/23 */
+    --h2-size: 1.1667em;            /* 21/18 */
+    --h2-leading: 1.4286;           /* 30/21 */
+    --h2-space-above: 2.8571em;     /* 60/21 */
+    --h2-space-below: 1.6667em;
+    --h-space: 1.6667em;
+    --h34-leading: 1.6667;
+    --h1-after-h1: -1.9565em;       /* -45/23 */
+    --h2-after-h1: -2.1429em;       /* -45/21 */
+    --h1-after-h2: -0.6522em;       /* -15/23 */
+    --h2-after-h2: -0.7143em;       /* -15/21 */
+    --hr-above: 1.6667em;           /* 30/18 */
+    --hr-below: 1.6111em;           /* 29/18: one px less for the line itself */
+
+    --quote-margin-start: -0.8889em;   /* -16/18 */
+    --quote-margin-end: -0.8889em;
+    --quote-padding: 2.2222em;      /* 40/18 */
+    --quote-ul-shift: -2.2222em;
+    --quote-ol-shift: -2.2222em;
+    --notes-size: 1em;
+    --notes-leading: 1.6667;
+    --task-ol-shift: 0.65em;
+    --check-position: 35% 48%;
+}
+
+.emphasis-italic blockquote {
+    font-style: italic;
+}
+
+blockquote em {
+    font-weight: 700;
+}

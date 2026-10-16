@@ -1,0 +1,85 @@
+// Library window: sidebar, outline column, format bar, toolbar, sync status, document alerts.
+extension L10n {
+    static let library: [String: String] = [
+        // Sidebar
+        "Locations": "位置",
+        "Favorites": "喜好項目",
+        "Hashtags": "標籤",
+        "Drag folders and files here for quick access": "把檔案夾和檔案拖到這裡以快速取用",
+        "Duplicate": "複製",
+        "Show in Finder": "在 Finder 中顯示",
+        "Remove from Favorites": "從喜好項目移除",
+        "Move to Trash": "丟到垃圾桶",
+
+        // Outline column
+        "Outline": "章節",
+        "No headings": "沒有標題",
+        "Show Outline (⇧⌘O)": "顯示章節（⇧⌘O）",
+        "Hide Outline (⇧⌘O)": "收合章節（⇧⌘O）",
+        "Status|Idea": "構思",
+        "Status|Draft": "草稿",
+        "Status|Revise": "待修改",
+        "Status|Done": "完成",
+        "Status|Cut": "待刪",
+        "Move Section": "移動章節",
+
+        // Format bar
+        "List": "列表",
+        "Blockquote": "引言",
+        "Wikilink": "Wiki 連結",
+        "Footnote": "註腳",
+        "Table": "表格",
+        "TOC": "目錄",
+        "Heading %d": "標題 %d",
+        "Unordered List": "項目符號列表",
+        "Ordered List": "編號列表",
+        "Task List": "待辦列表",
+        "Words": "字數",
+        "Characters": "字元數",
+        "%@ Word": "%@ 字",
+        "%@ Words": "%@ 字",
+        "%@ Character": "%@ 字元",
+        "%@ Characters": "%@ 字元",
+
+        // Toolbar
+        "Assistant": "AI 助手",
+        "Show or hide the AI assistant (⌘J)": "開關 AI 助手（⌘J）",
+        "Show or hide the library": "顯示或隱藏文件庫",
+        "Documents": "文件",
+        "Back to the previous document": "回到上一份文件",
+        "Forward to the next document": "前往下一份文件",
+        "New document (⌘N)": "新增文件（⌘N）",
+        "New file or folder": "新增檔案或檔案夾",
+        "New File": "新增檔案",
+        "New Folder": "新增檔案夾",
+        "Click to rename": "點一下重新命名",
+        "Untitled": "未命名",
+        "AI Edit": "AI 修改",
+
+        // Sync
+        "Sync": "同步",
+        "Syncing…": "同步中⋯",
+        "Sync|Local": "本機",
+        "Committed %@": "已提交 %@",
+        "No remote set (SyncRemote). Changes are committed locally.": "未設定遠端（SyncRemote），變更只提交到本機。",
+        "Synced %@": "已同步 %@",
+        "Click to sync now.": "按一下立即同步。",
+        "Offline": "離線",
+        "Changes are committed locally and pushed when the remote is reachable. Click to retry.": "變更已提交到本機，連得到遠端時會推送。按一下重試。",
+        "Conflict: %@": "衝突：%@",
+        "Conflict: %d files": "衝突：%d 個檔案",
+        "Both versions were kept. The other machine's text is in:": "兩個版本都已保留。另一台電腦的文字在：",
+        "Syncing is paused. Click to resume.": "同步已暫停。按一下繼續。",
+        "Sync error": "同步錯誤",
+        "Click to retry.": "按一下重試。",
+        "HEAD is detached": "HEAD 不在任何分支上",
+        "git is not installed": "沒有安裝 git",
+        "Could not resolve %@": "無法解決 %@ 的衝突",
+
+        // Document
+        "The text encoding of the contents could not be determined.": "無法判斷內容的文字編碼。",
+        "The file “%@” was changed externally.": "檔案「%@」已在其他地方被修改。",
+        "Keep Draft Version": "保留 Draft 的版本",
+        "Revert": "回復",
+    ]
+}

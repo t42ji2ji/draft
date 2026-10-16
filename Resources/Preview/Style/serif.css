@@ -1,0 +1,54 @@
+/*
+  Serif profile (IBM Plex Serif). The grid is a 31px line on a 19px reference
+  size, so most lengths below are n/19 em.
+*/
+
+:root {
+    --space: 1.6316em;              /* 31/19 */
+
+    --h1-size: 1.2105em;            /* 23/19 */
+    --h1-leading: 1.3478;           /* 31/23 */
+    --h1-space: 2.6957em;           /* 62/23 */
+    --h2-size: 1.1053em;            /* 21/19 */
+    --h2-leading: 1.4762;           /* 31/21 */
+    --h2-space-above: 2.9524em;     /* 62/21 */
+    --h2-space-below: 1.4762em;     /* 31/21 */
+    --h-space: 1.6316em;
+    --h34-leading: 1.6316;
+    --h1-after-h1: -2em;            /* -46/23 */
+    --h2-after-h1: -2.1905em;       /* -46/21 */
+    --h1-after-h2: -0.6522em;       /* -15/23 */
+    --h2-after-h2: -0.7143em;       /* -15/21 */
+    --hr-above: 1.6316em;           /* 31/19 */
+    --hr-below: 1.5789em;           /* 30/19: one px less for the line itself */
+
+    --list-indent-wide: 2.1053em;   /* 40/19 */
+    --bullet-offset: -1.1053em;     /* -21/19 */
+    --quote-margin-start: -0.8421em;   /* -16/19 */
+    --quote-margin-end: -0.8421em;
+    --quote-padding: 2.1053em;      /* 40/19 */
+    --quote-ul-shift: -1.6316em;
+    --quote-ol-shift: -1.6316em;
+    --table-size: 0.8421em;         /* 16/19 */
+    --table-leading: 1.5625;        /* 25/16 */
+    --notes-size: 0.9474em;         /* 18/19 */
+    --notes-leading: 1.7222;        /* 31/18 */
+    --task-ol-shift: 0.65em;
+    --check-position: 35% 48%;
+}
+
+blockquote {
+    font-style: italic;
+}
+
+blockquote em {
+    font-weight: 700;
+}
+
+/* Small capitals look for header cells: 13.87px type on a 25px line. */
+th {
+    font-size: 86.667%;
+    line-height: 1.8029;
+    text-transform: uppercase;
+    letter-spacing: 0.0181em;
+}

@@ -1,0 +1,88 @@
+/*
+  Draft preview: font faces.
+
+  Every face is declared under a "Draft …" family name so the templates never
+  depend on what happens to be installed. Sources are `local()` first (that is
+  what remains in exported HTML) and then the app's `ia-writer-font://` scheme,
+  which serves Resources/Preview/Fonts and Resources/Fonts. HTML export strips
+  `, url("ia-writer-font://…")` from each src, so nothing may follow it.
+*/
+
+/* IBM Plex (OFL): Regular, SemiBold and Bold, each with its italic. */
+
+@font-face { font-family: "Draft Plex Serif"; font-weight: 400; font-style: normal; src: local("IBMPlexSerif"), url("ia-writer-font://IBMPlexSerif-Regular.ttf"); }
+@font-face { font-family: "Draft Plex Serif"; font-weight: 400; font-style: italic; src: local("IBMPlexSerif-Italic"), url("ia-writer-font://IBMPlexSerif-Italic.ttf"); }
+@font-face { font-family: "Draft Plex Serif"; font-weight: 600; font-style: normal; src: local("IBMPlexSerif-SemiBold"), url("ia-writer-font://IBMPlexSerif-Semibold.ttf"); }
+@font-face { font-family: "Draft Plex Serif"; font-weight: 600; font-style: italic; src: local("IBMPlexSerif-SemiBoldItalic"), url("ia-writer-font://IBMPlexSerif-SemiboldItalic.ttf"); }
+@font-face { font-family: "Draft Plex Serif"; font-weight: 700; font-style: normal; src: local("IBMPlexSerif-Bold"), url("ia-writer-font://IBMPlexSerif-Bold.ttf"); }
+@font-face { font-family: "Draft Plex Serif"; font-weight: 700; font-style: italic; src: local("IBMPlexSerif-BoldItalic"), url("ia-writer-font://IBMPlexSerif-BoldItalic.ttf"); }
+
+@font-face { font-family: "Draft Plex Sans"; font-weight: 400; font-style: normal; src: local("IBMPlexSans"), url("ia-writer-font://IBMPlexSans-Regular.ttf"); }
+@font-face { font-family: "Draft Plex Sans"; font-weight: 400; font-style: italic; src: local("IBMPlexSans-Italic"), url("ia-writer-font://IBMPlexSans-Italic.ttf"); }
+@font-face { font-family: "Draft Plex Sans"; font-weight: 600; font-style: normal; src: local("IBMPlexSans-SemiBold"), url("ia-writer-font://IBMPlexSans-Semibold.ttf"); }
+@font-face { font-family: "Draft Plex Sans"; font-weight: 600; font-style: italic; src: local("IBMPlexSans-SemiBoldItalic"), url("ia-writer-font://IBMPlexSans-SemiboldItalic.ttf"); }
+@font-face { font-family: "Draft Plex Sans"; font-weight: 700; font-style: normal; src: local("IBMPlexSans-Bold"), url("ia-writer-font://IBMPlexSans-Bold.ttf"); }
+@font-face { font-family: "Draft Plex Sans"; font-weight: 700; font-style: italic; src: local("IBMPlexSans-BoldItalic"), url("ia-writer-font://IBMPlexSans-BoldItalic.ttf"); }
+
+/* iA Writer Mono, Duo, Quattro (OFL): variable fonts, axes wght 400–700 and SPCG 0–150. */
+
+@font-face { font-family: "Draft Mono"; font-weight: 400 700; font-style: normal; src: local("iAWriterMonoV-Regular"), url("ia-writer-font://iAWriterMono.ttf"); }
+@font-face { font-family: "Draft Mono"; font-weight: 400 700; font-style: italic; src: local("iAWriterMonoV-Italic"), url("ia-writer-font://iAWriterMono-Italic.ttf"); }
+@font-face { font-family: "Draft Duo"; font-weight: 400 700; font-style: normal; src: local("iAWriterDuo-Regular"), url("ia-writer-font://iAWriterDuo.ttf"); }
+@font-face { font-family: "Draft Duo"; font-weight: 400 700; font-style: italic; src: local("iAWriterDuo-Italic"), url("ia-writer-font://iAWriterDuo-Italic.ttf"); }
+@font-face { font-family: "Draft Quattro"; font-weight: 400 700; font-style: normal; src: local("iAWriterQuattroV-Regular"), url("ia-writer-font://iAWriterQuattro.ttf"); }
+@font-face { font-family: "Draft Quattro"; font-weight: 400 700; font-style: italic; src: local("iAWriterQuattroV-Italic"), url("ia-writer-font://iAWriterQuattro-Italic.ttf"); }
+
+/*
+  Emphasis dots: two private-use glyphs, U+E000 (round) and U+E001 (the Serif
+  variant), used as the `text-emphasis` mark. The Spaced cut is for Japanese and
+  Korean. One file per weight.
+*/
+
+@font-face { font-family: "Draft Emphasis"; unicode-range: U+E000-E001; font-weight: 400; src: local("iAWriterEmphasis-Regular"), url("ia-writer-font://iAWriterEmphasis-Regular.ttf"); }
+@font-face { font-family: "Draft Emphasis"; unicode-range: U+E000-E001; font-weight: 450; src: local("iAWriterEmphasis-Text"), url("ia-writer-font://iAWriterEmphasis-Text.ttf"); }
+@font-face { font-family: "Draft Emphasis"; unicode-range: U+E000-E001; font-weight: 600; src: local("iAWriterEmphasis-Semibold"), url("ia-writer-font://iAWriterEmphasis-Semibold.ttf"); }
+@font-face { font-family: "Draft Emphasis"; unicode-range: U+E000-E001; font-weight: 700; src: local("iAWriterEmphasis-Bold"), url("ia-writer-font://iAWriterEmphasis-Bold.ttf"); }
+
+@font-face { font-family: "Draft Emphasis Spaced"; unicode-range: U+E000-E001; font-weight: 400; src: local("iAWriterEmphasisSpaced-Regular"), url("ia-writer-font://iAWriterEmphasisSpaced-Regular.ttf"); }
+@font-face { font-family: "Draft Emphasis Spaced"; unicode-range: U+E000-E001; font-weight: 450; src: local("iAWriterEmphasisSpaced-Text"), url("ia-writer-font://iAWriterEmphasisSpaced-Text.ttf"); }
+@font-face { font-family: "Draft Emphasis Spaced"; unicode-range: U+E000-E001; font-weight: 600; src: local("iAWriterEmphasisSpaced-Semibold"), url("ia-writer-font://iAWriterEmphasisSpaced-Semibold.ttf"); }
+@font-face { font-family: "Draft Emphasis Spaced"; unicode-range: U+E000-E001; font-weight: 700; src: local("iAWriterEmphasisSpaced-Bold"), url("ia-writer-font://iAWriterEmphasisSpaced-Bold.ttf"); }
+
+/*
+  FullSpace: full-width CJK punctuation (and the two-dot/three-dot leaders)
+  drawn to sit on the Mono/Duo/Quattro grid. The fonts also contain U+0020;
+  the range leaves it out so spaces keep coming from the text face.
+*/
+
+@font-face { font-family: "Draft FullSpace TC"; unicode-range: U+2025-2026, U+FF01-FF5D; font-weight: 400 700; src: local("iAWriterFullSpaceTC-Regular"), url("ia-writer-font://iAWriterFullSpaceTC.ttf"); }
+@font-face { font-family: "Draft FullSpace SC"; unicode-range: U+2025-2026, U+FF01-FF5D; font-weight: 400 700; src: local("iAWriterFullSpaceSC-Regular"), url("ia-writer-font://iAWriterFullSpaceSC.ttf"); }
+@font-face { font-family: "Draft FullSpace JA"; unicode-range: U+2025-2026, U+FF01-FF5D; font-weight: 400 700; src: local("iAWriterFullSpaceJA-Regular"), url("ia-writer-font://iAWriterFullSpaceJA.ttf"); }
+@font-face { font-family: "Draft FullSpace KR"; unicode-range: U+2025-2026, U+FF01-FF5D; font-weight: 400 700; src: local("iAWriterFullSpaceKR-Regular"), url("ia-writer-font://iAWriterFullSpaceKR.ttf"); }
+
+/*
+  macOS CJK system fonts, re-declared with two weights only. The Mono/Duo/
+  Quattro templates set body weights between 400 and 490; against the real
+  families that would select Medium or W4 cuts. Here everything below 550 is
+  the regular cut and everything from 550 up is the bold one.
+*/
+
+@font-face { font-family: "Draft PingFang TC"; font-weight: 1 549; src: local("PingFangTC-Regular"); }
+@font-face { font-family: "Draft PingFang TC"; font-weight: 550 1000; src: local("PingFangTC-Semibold"); }
+@font-face { font-family: "Draft PingFang SC"; font-weight: 1 549; src: local("PingFangSC-Regular"); }
+@font-face { font-family: "Draft PingFang SC"; font-weight: 550 1000; src: local("PingFangSC-Semibold"); }
+@font-face { font-family: "Draft PingFang HK"; font-weight: 1 549; src: local("PingFangHK-Regular"); }
+@font-face { font-family: "Draft PingFang HK"; font-weight: 550 1000; src: local("PingFangHK-Semibold"); }
+@font-face { font-family: "Draft Hiragino Sans"; font-weight: 1 549; src: local("HiraginoSans-W3"); }
+@font-face { font-family: "Draft Hiragino Sans"; font-weight: 550 1000; src: local("HiraginoSans-W6"); }
+@font-face { font-family: "Draft SD Gothic"; font-weight: 1 549; src: local("AppleSDGothicNeo-Regular"); }
+@font-face { font-family: "Draft SD Gothic"; font-weight: 550 1000; src: local("AppleSDGothicNeo-Bold"); }
+
+@font-face { font-family: "Draft Songti TC"; font-weight: 1 549; src: local("STSongti-TC-Regular"); }
+@font-face { font-family: "Draft Songti TC"; font-weight: 550 1000; src: local("STSongti-TC-Bold"); }
+@font-face { font-family: "Draft Songti SC"; font-weight: 1 549; src: local("STSongti-SC-Regular"); }
+@font-face { font-family: "Draft Songti SC"; font-weight: 550 1000; src: local("STSongti-SC-Bold"); }
+@font-face { font-family: "Draft Hiragino Mincho"; font-weight: 1 549; src: local("HiraMinProN-W3"); }
+@font-face { font-family: "Draft Hiragino Mincho"; font-weight: 550 1000; src: local("HiraMinProN-W6"); }
+@font-face { font-family: "Draft Nanum Myeongjo"; font-weight: 1 549; src: local("NanumMyeongjo"); }
+@font-face { font-family: "Draft Nanum Myeongjo"; font-weight: 550 1000; src: local("NanumMyeongjoBold"); }

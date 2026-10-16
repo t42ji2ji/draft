@@ -1,0 +1,391 @@
+// Filler words and hedges (English). Draft's own list.
+// Format: {+|-};{modifiers};{marks: start,length ...};{anchors: 6,offset = word boundary};{text}
+// Matching is case-insensitive; '-' lines are exceptions that suppress overlapping hits.
++;;0,4;6,0 6,4;very
++;;0,6;6,0 6,6;really
++;;0,4;6,0 6,4;just
++;;0,9;6,0 6,9;basically
++;;0,8;6,0 6,8;actually
++;;0,9;6,0 6,9;literally
++;;0,5;6,0 6,5;quite
++;;0,6;6,0 6,6;rather
++;;0,8;6,0 6,8;somewhat
++;;0,7;6,0 6,7;somehow
++;;0,6;6,0 6,6;simply
++;;0,5;6,0 6,5;truly
++;;0,7;6,0 6,7;totally
++;;0,7;6,0 6,7;utterly
++;;0,10;6,0 6,10;absolutely
++;;0,10;6,0 6,10;definitely
++;;0,9;6,0 6,9;certainly
++;;0,6;6,0 6,6;surely
++;;0,11;6,0 6,11;undoubtedly
++;;0,14;6,0 6,14;unquestionably
++;;0,12;6,0 6,12;indisputably
++;;0,9;6,0 6,9;obviously
++;;0,8;6,0 6,8;honestly
++;;0,7;6,0 6,7;frankly
++;;0,9;6,0 6,9;extremely
++;;0,10;6,0 6,10;incredibly
++;;0,9;6,0 6,9;amazingly
++;;0,12;6,0 6,12;unbelievably
++;;0,12;6,0 6,12;tremendously
++;;0,10;6,0 6,10;enormously
++;;0,9;6,0 6,9;immensely
++;;0,6;6,0 6,6;hugely
++;;0,7;6,0 6,7;awfully
++;;0,8;6,0 6,8;terribly
++;;0,8;6,0 6,8;insanely
++;;0,12;6,0 6,12;ridiculously
++;;0,11;6,0 6,11;essentially
++;;0,11;6,0 6,11;practically
++;;0,7;6,0 6,7;perhaps
++;;0,5;6,0 6,5;maybe
++;;0,8;6,0 6,8;possibly
++;;0,8;6,0 6,8;probably
++;;0,10;6,0 6,10;presumably
++;;0,10;6,0 6,10;apparently
++;;0,10;6,0 6,10;supposedly
++;;0,8;6,0 6,8;arguably
++;;0,11;6,0 6,11;conceivably
++;;0,9;6,0 6,9;seemingly
++;;0,6;6,0 6,6;anyway
++;;0,7;6,0 6,7;anyways
++;;0,6;6,0 6,6;anyhow
++;;0,6;6,0 6,6;indeed
++;;0,5;6,0 6,5;kinda
++;;0,5;6,0 6,5;sorta
++;;0,7;6,0 6,7;kind of
++;;0,7;6,0 6,7;sort of
++;;0,12;6,0 6,12;kind of like
++;;0,12;6,0 6,12;sort of like
++;;0,11;6,0 6,11;pretty much
++;;0,6;6,0 6,11;pretty sure
++;;0,6;6,0 6,11;pretty good
++;;0,6;6,0 6,10;pretty bad
++;;0,6;6,0 6,11;pretty well
++;;0,6;6,0 6,12;pretty clear
++;;0,6;6,0 6,12;pretty close
++;;0,6;6,0 6,11;pretty hard
++;;0,6;6,0 6,11;pretty easy
++;;0,6;6,0 6,10;pretty big
++;;0,6;6,0 6,12;pretty small
++;;0,6;6,0 6,12;pretty quick
++;;0,6;6,0 6,11;pretty fast
++;;0,6;6,0 6,11;pretty cool
++;;0,6;6,0 6,11;pretty nice
++;;0,6;6,0 6,12;pretty great
++;;0,6;6,0 6,13;pretty common
++;;0,6;6,0 6,13;pretty simple
++;;0,6;6,0 6,14;pretty obvious
++;;0,6;6,0 6,18;pretty interesting
++;;0,6;6,0 6,16;pretty important
++;;0,6;6,0 6,16;pretty difficult
++;;0,6;6,0 6,13;pretty strong
++;;0,6;6,0 6,12;pretty weird
++;;0,6;6,0 6,14;pretty amazing
++;;0,6;6,0 6,14;pretty awesome
++;;0,6;6,0 6,12;pretty cheap
++;;0,6;6,0 6,16;pretty expensive
++;;0,6;6,0 6,11;pretty safe
++;;0,6;6,0 6,12;pretty happy
++;;0,6;6,0 6,10;pretty sad
++;;0,6;6,0 6,12;pretty tired
++;;0,6;6,0 6,16;pretty confident
++;;0,6;6,0 6,11;fairly sure
++;;0,6;6,0 6,14;fairly certain
++;;0,6;6,0 6,16;fairly confident
++;;0,6;6,0 6,14;fairly obvious
++;;0,11;6,0 6,11;a whole lot
++;;0,13;6,0 6,13;lots and lots
++;;0,5;6,0 6,5;a bit
++;;0,12;6,0 6,12;a little bit
++;;0,13;6,0 6,13;just a little
++;;0,12;6,0 6,12;more or less
++;;0,14;6,0 6,14;to some extent
++;;0,19;6,0 6,19;to a certain extent
++;;0,14;6,0 6,14;to some degree
++;;0,19;6,0 6,19;to a certain degree
++;;0,10;6,0 6,10;in a sense
++;;0,13;6,0 6,13;in some sense
++;;0,8;6,0 6,8;in a way
++;;0,12;6,0 6,12;in some ways
++;;0,18;6,0 6,18;generally speaking
++;;0,16;6,0 6,16;broadly speaking
++;;0,19;6,0 6,19;relatively speaking
++;;0,7;6,0 6,7;I think
++;;0,9;6,0 6,9;I believe
++;;0,11;6,0 6,11;I feel like
++;;0,7;6,0 6,7;I guess
++;;0,9;6,0 6,9;I suppose
++;;0,11;6,0 6,11;I would say
++;;0,7;6,0 6,7;I'd say
++;;0,7;6,0 6,7;I’d say
++;;2,10;6,0 6,12;I personally
++;;0,6;6,0 6,6;I mean
++;;0,8;6,0 6,8;you know
++;;0,8;6,0 6,8;it seems
++;;0,13;6,0 6,13;it seems that
++;;0,13;6,0 6,13;it seems like
++;;0,13;6,0 6,13;it would seem
++;;0,15;6,0 6,15;it appears that
++;;0,13;6,0 6,13;in my opinion
++;;0,20;6,0 6,20;in my humble opinion
++;;0,4;6,0 6,4;IMHO
++;;0,10;6,0 6,10;in my view
++;;0,19;6,0 6,19;from my perspective
++;;0,21;6,0 6,21;from my point of view
++;;0,13;6,0 6,13;if you ask me
++;;0,20;6,0 6,20;as far as I can tell
++;;0,19;6,0 6,19;for what it's worth
++;;0,19;6,0 6,19;for what it’s worth
++;;0,12;6,0 6,12;to be honest
++;;0,21;6,0 6,21;to tell you the truth
++;;0,17;6,0 6,17;to tell the truth
++;;0,13;6,0 6,13;truth be told
++;;0,13;6,0 6,13;if I'm honest
++;;0,13;6,0 6,13;if I’m honest
++;;0,19;6,0 6,19;if I'm being honest
++;;0,19;6,0 6,19;if I’m being honest
++;;0,11;6,0 6,11;if you will
++;;0,11;6,0 6,11;so to speak
++;;0,10;6,0 6,10;as it were
++;;0,12;6,0 6,12;or something
++;;0,22;6,0 6,22;or something like that
++;;0,11;6,0 6,11;or whatever
++;;0,19;6,0 6,19;and stuff like that
++;;0,20;6,0 6,20;and things like that
++;;0,11;6,0 6,11;like I said
++;;0,16;6,0 6,16;as I said before
++;;0,14;6,0 6,14;what I mean is
++;;0,25;6,0 6,25;what I'm trying to say is
++;;0,25;6,0 6,25;what I’m trying to say is
++;;0,12;6,0 6,12;the thing is
++;;0,15;6,0 6,15;needless to say
++;;0,22;6,0 6,22;it goes without saying
++;;0,27;6,0 6,27;it goes without saying that
++;;0,9;6,0 6,9;of course
++;;0,7;6,0 6,7;in fact
++;;0,14;6,0 6,14;in actual fact
++;;0,16;6,0 6,16;in point of fact
++;;0,19;6,0 6,19;as a matter of fact
++;;0,25;6,0 6,25;the fact of the matter is
++;;0,21;6,0 6,21;all things considered
++;;6,6;6,0 6,12;first of all
++;;0,8;6,0 6,11;in order to
++;;0,8;6,0 6,12;in order for
++;;0,5;6,0 6,8;so as to
++;;0,16;6,0 6,16;when it comes to
++;;0,11;6,0 6,11;in terms of
++;;0,14;6,0 6,14;with regard to
++;;0,15;6,0 6,15;with regards to
++;;0,12;6,0 6,12;in regard to
++;;0,13;6,0 6,13;in regards to
++;;0,15;6,0 6,15;with respect to
++;;0,14;6,0 6,14;in relation to
++;;0,18;6,0 6,18;in connection with
++;;0,17;6,0 6,17;in the event that
++;;0,17;6,0 6,17;in the process of
++;;0,18;6,0 6,18;for the purpose of
++;;0,17;6,0 6,17;for the most part
++;;0,16;6,0 6,16;on a daily basis
++;;0,17;6,0 6,17;on a weekly basis
++;;0,18;6,0 6,18;on a monthly basis
++;;0,17;6,0 6,17;on a yearly basis
++;;0,18;6,0 6,18;on a regular basis
++;;0,18;6,0 6,18;on an annual basis
++;;0,28;6,0 6,28;it is important to note that
++;;0,32;6,0 6,32;it is important to remember that
++;;0,27;6,0 6,27;it's important to note that
++;;0,27;6,0 6,27;it’s important to note that
++;;0,23;6,0 6,23;it should be noted that
++;;0,21;6,0 6,21;it must be noted that
++;;0,23;6,0 6,23;it is worth noting that
++;;0,22;6,0 6,22;it's worth noting that
++;;0,22;6,0 6,22;it’s worth noting that
++;;0,27;6,0 6,27;it is worth mentioning that
++;;0,30;6,0 6,30;it is interesting to note that
++;;0,20;6,0 6,20;it must be said that
++;;0,16;6,0 6,16;it is clear that
++;;0,18;6,0 6,18;it is obvious that
++;;0,18;6,0 6,18;it is evident that
++;;0,22;6,0 6,22;there is no doubt that
++;;0,25;6,0 6,25;there is no question that
++;;0,17;6,0 6,17;it is a fact that
+-;;;6,0 6,13;the very same
+-;;;6,0 6,15;the very moment
+-;;;6,0 6,12;the very day
+-;;;6,0 6,14;the very night
+-;;;6,0 6,16;the very morning
+-;;;6,0 6,15;the very minute
+-;;;6,0 6,15;the very second
+-;;;6,0 6,16;the very instant
+-;;;6,0 6,14;the very place
+-;;;6,0 6,13;the very spot
+-;;;6,0 6,15;the very reason
+-;;;6,0 6,14;the very thing
+-;;;6,0 6,13;the very word
+-;;;6,0 6,13;the very best
+-;;;6,0 6,14;the very worst
+-;;;6,0 6,14;the very first
+-;;;6,0 6,13;the very last
+-;;;6,0 6,14;the very least
+-;;;6,0 6,12;the very end
+-;;;6,0 6,18;the very beginning
+-;;;6,0 6,14;the very start
+-;;;6,0 6,12;the very top
+-;;;6,0 6,15;the very bottom
+-;;;6,0 6,13;the very edge
+-;;;6,0 6,14;the very heart
+-;;;6,0 6,13;the very idea
+-;;;6,0 6,16;the very thought
+-;;;6,0 6,16;the very essence
+-;;;6,0 6,13;the very core
+-;;;6,0 6,15;the very nature
+-;;;6,0 6,18;the very existence
+-;;;6,0 6,14;this very same
+-;;;6,0 6,16;this very moment
+-;;;6,0 6,13;this very day
+-;;;6,0 6,15;this very night
+-;;;6,0 6,17;this very morning
+-;;;6,0 6,16;this very minute
+-;;;6,0 6,16;this very second
+-;;;6,0 6,17;this very instant
+-;;;6,0 6,15;this very place
+-;;;6,0 6,14;this very spot
+-;;;6,0 6,16;this very reason
+-;;;6,0 6,15;this very thing
+-;;;6,0 6,14;this very word
+-;;;6,0 6,14;this very best
+-;;;6,0 6,15;this very worst
+-;;;6,0 6,15;this very first
+-;;;6,0 6,14;this very last
+-;;;6,0 6,15;this very least
+-;;;6,0 6,13;this very end
+-;;;6,0 6,19;this very beginning
+-;;;6,0 6,15;this very start
+-;;;6,0 6,13;this very top
+-;;;6,0 6,16;this very bottom
+-;;;6,0 6,14;this very edge
+-;;;6,0 6,15;this very heart
+-;;;6,0 6,14;this very idea
+-;;;6,0 6,17;this very thought
+-;;;6,0 6,17;this very essence
+-;;;6,0 6,14;this very core
+-;;;6,0 6,16;this very nature
+-;;;6,0 6,19;this very existence
+-;;;6,0 6,14;that very same
+-;;;6,0 6,16;that very moment
+-;;;6,0 6,13;that very day
+-;;;6,0 6,15;that very night
+-;;;6,0 6,17;that very morning
+-;;;6,0 6,16;that very minute
+-;;;6,0 6,16;that very second
+-;;;6,0 6,17;that very instant
+-;;;6,0 6,15;that very place
+-;;;6,0 6,14;that very spot
+-;;;6,0 6,16;that very reason
+-;;;6,0 6,15;that very thing
+-;;;6,0 6,14;that very word
+-;;;6,0 6,14;that very best
+-;;;6,0 6,15;that very worst
+-;;;6,0 6,15;that very first
+-;;;6,0 6,14;that very last
+-;;;6,0 6,15;that very least
+-;;;6,0 6,13;that very end
+-;;;6,0 6,19;that very beginning
+-;;;6,0 6,15;that very start
+-;;;6,0 6,13;that very top
+-;;;6,0 6,16;that very bottom
+-;;;6,0 6,14;that very edge
+-;;;6,0 6,15;that very heart
+-;;;6,0 6,14;that very idea
+-;;;6,0 6,17;that very thought
+-;;;6,0 6,17;that very essence
+-;;;6,0 6,14;that very core
+-;;;6,0 6,16;that very nature
+-;;;6,0 6,19;that very existence
+-;;;6,0 6,11;rather than
+-;;;6,0 6,10;other than
+-;;;6,0 6,11;sooner than
+-;;;6,0 6,12;would rather
+-;;;6,0 6,10;had rather
+-;;;6,0 6,9;or rather
+-;;;6,0 6,9;not quite
+-;;;6,0 6,7;just as
+-;;;6,0 6,6;a just
+-;;;6,0 6,8;the just
+-;;;6,0 6,12;what kind of
+-;;;6,0 6,12;this kind of
+-;;;6,0 6,12;that kind of
+-;;;6,0 6,13;these kind of
+-;;;6,0 6,13;those kind of
+-;;;6,0 6,11;the kind of
+-;;;6,0 6,9;a kind of
+-;;;6,0 6,11;any kind of
+-;;;6,0 6,13;every kind of
+-;;;6,0 6,12;each kind of
+-;;;6,0 6,12;same kind of
+-;;;6,0 6,13;which kind of
+-;;;6,0 6,11;one kind of
+-;;;6,0 6,13;other kind of
+-;;;6,0 6,15;another kind of
+-;;;6,0 6,10;no kind of
+-;;;6,0 6,13;right kind of
+-;;;6,0 6,13;wrong kind of
+-;;;6,0 6,12;what sort of
+-;;;6,0 6,12;this sort of
+-;;;6,0 6,12;that sort of
+-;;;6,0 6,13;these sort of
+-;;;6,0 6,13;those sort of
+-;;;6,0 6,11;the sort of
+-;;;6,0 6,9;a sort of
+-;;;6,0 6,11;any sort of
+-;;;6,0 6,13;every sort of
+-;;;6,0 6,12;each sort of
+-;;;6,0 6,12;same sort of
+-;;;6,0 6,13;which sort of
+-;;;6,0 6,11;one sort of
+-;;;6,0 6,13;other sort of
+-;;;6,0 6,15;another sort of
+-;;;6,0 6,10;no sort of
+-;;;6,0 6,13;right sort of
+-;;;6,0 6,13;wrong sort of
+-;;;6,0 6,17;what kind of like
+-;;;6,0 6,17;this kind of like
+-;;;6,0 6,17;that kind of like
+-;;;6,0 6,18;these kind of like
+-;;;6,0 6,18;those kind of like
+-;;;6,0 6,16;the kind of like
+-;;;6,0 6,14;a kind of like
+-;;;6,0 6,16;any kind of like
+-;;;6,0 6,18;every kind of like
+-;;;6,0 6,17;each kind of like
+-;;;6,0 6,17;same kind of like
+-;;;6,0 6,18;which kind of like
+-;;;6,0 6,16;one kind of like
+-;;;6,0 6,18;other kind of like
+-;;;6,0 6,20;another kind of like
+-;;;6,0 6,15;no kind of like
+-;;;6,0 6,18;right kind of like
+-;;;6,0 6,18;wrong kind of like
+-;;;6,0 6,17;what sort of like
+-;;;6,0 6,17;this sort of like
+-;;;6,0 6,17;that sort of like
+-;;;6,0 6,18;these sort of like
+-;;;6,0 6,18;those sort of like
+-;;;6,0 6,16;the sort of like
+-;;;6,0 6,14;a sort of like
+-;;;6,0 6,16;any sort of like
+-;;;6,0 6,18;every sort of like
+-;;;6,0 6,17;each sort of like
+-;;;6,0 6,17;same sort of like
+-;;;6,0 6,18;which sort of like
+-;;;6,0 6,16;one sort of like
+-;;;6,0 6,18;other sort of like
+-;;;6,0 6,20;another sort of like
+-;;;6,0 6,15;no sort of like
+-;;;6,0 6,18;right sort of like
+-;;;6,0 6,18;wrong sort of like
+-;;;6,0 6,13;sort of thing
+-;;;6,0 6,13;kind of thing

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key><string>app.dorara.draft.template.github</string>
+	<key>CFBundleName</key><string>GitHub</string>
+	<key>CFBundlePackageType</key><string>BNDL</string>
+	<key>CFBundleShortVersionString</key><string>1.0</string>
+	<key>IATemplateDescription</key><string>GitHub's Markdown style (github-markdown-css, MIT).</string>
+	<key>IATemplateDocumentFile</key><string>document</string>
+	<key>IATemplateHeaderHeight</key><integer>90</integer>
+	<key>IATemplateFooterHeight</key><integer>90</integer>
+</dict>
+</plist>

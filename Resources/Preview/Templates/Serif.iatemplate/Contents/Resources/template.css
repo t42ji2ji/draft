@@ -1,0 +1,15 @@
+/* Serif: IBM Plex Serif, Mincho/Songti for CJK, code in iA Writer Mono. */
+
+@import url("../../../../Style/serif.css");
+
+:root {
+    --face: "Draft Plex Serif";
+    --fallback: Palatino, Georgia, Times, serif;
+    --code-face: "Draft Mono";
+    --emphasis-glyph: "\E001";
+    --cjk-tc: "Draft Songti TC", "Draft Songti SC", "Draft PingFang TC", "Draft PingFang SC";
+    --cjk-sc: "Draft Songti SC", "Draft Songti TC", "Draft PingFang SC", "Draft PingFang TC";
+    --cjk-hk: "Draft Songti TC", "Draft Songti SC", "Draft PingFang HK", "Draft PingFang SC";
+    --cjk-ja: "Draft Hiragino Mincho", "Draft Nanum Myeongjo", "Draft SD Gothic", "Draft Songti TC", "Draft PingFang TC";
+    --cjk-ko: "Draft Nanum Myeongjo", "Draft SD Gothic";
+}

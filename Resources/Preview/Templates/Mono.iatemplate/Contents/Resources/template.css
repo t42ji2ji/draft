@@ -1,0 +1,9 @@
+/* Mono: iA Writer Mono for text and code. */
+
+@import url("../../../../Style/writer.css");
+
+:root {
+    --face: "Draft Mono";
+    --fallback: monospace;
+    --code-face: "Draft Mono";
+}

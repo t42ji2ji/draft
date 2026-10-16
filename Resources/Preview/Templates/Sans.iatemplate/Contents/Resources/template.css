@@ -1,0 +1,9 @@
+/* Sans: IBM Plex Sans, PingFang/Hiragino Sans/SD Gothic for CJK, code in iA Writer Mono. */
+
+@import url("../../../../Style/sans.css");
+
+:root {
+    --face: "Draft Plex Sans";
+    --fallback: system-ui, "Helvetica Neue", Arial, sans-serif;
+    --code-face: "Draft Mono";
+}

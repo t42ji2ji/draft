@@ -1,0 +1,19 @@
+/* GitHub's Markdown style: github-markdown-css 5.8.1 (MIT, see LICENSE.txt). The dark file is the upstream one with
+   every selector scoped to html.night-mode, the class Draft sets when the preview is dark. */
+@import url("github-markdown-light.css");
+@import url("github-markdown-dark.css");
+
+html { background: #ffffff; }
+html.night-mode { background: #0d1117; }
+
+.markdown-body {
+  box-sizing: border-box;
+  max-width: 830px;
+  margin: 0 auto;
+  padding: 0 clamp(15px, 6vw, 45px);
+}
+
+@media print {
+  html { background: none; }
+  .markdown-body { max-width: none; padding: 0; }
+}

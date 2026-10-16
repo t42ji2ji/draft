@@ -1,0 +1,18 @@
+/*
+  Quattro: iA Writer Quattro, code in iA Writer Mono at 0.94em. Shares the
+  Mono/Duo grid but keeps the Plex leading and its own SPCG values.
+*/
+
+@import url("../../../../Style/writer.css");
+
+:root {
+    --face: "Draft Quattro";
+    --fallback: system-ui, "Helvetica Neue", Arial, sans-serif;
+    --code-face: "Draft Mono";
+    --code-size: 0.94em;
+    --lh: var(--lh-a);
+    --lh-print: 155;
+    --print-size: 13px;
+    --spcg: calc(var(--spcg-q) + var(--spcg-adj-q));
+    --task-ol-shift: 0.55em;
+}

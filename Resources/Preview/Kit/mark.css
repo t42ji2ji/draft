@@ -1,0 +1,93 @@
+/*
+  Draft highlight (==text== → <mark>). Swift inserts this sheet into every
+  template's page as text.
+
+  The colour comes from the class Swift puts on <html> (Settings › Highlight),
+  or from a colour class on the mark itself in raw HTML. Each colour carries
+  its components (0–1, display P3) and its fill opacity for light and dark;
+  the opacities match Settings.Highlight.backgroundAlpha so the preview and
+  the editor tint alike.
+
+  Light: black text on the tint, with a full-strength bar along the bottom.
+  Dark: the text is a light grey pulled 27.5% toward the hue, and the bar is
+  dimmed to 80%.
+*/
+
+:root, .yellow-mark, mark.yellow {
+    --mark-r: 1;    --mark-g: 0.85; --mark-b: 0;    --mark-fill-light: 0.35; --mark-fill-dark: 0.175;
+}
+.orange-mark, mark.orange {
+    --mark-r: 1;    --mark-g: 0.5;  --mark-b: 0.25; --mark-fill-light: 0.30; --mark-fill-dark: 0.175;
+}
+.pink-mark, mark.pink {
+    --mark-r: 0.95; --mark-g: 0;    --mark-b: 0.7;  --mark-fill-light: 0.20; --mark-fill-dark: 0.225;
+}
+.purple-mark, mark.purple {
+    --mark-r: 0.5;  --mark-g: 0;    --mark-b: 0.95; --mark-fill-light: 0.20; --mark-fill-dark: 0.30;
+}
+.blue-mark, mark.blue {
+    --mark-r: 0;    --mark-g: 0.75; --mark-b: 1;    --mark-fill-light: 0.20; --mark-fill-dark: 0.175;
+}
+.green-mark, mark.green {
+    --mark-r: 0.6;  --mark-g: 0.9;  --mark-b: 0;    --mark-fill-light: 0.35; --mark-fill-dark: 0.175;
+}
+
+mark {
+    --bar: 0.175em;
+    --fill: var(--mark-fill-light);
+    --ink-base: 0;      /* text grey before tinting */
+    --ink-tint: 0;      /* share of the hue mixed into the text */
+    --bar-dim: 0;
+
+    --ink: rgb(
+        calc(255 * (var(--ink-base) + var(--ink-tint) * (var(--mark-r) - var(--ink-base))))
+        calc(255 * (var(--ink-base) + var(--ink-tint) * (var(--mark-g) - var(--ink-base))))
+        calc(255 * (var(--ink-base) + var(--ink-tint) * (var(--mark-b) - var(--ink-base)))));
+    --tint: rgb(calc(255 * var(--mark-r)) calc(255 * var(--mark-g)) calc(255 * var(--mark-b)) / var(--fill));
+    --line: rgb(
+        calc(255 * var(--mark-r) * (1 - var(--bar-dim)))
+        calc(255 * var(--mark-g) * (1 - var(--bar-dim)))
+        calc(255 * var(--mark-b) * (1 - var(--bar-dim))));
+
+    color: var(--ink);
+    /* Fill, then the bar: a strip between two round caps. */
+    background:
+        radial-gradient(circle closest-side, var(--line) 96%, transparent) left bottom / var(--bar) var(--bar) no-repeat,
+        radial-gradient(circle closest-side, var(--line) 96%, transparent) right bottom / var(--bar) var(--bar) no-repeat,
+        linear-gradient(var(--line), var(--line)) center bottom / calc(100% - var(--bar)) var(--bar) no-repeat,
+        linear-gradient(var(--tint), var(--tint));
+    padding-bottom: 0.0833em;
+    /* 90% of the template's line height; templates without --leading keep their own. */
+    line-height: calc(var(--leading) * 0.9);
+}
+
+@supports (color: color(display-p3 0 0 0)) {
+    mark {
+        --tint: color(display-p3 var(--mark-r) var(--mark-g) var(--mark-b) / var(--fill));
+        --line: color(display-p3
+            calc(var(--mark-r) * (1 - var(--bar-dim)))
+            calc(var(--mark-g) * (1 - var(--bar-dim)))
+            calc(var(--mark-b) * (1 - var(--bar-dim))));
+    }
+}
+
+html.night-mode mark {
+    --fill: var(--mark-fill-dark);
+    --ink-base: 0.8;
+    --ink-tint: 0.275;
+    --bar-dim: 0.2;
+}
+
+mark a {
+    color: inherit;
+}
+
+@media print {
+    mark {
+        background: var(--tint);
+        border-bottom: var(--bar) solid var(--line);
+        padding: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

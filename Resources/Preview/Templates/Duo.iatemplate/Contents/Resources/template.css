@@ -1,0 +1,9 @@
+/* Duo: iA Writer Duo for text and code. */
+
+@import url("../../../../Style/writer.css");
+
+:root {
+    --face: "Draft Duo";
+    --fallback: monospace;
+    --code-face: "Draft Duo";
+}
