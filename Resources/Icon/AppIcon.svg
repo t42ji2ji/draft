@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="blur"><feGaussianBlur stdDeviation="1.4"/></filter>
+    <filter id="lift" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a3c43"/><stop offset="1" stop-color="#222328"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f0f0ec"/>
+    </linearGradient>
+    <linearGradient id="flap" gradientUnits="userSpaceOnUse" x1="72" y1="76" x2="65" y2="69">
+      <stop offset="0" stop-color="#d6d6d1"/><stop offset="1" stop-color="#fbfbf9"/>
+    </linearGradient>
+  </defs>
+  <g transform="scale(10.24)">
+    <rect x="10" y="10" width="80" height="80" rx="18" fill="url(#bg)"/>
+    <path d="M24 16H76Q80 16 80 20V68L64 84H24Q20 84 20 80V20Q20 16 24 16Z" fill="url(#paper)" filter="url(#lift)"/>
+    <path d="M64 84L80 68H67Q64 68 64 71Z" fill="#000" opacity=".25" filter="url(#blur)" transform="translate(-1 -1)"/>
+    <path d="M64 84L80 68H67Q64 68 64 71Z" fill="url(#flap)"/>
+    <rect x="29" y="26" width="4.6" height="18" rx="1.2" fill="#eaa531"/>
+  </g>
+</svg>
