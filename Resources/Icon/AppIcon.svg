@@ -5,20 +5,20 @@
       <feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity=".35"/>
     </filter>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#3a3c43"/><stop offset="1" stop-color="#222328"/>
+      <stop offset="0" stop-color="#f4bf4f"/><stop offset="1" stop-color="#e39a2a"/>
     </linearGradient>
     <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f0f0ec"/>
     </linearGradient>
-    <linearGradient id="flap" gradientUnits="userSpaceOnUse" x1="69" y1="72" x2="63.5" y2="66.5">
+    <linearGradient id="flap" gradientUnits="userSpaceOnUse" x1="66" y1="69" x2="57.5" y2="60.5">
       <stop offset="0" stop-color="#d6d6d1"/><stop offset="1" stop-color="#fbfbf9"/>
     </linearGradient>
   </defs>
   <g transform="scale(10.24)">
     <rect x="10" y="10" width="80" height="80" rx="18" fill="url(#bg)"/>
-    <path d="M28 21H72Q76 21 76 25V65L62 79H28Q24 79 24 75V25Q24 21 28 21Z" fill="url(#paper)" filter="url(#lift)"/>
-    <path d="M62 79L76 65H65Q62 65 62 68Z" fill="#000" opacity=".25" filter="url(#blur)" transform="translate(-1 -1)"/>
-    <path d="M62 79L76 65H65Q62 65 62 68Z" fill="url(#flap)"/>
+    <path d="M28 21H72Q76 21 76 25V59L56 79H28Q24 79 24 75V25Q24 21 28 21Z" fill="url(#paper)" filter="url(#lift)"/>
+    <path d="M56 79L76 59H59Q56 59 56 62Z" fill="#000" opacity=".25" filter="url(#blur)" transform="translate(-1 -1)"/>
+    <path d="M56 79L76 59H59Q56 59 56 62Z" fill="url(#flap)"/>
     <rect x="32" y="30" width="4.2" height="16" rx="1.2" fill="#eaa531"/>
   </g>
 </svg>
