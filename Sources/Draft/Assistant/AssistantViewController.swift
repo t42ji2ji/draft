@@ -48,6 +48,7 @@ final class AssistantViewController: NSViewController, NSTextViewDelegate {
         picker.action = #selector(pickBackend)
         picker.segmentStyle = .rounded
         picker.controlSize = .small
+        for (i, backend) in AgentBackend.allCases.enumerated() { picker.setImage(backend.icon, forSegment: i) }
         picker.selectedSegment = AgentBackend.allCases.firstIndex(of: session.backend) ?? 0
         modelPopup.controlSize = .small
         modelPopup.font = .systemFont(ofSize: 11)
@@ -947,5 +948,16 @@ final class MentionChip: NSTextAttachment {
         }
         result.append(NSAttributedString(string: ns.substring(from: last), attributes: attributes))
         return result
+    }
+}
+
+extension AgentBackend {
+    // Claude Code's pixel mascot or the OpenAI mark from Resources/Brand, as a template so it follows the text colour.
+    var icon: NSImage? {
+        guard let url = Bundle.main.url(forResource: self == .claude ? "Claude" : "OpenAI", withExtension: "pdf"),
+              let image = NSImage(contentsOf: url) else { return nil }
+        image.isTemplate = true
+        image.size = NSSize(width: 14, height: 14)
+        return image
     }
 }
