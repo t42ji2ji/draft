@@ -21,7 +21,7 @@ final class EditorTextView: NSTextView {
     private(set) var typography = Typography(viewportWidth: 720, dark: false, retina: true)
     private var pendingEdit: NSRange?
     private var restyled = false
-    private var codeBlocks: [NSRange] = []
+    private var codeBlocks: [NSRange] = [] { didSet { editorLayoutManager?.documentCodeBlocks = codeBlocks } }
     private var editorLayoutManager: EditorLayoutManager? { layoutManager as? EditorLayoutManager }
     static let tabWidth = 2      // iA defaults: tab width 2, indent width 4, indent with tabs
 
@@ -167,6 +167,8 @@ final class EditorTextView: NSTextView {
             }
         }
         textStorage.endEditing()
+        // A closer typed far from its opener: the opener's glyphs have to be regenerated hidden.
+        layoutManager?.invalidateGlyphs(forCharacterRange: paragraphs, changeInLength: 0, actualCharacterRange: nil)
         setNeedsRecolor()
     }
 
@@ -353,6 +355,47 @@ final class EditorTextView: NSTextView {
             applyStyles(in: edit)
         }
         pendingEdit = nil
+        // Typing inside a revealed span keeps it revealed; its range has moved.
+        if editorLayoutManager?.revealed != nil { reveal(inlineSpan(at: selectedRange().location)) }
+    }
+
+    // Shows the markers of `span` (nil: hides them again).
+    private func reveal(_ span: NSRange?) {
+        guard let layoutManager = editorLayoutManager, layoutManager.revealed != span else { return }
+        let old = layoutManager.revealed
+        layoutManager.revealed = span
+        for range in [old, span].compactMap({ $0 }) where NSMaxRange(range) <= ns.length {
+            layoutManager.invalidateGlyphs(forCharacterRange: range, changeInLength: 0, actualCharacterRange: nil)
+            layoutManager.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
+        }
+        needsDisplay = true
+    }
+
+    // The formatted span (with markers) that `location` is in or touches.
+    private func inlineSpan(at location: Int) -> NSRange? {
+        let line = ns.paragraphRange(for: NSRange(location: min(location, ns.length), length: 0))
+        let text = ns.substring(with: line) as NSString
+        return Markdown.spans(in: text as String, range: NSRange(location: 0, length: text.length))
+            .filter { Markdown.markerLength(of: $0.1, span: $0.0, in: text) != nil }
+            .map { NSRange(location: line.location + $0.0.location, length: $0.0.length) }
+            .first { location >= $0.location && location <= NSMaxRange($0) }
+    }
+
+    // Hidden markers take no space, so arrow keys step over them instead of pausing on them.
+    override func moveRight(_ sender: Any?) {
+        super.moveRight(sender)
+        while let layoutManager = editorLayoutManager, selectedRange().length == 0, layoutManager.isHidden(selectedRange().location - 1),
+              selectedRange().location < ns.length {
+            super.moveRight(sender)
+        }
+    }
+
+    override func moveLeft(_ sender: Any?) {
+        super.moveLeft(sender)
+        while let layoutManager = editorLayoutManager, selectedRange().length == 0, layoutManager.isHidden(selectedRange().location),
+              selectedRange().location > 0 {
+            super.moveLeft(sender)
+        }
     }
 
     override func setSelectedRanges(_ ranges: [NSValue], affinity: NSSelectionAffinity, stillSelecting: Bool) {
@@ -364,6 +407,11 @@ final class EditorTextView: NSTextView {
         if line != caretLine {
             caretLine = line
             if restyled { setNeedsRecolor() }
+        }
+        // Leaving a revealed span hides its markers again.
+        if let shown = editorLayoutManager?.revealed,
+           selectedRange().length > 0 || selectedRange().location < shown.location || selectedRange().location > NSMaxRange(shown) {
+            reveal(nil)
         }
         if focusMode && restyled {
             setNeedsRecolor()
@@ -498,16 +546,12 @@ final class EditorTextView: NSTextView {
         // Right after an inline opener or closer, the whole formatting pair goes.
         let text = ns.substring(with: line)
         for (span, kind) in Markdown.spans(in: text, range: NSRange(location: 0, length: (text as NSString).length)) {
-            let marker: Int
-            switch kind {
-            case .strong, .strike, .highlight: marker = 2
-            case .emphasis: marker = 1
-            case .code: marker = (text as NSString).substring(with: span).prefix { $0 == "`" }.count
-            default: continue
-            }
+            guard let marker = Markdown.markerLength(of: kind, span: span, in: text as NSString) else { continue }
             let start = line.location + span.location, end = line.location + NSMaxRange(span)
             guard span.length > 2 * marker, offset > 0, caret.location == start + marker || caret.location == end else { continue }
             let whole = NSRange(location: start, length: span.length)
+            // The markers are hidden: the first Backspace shows them, the next one unwraps.
+            if editorLayoutManager?.revealed != whole { return reveal(whole) }
             let inner = ns.substring(with: NSRange(location: start + marker, length: span.length - 2 * marker))
             return replace(whole, with: inner, caret: caret.location == end ? start + (inner as NSString).length : start)
         }

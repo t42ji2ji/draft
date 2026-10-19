@@ -2,7 +2,55 @@ import AppKit
 
 // Draws iA's backgrounds: inline code, code blocks and ==highlight== (docs/markdown-styling.md).
 // Geometry is iA's at content size M (28.16 pt lines), scaled with the line height for other sizes.
-final class EditorLayoutManager: NSLayoutManager {
+// Also hides inline markers (** * ~~ ` ==) as zero-width glyphs, except on the span in `revealed` (Draft addition).
+final class EditorLayoutManager: NSLayoutManager, NSLayoutManagerDelegate {
+    var documentCodeBlocks: [NSRange] = []   // all of them; `codeBlocks` below is only the visible ones
+    var revealed: NSRange?                   // a span whose markers show, after a Backspace next to them
+
+    override init() {
+        super.init()
+        delegate = self
+    }
+
+    required init?(coder: NSCoder) { fatalError() }
+
+    func layoutManager(_ layoutManager: NSLayoutManager, shouldGenerateGlyphs glyphs: UnsafePointer<CGGlyph>,
+                       properties props: UnsafePointer<NSLayoutManager.GlyphProperty>, characterIndexes charIndexes: UnsafePointer<Int>,
+                       font aFont: NSFont, forGlyphRange glyphRange: NSRange) -> Int {
+        let count = glyphRange.length
+        guard count > 0 else { return 0 }
+        let first = charIndexes[0]
+        let hidden = hiddenMarkers(in: NSRange(location: first, length: charIndexes[count - 1] - first + 1))
+        guard !hidden.isEmpty else { return 0 }
+        var properties = Array(UnsafeBufferPointer(start: props, count: count))
+        for i in 0..<count where hidden.contains(where: { NSLocationInRange(charIndexes[i], $0) }) { properties[i] = .null }
+        properties.withUnsafeBufferPointer {
+            setGlyphs(glyphs, properties: $0.baseAddress!, characterIndexes: charIndexes, font: aFont, forGlyphRange: glyphRange)
+        }
+        return count
+    }
+
+    // Opener and closer of each inline span in the paragraphs touching `range`.
+    private func hiddenMarkers(in range: NSRange) -> [NSRange] {
+        guard let storage = textStorage else { return [] }
+        let ns = storage.string as NSString
+        let paragraphs = ns.paragraphRange(for: range)
+        let text = ns.substring(with: paragraphs) as NSString
+        var result: [NSRange] = []
+        for (span, kind) in Markdown.spans(in: text as String, range: NSRange(location: 0, length: text.length)) {
+            guard let marker = Markdown.markerLength(of: kind, span: span, in: text), span.length > 2 * marker else { continue }
+            let whole = NSRange(location: paragraphs.location + span.location, length: span.length)
+            guard whole != revealed, !documentCodeBlocks.contains(where: { NSIntersectionRange($0, whole).length == whole.length }) else { continue }
+            result.append(NSRange(location: whole.location, length: marker))
+            result.append(NSRange(location: NSMaxRange(whole) - marker, length: marker))
+        }
+        return result
+    }
+
+    func isHidden(_ index: Int) -> Bool {
+        guard let storage = textStorage, index >= 0, index < storage.length else { return false }
+        return propertyForGlyph(at: glyphIndexForCharacter(at: index)) == .null
+    }
     var inlineCode: [NSRange] = []
     var highlights: [NSRange] = []
     var codeBlocks: [NSRange] = []

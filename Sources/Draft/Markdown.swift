@@ -58,6 +58,16 @@ enum Markdown {
         return result
     }
 
+    // Inline formatting whose markers can hide or be unwrapped: the marker length on each side, nil for other kinds.
+    static func markerLength(of kind: Kind, span: NSRange, in string: NSString) -> Int? {
+        switch kind {
+        case .strong, .strike, .highlight: return 2
+        case .emphasis: return 1
+        case .code: return string.substring(with: span).prefix { $0 == "`" }.count
+        default: return nil
+        }
+    }
+
     // Only heading marks hang into the left margin ("## ").
     static func hangingMarkerLength(in string: String, paragraph: NSRange) -> Int {
         heading.firstMatch(in: string, range: paragraph)?.range.length ?? 0
