@@ -27,6 +27,23 @@ final class EditorTextView: NSTextView {
     private var editorLayoutManager: EditorLayoutManager? { layoutManager as? EditorLayoutManager }
     static let tabWidth = 2      // iA defaults: tab width 2, indent width 4, indent with tabs
 
+    // The outline, the format bar and the show-outline button lie over the text. As first responder the text gets every
+    // mouse move and would set the I-beam over them; there it leaves the cursor to them.
+    override func mouseMoved(with event: NSEvent) {
+        guard !isCovered(at: event.locationInWindow) else { return }
+        super.mouseMoved(with: event)
+    }
+
+    override func cursorUpdate(with event: NSEvent) {
+        guard !isCovered(at: event.locationInWindow) else { return }
+        super.cursorUpdate(with: event)
+    }
+
+    private func isCovered(at point: NSPoint) -> Bool {
+        guard let content = window?.contentView, let hit = content.hitTest(content.superview?.convert(point, from: nil) ?? point) else { return false }
+        return !hit.isDescendant(of: self)
+    }
+
     func configure() {
         textContainer?.replaceLayoutManager(EditorLayoutManager())
         isRichText = false
