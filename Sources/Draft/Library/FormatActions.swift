@@ -55,6 +55,28 @@ extension LibraryWindowController {
         let range = textView.selectedRange()
         let selected = ns.substring(with: range)
         let l = (left as NSString).length, r = (right as NSString).length
+        if range.length == 0 {
+            // Caret inside the same formatting: take it off, the caret stays on its character.
+            let line = ns.paragraphRange(for: range)
+            let text = ns.substring(with: line) as NSString
+            for (span, kind) in Markdown.spans(in: text as String, range: NSRange(location: 0, length: text.length))
+                where Markdown.markerLength(of: kind, span: span, in: text) == l
+                    && text.substring(with: span).hasPrefix(left) && text.substring(with: span).hasSuffix(right) {
+                let whole = NSRange(location: line.location + span.location, length: span.length)
+                guard range.location >= whole.location + l, range.location <= NSMaxRange(whole) - r else { continue }
+                let inner = ns.substring(with: NSRange(location: whole.location + l, length: whole.length - l - r))
+                return replace(whole, with: inner, select: NSRange(location: range.location - l, length: 0))
+            }
+            // Caret in or right after a word: format the word, the caret stays where it was in it.
+            let isWord = { (r: NSRange) in r.length > 0 && ns.substring(with: r).unicodeScalars.contains { CharacterSet.alphanumerics.contains($0) } }
+            var word = textView.selectionRange(forProposedRange: range, granularity: .selectByWord)
+            if !isWord(word), range.location > 0 {
+                word = textView.selectionRange(forProposedRange: NSRange(location: range.location - 1, length: 0), granularity: .selectByWord)
+            }
+            if isWord(word), NSLocationInRange(range.location, word) || range.location == NSMaxRange(word) {
+                return replace(word, with: left + ns.substring(with: word) + right, select: NSRange(location: range.location + l, length: 0))
+            }
+        }
         if range.location >= l, NSMaxRange(range) + r <= ns.length,
            ns.substring(with: NSRange(location: range.location - l, length: l)) == left,
            ns.substring(with: NSRange(location: NSMaxRange(range), length: r)) == right {
