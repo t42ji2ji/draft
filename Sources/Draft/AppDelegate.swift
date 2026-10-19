@@ -10,6 +10,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillFinishLaunching(_ notification: Notification) {
         installMenu()
+        Welcome.seedIfNew()
         NotificationCenter.default.addObserver(forName: L10n.didChange, object: nil, queue: .main) { _ in self.installMenu() }
         for name in ["iAWriterMono", "iAWriterMono-Italic", "iAWriterFullSpaceTC", "iAWriterDuo", "iAWriterDuo-Italic", "iAWriterQuattro", "iAWriterQuattro-Italic"] {
             if let url = Bundle.main.url(forResource: name, withExtension: "ttf", subdirectory: "Fonts") {
