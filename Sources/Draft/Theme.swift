@@ -87,10 +87,11 @@ struct Typography {
     let containerWidth: CGFloat
     let insetWidth: CGFloat
 
-    init(viewportWidth w: CGFloat, dark: Bool, retina: Bool) {
-        let face = Settings.typeface, size = Settings.size
+    init(viewportWidth w: CGFloat, dark: Bool, retina: Bool,
+         typeface face: Settings.Typeface = Settings.typeface, localFont: String? = Settings.localFont) {
+        let size = Settings.size
         // A font installed on the Mac takes the typeface's place; a family that's gone falls back to the typeface.
-        let local = Settings.localFont.flatMap { NSFontManager.shared.font(withFamily: $0, traits: [], weight: 5, size: size.points) }
+        let local = localFont.flatMap { NSFontManager.shared.font(withFamily: $0, traits: [], weight: 5, size: size.points) }
         let sizeClass: SizeClass = w <= 440 ? .compact : w <= 1250 ? .regular : .wide
         let base = face.spacing
         let spacing: CGFloat = (sizeClass == .compact ? base.0 : sizeClass == .regular ? base.1 : base.2)

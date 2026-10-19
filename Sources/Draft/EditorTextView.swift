@@ -19,6 +19,8 @@ final class EditorTextView: NSTextView {
     var styleMask = StyleCategory(rawValue: UserDefaults.standard.integer(forKey: "StyleCheck"))
     private var paragraphCache: [String: ParagraphMarks] = [:]
     private(set) var typography = Typography(viewportWidth: 720, dark: false, retina: true)
+    // A font shown instead of the stored one (Settings, while the font menu is open); call relayout() after setting it.
+    var fontPreview: (typeface: Settings.Typeface, local: String?)?
     private var pendingEdit: NSRange?
     private var restyled = false
     private var codeBlocks: [NSRange] = [] { didSet { editorLayoutManager?.documentCodeBlocks = codeBlocks } }
@@ -87,7 +89,9 @@ final class EditorTextView: NSTextView {
         let old = typography
         typography = Typography(viewportWidth: viewport.width,
                                 dark: effectiveAppearance.isDark,
-                                retina: (window?.backingScaleFactor ?? 2) > 1)
+                                retina: (window?.backingScaleFactor ?? 2) > 1,
+                                typeface: fontPreview?.typeface ?? Settings.typeface,
+                                localFont: fontPreview.map(\.local) ?? Settings.localFont)
         textContainer.size = NSSize(width: typography.containerWidth, height: .greatestFiniteMagnitude)
         textContainerInset = NSSize(width: typography.insetWidth, height: insetHeight)
         minSize.height = viewport.height   // short documents still fill the page, so the paper lines do too

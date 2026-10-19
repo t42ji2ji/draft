@@ -2,7 +2,7 @@ import AppKit
 
 // Settings (⌘,): palette and paper as tiles, then caret colour, font, text size, line length, highlight, CJK emphasis, language.
 // The right half is a real editor with sample text, so every change shows as it will look. Changes apply immediately.
-final class SettingsWindowController: NSWindowController {
+final class SettingsWindowController: NSWindowController, NSMenuDelegate {
     static let shared = SettingsWindowController()
 
     private var paletteTiles: [Tile] = []
@@ -61,6 +61,7 @@ final class SettingsWindowController: NSWindowController {
             for _ in 0..<count { popup.menu?.addItem(NSMenuItem()) }
         }
         // The fonts installed on the Mac, under iA's three (the app's own iA fonts left out).
+        typeface.menu?.delegate = self
         typeface.menu?.addItem(.separator())
         typeface.menu?.addItem(localFontsHeader)
         for family in NSFontManager.shared.availableFontFamilies where !family.hasPrefix(".") && !family.hasPrefix("iA Writer") {
@@ -250,6 +251,24 @@ final class SettingsWindowController: NSWindowController {
         Settings.paperOpacity = paperOpacity.doubleValue
         paperOpacityLabel.stringValue = "\(Int((Settings.paperOpacity * 100).rounded())) %"
     }
+    // The font menu: the preview shows the font under the pointer, and the stored one again when the menu closes.
+    func menu(_ menu: NSMenu, willHighlight item: NSMenuItem?) {
+        let index = item.map(menu.index(of:)) ?? -1
+        if let family = item?.representedObject as? String {
+            previewText.fontPreview = (Settings.typeface, family)
+        } else if let face = Settings.Typeface(rawValue: index) {
+            previewText.fontPreview = (face, nil)
+        } else {
+            previewText.fontPreview = nil
+        }
+        previewText.relayout()
+    }
+
+    func menuDidClose(_ menu: NSMenu) {
+        previewText.fontPreview = nil
+        previewText.relayout()
+    }
+
     @objc private func changeTypeface() {
         if let family = typeface.selectedItem?.representedObject as? String {
             Settings.setFont(Settings.typeface, local: family)
