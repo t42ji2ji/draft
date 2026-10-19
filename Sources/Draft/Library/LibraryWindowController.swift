@@ -292,7 +292,7 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
         preview.updateNow(text: textView.string, documentURL: document?.fileURL)
     }
 
-    // The file tree. (In iA the list collapses with it; Draft's outline belongs to the writing area and has its own toggle.)
+    // ⌃⌘S: the file tree. (In iA the list collapses with it; Draft's outline belongs to the writing area and has its own toggle.)
     @objc func toggleLibrary(_ sender: Any?) {
         let item = split.splitViewItems[0]
         NSAnimationContext.runAnimationGroup { _ in item.animator().isCollapsed = !item.isCollapsed }
@@ -542,7 +542,7 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
             item.image?.accessibilityDescription = L("Assistant")
         case Item.library:
             item.label = L("Library")
-            item.toolTip = L("Show or hide the library")
+            item.toolTip = L("Show or hide the library (⌃⌘S)")
             item.image?.accessibilityDescription = L("Show Library")
         case Item.editorNav:
             item.label = L("Documents")

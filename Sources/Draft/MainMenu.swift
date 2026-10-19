@@ -67,7 +67,7 @@ enum MainMenu {
         view.addItem(withTitle: L("Smaller"), action: #selector(AppDelegate.smallerText(_:)), keyEquivalent: "-")
         view.addItem(withTitle: L("Actual Size"), action: #selector(AppDelegate.actualSizeText(_:)), keyEquivalent: "0")
         view.addItem(.separator())
-        view.addItem(withTitle: L("Show Library"), action: #selector(LibraryWindowController.toggleLibrary(_:)), keyEquivalent: "")
+        view.addItem(withTitle: L("Show Library"), action: #selector(LibraryWindowController.toggleLibrary(_:)), keyEquivalent: "s").keyEquivalentModifierMask = [.command, .control]
         view.addItem(withTitle: L("Show Outline"), action: #selector(LibraryWindowController.toggleOutline(_:)), keyEquivalent: "O")
         view.addItem(withTitle: L("Show Preview"), action: #selector(LibraryWindowController.togglePreview(_:)), keyEquivalent: "r")
         view.addItem(withTitle: L("Show Assistant"), action: #selector(LibraryWindowController.toggleAssistant(_:)), keyEquivalent: "j")

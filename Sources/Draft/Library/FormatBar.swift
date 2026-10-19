@@ -9,13 +9,19 @@ final class FormatBar: NSView {
     var onAction: ((Action, Int) -> Void)?
     private var labels: [Action: FormatLabel] = [:]
     private var titles: [Action: String] = [:]
+    private static let tips: [Action: String] = [
+        .body: "Body text (⌥⌘0)", .heading: "Heading level (⌥⌘1–3)", .list: "List: to-do ⌥⌘4, bulleted ⌥⌘5, numbered ⌥⌘6",
+        .blockquote: "Quote the paragraph", .bold: "Bold (⌘B)", .italic: "Italic (⌘I)", .strikethrough: "Strikethrough (⇧⌘S)",
+        .link: "Link (⌘K)", .wikilink: "Link to another document [[ ]]", .footnote: "Add a footnote", .table: "Insert a table",
+        .toc: "Insert a table of contents",
+    ]
     private let count = FormatLabel()
     private var showCharacters = false
 
     override init(frame: NSRect) {
         super.init(frame: frame)
         // The bar sits over the editor; without this the text view's I-beam shows through it.
-        addTrackingArea(NSTrackingArea(rect: .zero, options: [.cursorUpdate, .activeAlways, .inVisibleRect], owner: self))
+        addTrackingArea(NSTrackingArea(rect: .zero, options: [.cursorUpdate, .mouseMoved, .activeAlways, .inVisibleRect], owner: self))
         let line = SeparatorView()
         line.translatesAutoresizingMaskIntoConstraints = false
         addSubview(line)
@@ -84,7 +90,13 @@ final class FormatBar: NSView {
 
     required init?(coder: NSCoder) { fatalError() }
 
-    override func cursorUpdate(with event: NSEvent) { NSCursor.arrow.set() }
+    // The bar picks the cursor itself, so the buttons get the hand even where the editor's cursor rects lie underneath.
+    override func cursorUpdate(with event: NSEvent) { setCursor(event) }
+    override func mouseMoved(with event: NSEvent) { setCursor(event) }
+    private func setCursor(_ event: NSEvent) {
+        let hit = superview.flatMap { hitTest($0.convert(event.locationInWindow, from: nil)) }
+        (hit is FormatLabel ? NSCursor.pointingHand : NSCursor.arrow).set()
+    }
 
     override func draw(_ dirtyRect: NSRect) {
         Theme.background.setFill()
@@ -92,7 +104,8 @@ final class FormatBar: NSView {
     }
 
     private func applyLanguage() {
-        for (action, label) in labels { label.title = L(titles[action]!) }
+        for (action, label) in labels { label.title = L(titles[action]!); label.toolTip = Self.tips[action].map(L) }
+        count.toolTip = L("Switch between words and characters")
         update(block: lastBlock, text: lastText)
     }
 
