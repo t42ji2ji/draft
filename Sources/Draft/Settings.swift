@@ -78,9 +78,13 @@ enum Settings {
 
     private static let defaults = UserDefaults.standard
 
-    static var typeface: Typeface {
-        get { Typeface(rawValue: defaults.integer(forKey: "Typeface")) ?? .mono }
-        set { defaults.set(newValue.rawValue, forKey: "Typeface"); changed() }
+    static var typeface: Typeface { Typeface(rawValue: defaults.integer(forKey: "Typeface")) ?? .mono }
+    // A font family installed on the Mac, used instead of the typeface; nil for the typeface.
+    static var localFont: String? { defaults.string(forKey: "LocalFont") }
+    static func setFont(_ typeface: Typeface, local: String? = nil) {
+        defaults.set(typeface.rawValue, forKey: "Typeface")
+        defaults.set(local, forKey: "LocalFont")
+        changed()
     }
     static var sizeIndex: Int {
         get { (defaults.object(forKey: "ContentSize") as? Int).map { min(max($0, 0), sizes.count - 1) } ?? defaultSizeIndex }

@@ -89,20 +89,31 @@ struct Typography {
 
     init(viewportWidth w: CGFloat, dark: Bool, retina: Bool) {
         let face = Settings.typeface, size = Settings.size
+        // A font installed on the Mac takes the typeface's place; a family that's gone falls back to the typeface.
+        let local = Settings.localFont.flatMap { NSFontManager.shared.font(withFamily: $0, traits: [], weight: 5, size: size.points) }
         let sizeClass: SizeClass = w <= 440 ? .compact : w <= 1250 ? .regular : .wide
         let base = face.spacing
         let spacing: CGFloat = (sizeClass == .compact ? base.0 : sizeClass == .regular ? base.1 : base.2)
             + (sizeClass == .compact ? 0 : size.smallSpacing) + size.largeSpacing
         let weight: CGFloat = retina ? size.weight - 35 - (dark ? 20 : 0) : 400
-        let regular = face == .quattro ? size.quattroLineHeight : size.lineHeight
+        let regular = local.map { $0.isFixedPitch ? size.lineHeight : size.quattroLineHeight }
+            ?? (face == .quattro ? size.quattroLineHeight : size.lineHeight)
         let percent: CGFloat = regular + [SizeClass.compact: -10, .regular: 0, .wide: 10][sizeClass]!
         let pt = size.points
 
         fontSize = pt
-        font = Typography.face(face.regular, size: pt, weight: weight, spacing: spacing, cjk: "PingFangTC-Regular")
-        boldFont = Typography.face(face.regular, size: pt, weight: 700, spacing: spacing, cjk: "PingFangTC-Semibold")
-        italicFont = Typography.face(face.italic, size: pt, weight: weight, spacing: spacing, cjk: "PingFangTC-Regular")
-        fullSpaceFont = NSFont(name: "iAWriterFullSpaceTC-Regular", size: pt)
+        if let local {
+            let manager = NSFontManager.shared
+            font = Typography.withCascade(local, cjk: "PingFangTC-Regular")
+            boldFont = Typography.withCascade(manager.convert(local, toHaveTrait: .boldFontMask), cjk: "PingFangTC-Semibold")
+            italicFont = Typography.withCascade(manager.convert(local, toHaveTrait: .italicFontMask), cjk: "PingFangTC-Regular")
+        } else {
+            font = Typography.face(face.regular, size: pt, weight: weight, spacing: spacing, cjk: "PingFangTC-Regular")
+            boldFont = Typography.face(face.regular, size: pt, weight: 700, spacing: spacing, cjk: "PingFangTC-Semibold")
+            italicFont = Typography.face(face.italic, size: pt, weight: weight, spacing: spacing, cjk: "PingFangTC-Regular")
+        }
+        // A local font with its own Han keeps its own punctuation too.
+        fullSpaceFont = local.map { Typography.hasGlyph("中", in: $0) } == true ? nil : NSFont(name: "iAWriterFullSpaceTC-Regular", size: pt)
         // The font matrix carries the point size, so it is scaled by it.
         cjkItalicFont = NSFont(descriptor: NSFontDescriptor(fontAttributes: [
             .name: "PingFangTC-Regular",
@@ -136,15 +147,28 @@ struct Typography {
     // iA's cascade: full-width punctuation from iA Writer FullSpace TC, Han from PingFang, then Duo.
     private static func face(_ name: String, size: CGFloat, weight: CGFloat, spacing: CGFloat, cjk: String) -> NSFont {
         let variation: [NSNumber: CGFloat] = [tag("wght"): weight, tag("SPCG"): spacing]
-        let cascade = [NSFontDescriptor(fontAttributes: [.name: "iAWriterFullSpaceTC-Regular"]),
-                       NSFontDescriptor(fontAttributes: [.name: cjk]),
-                       NSFontDescriptor(fontAttributes: [.name: "iAWriterDuo-Regular"])]
-        let descriptor = NSFontDescriptor(fontAttributes: [.name: name, .variation: variation, .cascadeList: cascade])
+        let descriptor = NSFontDescriptor(fontAttributes: [.name: name, .variation: variation, .cascadeList: cascade(cjk: cjk)])
         return NSFont(descriptor: descriptor, size: size) ?? .monospacedSystemFont(ofSize: size, weight: .regular)
+    }
+
+    private static func withCascade(_ font: NSFont, cjk: String) -> NSFont {
+        NSFont(descriptor: font.fontDescriptor.addingAttributes([.cascadeList: cascade(cjk: cjk)]), size: font.pointSize) ?? font
+    }
+
+    private static func cascade(cjk: String) -> [NSFontDescriptor] {
+        [NSFontDescriptor(fontAttributes: [.name: "iAWriterFullSpaceTC-Regular"]),
+         NSFontDescriptor(fontAttributes: [.name: cjk]),
+         NSFontDescriptor(fontAttributes: [.name: "iAWriterDuo-Regular"])]
     }
 
     private static func tag(_ s: String) -> NSNumber {
         NSNumber(value: s.utf8.reduce(UInt32(0)) { $0 << 8 | UInt32($1) })
+    }
+
+    private static func hasGlyph(_ character: Character, in font: NSFont) -> Bool {
+        var glyph = CGGlyph()
+        var unichar = character.utf16.first!
+        return CTFontGetGlyphsForCharacters(font, &unichar, &glyph, 1)
     }
 
     private static func advance(of character: Character, in font: NSFont) -> CGFloat {

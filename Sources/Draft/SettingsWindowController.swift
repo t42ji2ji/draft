@@ -10,6 +10,7 @@ final class SettingsWindowController: NSWindowController {
     private let paperOpacity = NSSlider(value: 1, minValue: 0.15, maxValue: 1, target: nil, action: nil)
     private let paperOpacityLabel = NSTextField(labelWithString: "")
     private let typeface = NSPopUpButton()
+    private let localFontsHeader = NSMenuItem.sectionHeader(title: "")
     private let size = NSPopUpButton()
     private let lineLength = NSPopUpButton()
     private let caret = NSColorWell(style: .minimal)
@@ -58,6 +59,14 @@ final class SettingsWindowController: NSWindowController {
                                (highlight, Settings.Highlight.allCases.count), (emphasis, Settings.CJKEmphasis.allCases.count),
                                (language, L10n.Language.allCases.count)] {
             for _ in 0..<count { popup.menu?.addItem(NSMenuItem()) }
+        }
+        // The fonts installed on the Mac, under iA's three (the app's own iA fonts left out).
+        typeface.menu?.addItem(.separator())
+        typeface.menu?.addItem(localFontsHeader)
+        for family in NSFontManager.shared.availableFontFamilies where !family.hasPrefix(".") && !family.hasPrefix("iA Writer") {
+            let item = NSMenuItem(title: family, action: nil, keyEquivalent: "")
+            item.representedObject = family
+            typeface.menu?.addItem(item)
         }
         for s in Settings.sizes { size.addItem(withTitle: "\(s.name)  ·  \(Int(s.points)) pt") }
         for (item, h) in zip(highlight.itemArray, Settings.Highlight.allCases) { item.image = Self.swatch(h.base) }
@@ -159,6 +168,7 @@ final class SettingsWindowController: NSWindowController {
         guard let window else { return }
         window.title = L("Settings")
         caretReset.title = L("Use Palette's")
+        localFontsHeader.title = L("Fonts on This Mac")
         for (label, key) in labels { label.stringValue = L(key) }
         for (tile, id) in zip(paletteTiles, ["ia"] + Palette.all.map(\.id)) { tile.name = Palette.all.first { $0.id == id }?.title ?? L("System") }
         for (tile, paper) in zip(paperTiles, Paper.allCases) { tile.name = paper.title }
@@ -214,7 +224,11 @@ final class SettingsWindowController: NSWindowController {
         paperOpacity.doubleValue = Settings.paperOpacity
         paperOpacity.isEnabled = Settings.paper != .none
         paperOpacityLabel.stringValue = "\(Int((Settings.paperOpacity * 100).rounded())) %"
-        typeface.selectItem(at: Settings.typeface.rawValue)
+        if let family = Settings.localFont, let item = typeface.itemArray.first(where: { $0.representedObject as? String == family }) {
+            typeface.select(item)
+        } else {
+            typeface.selectItem(at: Settings.typeface.rawValue)
+        }
         size.selectItem(at: Settings.sizeIndex)
         lineLength.selectItem(at: Settings.lineLengths.firstIndex(of: Settings.lineLength) ?? 0)
         highlight.selectItem(at: Settings.highlight.rawValue)
@@ -236,7 +250,13 @@ final class SettingsWindowController: NSWindowController {
         Settings.paperOpacity = paperOpacity.doubleValue
         paperOpacityLabel.stringValue = "\(Int((Settings.paperOpacity * 100).rounded())) %"
     }
-    @objc private func changeTypeface() { Settings.typeface = Settings.Typeface(rawValue: typeface.indexOfSelectedItem) ?? .mono }
+    @objc private func changeTypeface() {
+        if let family = typeface.selectedItem?.representedObject as? String {
+            Settings.setFont(Settings.typeface, local: family)
+        } else {
+            Settings.setFont(Settings.Typeface(rawValue: typeface.indexOfSelectedItem) ?? .mono)
+        }
+    }
     @objc private func changeSize() { Settings.sizeIndex = size.indexOfSelectedItem }
     @objc private func changeLineLength() { Settings.lineLength = Settings.lineLengths[lineLength.indexOfSelectedItem] }
     @objc private func changeCaret() { Settings.customCaretColor = caret.color }

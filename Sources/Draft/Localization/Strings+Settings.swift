@@ -9,6 +9,7 @@ extension L10n {
         "Cursor:": "游標：",
         "Use Palette's": "使用配色",
         "Font:": "字體：",
+        "Fonts on This Mac": "本機字體",
         "Text size:": "大小：",
         "Line length:": "行寬：",
         "%d characters": "%d 字元",
