@@ -72,14 +72,18 @@ final class PaletteBackgroundView: NSView {
 
 // Column dividers in the palette's separator colour; the system's with iA's colours.
 final class PaletteSplitView: NSSplitView {
-    var hiddenDividers: Set<Int> = []   // still draggable, drawn in the page colour
     override var dividerColor: NSColor { Palette.current != nil ? LibraryStyle.separator : super.dividerColor }
+}
 
-    override func drawDivider(in rect: NSRect) {
-        let index = arrangedSubviews.firstIndex { abs($0.frame.maxX - rect.minX) < 0.5 && !isSubviewCollapsed($0) }
-        if let index, hiddenDividers.contains(index) { Theme.background.setFill(); rect.fill(); return }
-        super.drawDivider(in: rect)
+// A button with the hand cursor, also where the editor's I-beam lies underneath.
+final class HandButton: NSButton {
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        if !trackingAreas.contains(where: { $0.owner === self }) {
+            addTrackingArea(NSTrackingArea(rect: .zero, options: [.cursorUpdate, .activeAlways, .inVisibleRect], owner: self))
+        }
     }
+    override func cursorUpdate(with event: NSEvent) { NSCursor.pointingHand.set() }
 }
 
 // Selected row in the palette's selection colour, never emphasized (the palette's text stays readable);

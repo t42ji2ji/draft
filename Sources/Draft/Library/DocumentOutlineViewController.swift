@@ -1,6 +1,6 @@
 import AppKit
 
-// Middle column: the open document's headings (# … ######) as small cards on the editor's background, indented by
+// Floating over the page's left margin: the open document's headings (# … ######) as small cards on the editor's background, indented by
 // level, each with up to two lines of the text under it. A click puts the caret on the heading; dragging a card moves
 // its section (down to the next heading of the same or a higher level) to where it's dropped.
 final class DocumentOutlineViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
@@ -39,6 +39,7 @@ final class DocumentOutlineViewController: NSViewController, NSTableViewDataSour
 
     override func loadView() {
         let root = EditorBackgroundView()
+        root.clipsToBounds = true   // it floats over the editor: its page fill would otherwise cover the text
         root.paper = { [unowned self] in self.paper() }
         let scroll = NSScrollView()
         scroll.drawsBackground = false
@@ -334,6 +335,22 @@ private final class EditorBackgroundView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         let (pitch, anchor) = paper()
         Self.drawPaper(in: dirtyRect, of: self, pitch: pitch, anchor: anchor)
+    }
+
+    // It floats over the editor, so it picks the cursor itself (the text's I-beam lies underneath): the hand on cards
+    // and buttons, the arrow elsewhere.
+    override func updateTrackingAreas() {
+        super.updateTrackingAreas()
+        if trackingAreas.isEmpty {
+            addTrackingArea(NSTrackingArea(rect: .zero, options: [.cursorUpdate, .mouseMoved, .activeAlways, .inVisibleRect], owner: self))
+        }
+    }
+    override func cursorUpdate(with event: NSEvent) { setCursor(event) }
+    override func mouseMoved(with event: NSEvent) { setCursor(event) }
+    private func setCursor(_ event: NSEvent) {
+        var view = superview.flatMap { hitTest($0.convert(event.locationInWindow, from: nil)) }
+        while let v = view, v !== self, !(v is NSButton || v is OutlineCard || v is EmojiButton) { view = v.superview }
+        (view == nil || view === self ? NSCursor.arrow : NSCursor.pointingHand).set()
     }
 
     // Draws background and pattern in `view` (flipped), the pattern starting at `anchor` (window coordinates).

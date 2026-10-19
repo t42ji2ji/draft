@@ -18,9 +18,10 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
     private let split = NSSplitViewController()
     private let sidebar = SidebarViewController()
     private let outline = DocumentOutlineViewController()
-    private let showOutlineButton = NSButton(image: NSImage(systemSymbolName: "chevron.right.2", accessibilityDescription: "Show Outline")!,
-                                             target: nil, action: nil)
-    private var outlineCollapsed: NSKeyValueObservation?
+    private let showOutlineButton = HandButton(image: NSImage(systemSymbolName: "chevron.right.2", accessibilityDescription: "Show Outline")!,
+                                                 target: nil, action: nil)
+    private var outlineLeading: NSLayoutConstraint!
+    private static let outlineHiddenKey = "OutlineHidden"
     private let assistant = AssistantViewController()
     private let editor = NSViewController()
     private let scrollView = NSScrollView()
@@ -67,7 +68,7 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
         window.setContentSize(NSSize(width: 1100, height: 720))
         window.center()
         window.setFrameAutosaveName("Library")
-        needsDefaultSplit = UserDefaults.standard.object(forKey: "NSSplitView Subview Frames LibraryOutline") == nil
+        needsDefaultSplit = UserDefaults.standard.object(forKey: "NSSplitView Subview Frames LibraryColumns") == nil
         applyPalette()
         NotificationCenter.default.addObserver(forName: Settings.didChange, object: nil, queue: .main) { [weak self] _ in self?.applyPalette() }
         applyLanguage()
@@ -78,7 +79,7 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
             self.preview.inset = 76
             self.preview.updateNow(text: self.textView.string, documentURL: self.document?.fileURL)
         }
-        split.splitView.autosaveName = "LibraryOutline"
+        split.splitView.autosaveName = "LibraryColumns"
 
         textView.autoresizingMask = [.width]
         textView.delegate = self
@@ -239,6 +240,20 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
             showOutlineButton.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 14),
             showOutlineButton.topAnchor.constraint(equalTo: root.topAnchor, constant: 58),
         ])
+        // The outline floats over the page's left margin instead of taking a column, so opening it doesn't move the text.
+        let outlineView = outline.view
+        outlineView.translatesAutoresizingMaskIntoConstraints = false
+        root.addSubview(outlineView)
+        let hidden = UserDefaults.standard.bool(forKey: Self.outlineHiddenKey)
+        outlineLeading = outlineView.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: hidden ? -LibraryStyle.outlineWidth : 0)
+        NSLayoutConstraint.activate([
+            outlineLeading,
+            outlineView.topAnchor.constraint(equalTo: root.topAnchor),
+            outlineView.bottomAnchor.constraint(equalTo: formatBar.topAnchor),   // the bar's buttons stay reachable
+            outlineView.widthAnchor.constraint(equalToConstant: LibraryStyle.outlineWidth),
+        ])
+        outlineView.isHidden = hidden
+        showOutlineButton.isHidden = !hidden
         editor.view = root
         NotificationCenter.default.addObserver(forName: NSView.boundsDidChangeNotification, object: scrollView.contentView, queue: .main) { [weak self] _ in
             self?.outline.paperMoved()
@@ -299,10 +314,18 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
         bars?.libraryToggled()
     }
 
-    // ⇧⌘O: the outline on the left of the writing area.
+    // ⇧⌘O: the outline on the left of the writing area, sliding in over the page.
     @objc func toggleOutline(_ sender: Any?) {
-        let item = split.splitViewItems[1]
-        NSAnimationContext.runAnimationGroup { _ in item.animator().isCollapsed = !item.isCollapsed }
+        let hide = !UserDefaults.standard.bool(forKey: Self.outlineHiddenKey)
+        UserDefaults.standard.set(hide, forKey: Self.outlineHiddenKey)
+        showOutlineButton.isHidden = !hide
+        outline.view.isHidden = false
+        NSAnimationContext.runAnimationGroup({ _ in
+            outlineLeading.animator().constant = hide ? -LibraryStyle.outlineWidth : 0
+        }, completionHandler: { [weak self] in
+            guard let self, UserDefaults.standard.bool(forKey: Self.outlineHiddenKey) else { return }
+            self.outline.view.isHidden = true
+        })
     }
 
     // ⌘J: the assistant column on the right.
@@ -411,19 +434,10 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
         let sidebarItem = NSSplitViewItem(sidebarWithViewController: sidebar)
         sidebarItem.minimumThickness = 230   // + ⌄ moves into the toolbar overflow (>>) below 220 (measured)
         sidebarItem.maximumThickness = 500
-        // Part of the writing area: same paper, no divider line (PaletteSplitView), its own toggle.
-        let outlineItem = NSSplitViewItem(viewController: outline)
-        outlineItem.canCollapse = true
-        outlineCollapsed = outlineItem.observe(\.isCollapsed, options: [.initial, .new]) { [weak self] item, _ in
-            DispatchQueue.main.async { self?.showOutlineButton.isHidden = !item.isCollapsed }
-        }
-        outlineItem.minimumThickness = 140
-        outlineItem.maximumThickness = 400
         let editorItem = NSSplitViewItem(viewController: editor)
         editorItem.minimumThickness = 300
         // Window resizes go to the editor.
         sidebarItem.holdingPriority = .init(261)
-        outlineItem.holdingPriority = .init(260)
         editorItem.holdingPriority = .init(250)
         let assistantItem = NSSplitViewItem(viewController: assistant)
         assistantItem.canCollapse = true
@@ -432,10 +446,9 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
         assistantItem.maximumThickness = 640
         assistantItem.holdingPriority = .init(259)
         let splitView = PaletteSplitView()
-        splitView.hiddenDividers = [1]
         split.splitView = splitView
         split.splitView.isVertical = true   // a fresh NSSplitView stacks top to bottom
-        split.splitViewItems = [sidebarItem, outlineItem, editorItem, assistantItem]
+        split.splitViewItems = [sidebarItem, editorItem, assistantItem]
         split.splitView.dividerStyle = .thin
     }
 
@@ -445,7 +458,6 @@ final class LibraryWindowController: NSWindowController, NSWindowDelegate, NSTex
         DispatchQueue.main.async {
             let splitView = self.split.splitView
             splitView.setPosition(LibraryStyle.sidebarWidth, ofDividerAt: 0)
-            splitView.setPosition(LibraryStyle.sidebarWidth + LibraryStyle.outlineWidth, ofDividerAt: 1)
         }
     }
 
