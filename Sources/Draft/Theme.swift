@@ -34,6 +34,18 @@ enum Theme {
         (.adverb, dynamic(light: 0xB24FA3, dark: 0xBA8DB3)),
         (.conjunction, dynamic(light: 0x3F831E, dark: 0x82A56F)),
     ]
+    // Code blocks (Draft addition): Syntax Highlight's verb, conjunction and adjective hues; fences and comments grey.
+    static func code(_ kind: CodeHighlight.Kind) -> NSColor {
+        switch kind {
+        case .fence, .comment: return syntax
+        case .keyword: return codeKeyword
+        case .string: return codeString
+        case .number: return codeNumber
+        }
+    }
+    private static let codeKeyword = dynamic(light: 0x3476B9, dark: 0x7B9FC2)
+    private static let codeString = dynamic(light: 0x3F831E, dark: 0x82A56F)
+    private static let codeNumber = dynamic(light: 0xA66501, dark: 0xC1944E)
     static var caret: NSColor { Settings.caretColor }
     static var selection: NSColor { caret.withAlphaComponent(0.25) }
     static var markedUnderline: NSColor { caret.withAlphaComponent(0.5) }
