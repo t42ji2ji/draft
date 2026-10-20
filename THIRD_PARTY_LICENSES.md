@@ -10,6 +10,8 @@
 | core-js (bundled inside math.js) | `Resources/Preview/Kit/Math.js` | MIT, © Denis Pushkarev |
 | Numeral.js 2.0.6 | `Resources/Preview/Kit/Numeral.js` | MIT, © Adam Draper |
 | diffHTML | `Resources/Preview/Kit/diffHTML.js` | MIT, © Tim Branyen |
+| Pele 1.7.0 (Mermaid renderer, `dist/pele.global.js` from npm) | `Resources/Preview/Kit/Pele.js` | MIT, © kepano |
+| Lucide "rotate-ccw" icon (inside Pele's zoom controls) | `Resources/Preview/Kit/Pele.js` | ISC, © Lucide Icons and Contributors |
 | github-markdown-css 5.8.1 | `Resources/Preview/Templates/GitHub.iatemplate` | MIT, © Sindre Sorhus — `LICENSE.txt` there; the dark file is scoped to `html.night-mode` |
 | Claude Code mascot; OpenAI logo (from Simple Icons) | `Resources/Brand` | Trademarks of Anthropic and OpenAI, used only to label which CLI is selected; the OpenAI path is CC0 via Simple Icons |
 

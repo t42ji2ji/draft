@@ -1,9 +1,10 @@
 // Draft preview page runtime. PreviewViewController calls these after the template loads
 // and on every render; data arguments arrive as encodeURIComponent(JSON) strings.
-// katex, SmartTables and diff are loaded alongside this file, so they are only looked up at call time.
+// katex, SmartTables, pele and diff are loaded alongside this file, so they are only looked up at call time.
 window.Template = (() => {
   const root = document.documentElement;
   const decode = (arg) => JSON.parse(decodeURIComponent(arg));
+  const diagrams = new WeakMap();   // .mermaid-diagram → Pele's mounted diagram
 
   return {
     // [{id, style}] with CSS text, appended to <head> as <style data-id>.
@@ -63,6 +64,26 @@ window.Template = (() => {
 
     updateSmartTables() {
       document.body.querySelectorAll('table').forEach((table) => SmartTables.processTable(table));
+    },
+
+    // ```mermaid blocks, drawn by Pele into a div after the <code>. diffHTML only knows the <code>, so it leaves
+    // the diagram alone and removes it with its <pre>. A diagram is redrawn only when its source changed; a source
+    // with an error shows Pele's error message instead.
+    updateMermaid() {
+      for (const box of document.body.querySelectorAll('pre > .mermaid-diagram')) {
+        if (!box.previousElementSibling?.matches('code.mermaid')) { diagrams.get(box)?.destroy(); box.remove(); }
+      }
+      for (const code of document.body.querySelectorAll('pre > code.mermaid')) {
+        let box = code.nextElementSibling;
+        if (!box) {
+          box = document.createElement('div');
+          box.className = 'mermaid-diagram';
+          code.after(box);
+        }
+        const text = code.textContent, drawn = diagrams.get(box);
+        if (!drawn) diagrams.set(box, pele.mount(box, text, { zoom: false }));
+        else if (drawn.source !== text) drawn.update(text);
+      }
     },
   };
 })();

@@ -18,7 +18,7 @@ final class PreviewViewController: NSViewController {
     /// A link was clicked; default opens it with NSWorkspace. Relative links and wikilinks arrive resolved against the document's folder.
     var onOpenURL: ((URL) -> Void)?
 
-    var layout: Layout = .full { didSet { bar?.update(layout: layout, mode: displayMode) } }
+    var layout: Layout = .split { didSet { bar?.update(layout: layout, mode: displayMode) } }
     private(set) var displayMode: DisplayMode = .web
 
     private var chosenTemplate: PreviewTemplate?
@@ -179,7 +179,7 @@ final class PreviewViewController: NSViewController {
     /// iA's page scripts (Kit.framework resources), injected in this order once the template has loaded.
     private static let kitScript: String = {
         let kit = resourceRoot.appendingPathComponent("Kit")
-        return ["diffHTML", "Template", "Numeral", "Math", "SmartTables", "KaTeX", "mhchem", "copy-tex"].compactMap {
+        return ["diffHTML", "Template", "Numeral", "Math", "SmartTables", "KaTeX", "mhchem", "copy-tex", "Pele"].compactMap {
             try? String(contentsOf: kit.appendingPathComponent($0 + ".js"), encoding: .utf8)
         }.joined(separator: "\n;\n") + "\n;\n" + bridgeJS + "\n;0"
     }()
@@ -213,10 +213,13 @@ final class PreviewViewController: NSViewController {
         js("Template.updateClass(\"\(Self.encode(Self.htmlClasses(dark: dark)))\")")
         // A Draft palette recolours the page (not when printing, which stays light like iA's).
         let paletteCSS = Palette.current.flatMap { printing ? nil : $0 }.map {
-            "html, body { background-color: \($0.bg.cssHex) !important; } html, body, html a { color: \($0.text.cssHex) !important; }"
-                + " pre, code, kbd { background-color: \($0.chrome.cssHex) !important; }"
+            "html, body { background-color: \($0.bg.cssHex) !important; } html, body, html a { color: \($0.text.cssHex) !important; }"                + " pre, code, kbd { background-color: \($0.chrome.cssHex) !important; }"
                 + " blockquote { color: \($0.hashtag.cssHex) !important; border-left-color: \($0.paperLine.cssHex) !important; }"
                 + " hr, table, caption, th, td { border-color: \($0.paperLine.cssHex) !important; }"
+        } ?? ""
+        // Mermaid diagrams take their colours from these.
+        let paletteVars = Palette.current.flatMap { printing ? nil : $0 }.map {
+            "html { --page: \($0.bg.cssHex) !important; --text: \($0.text.cssHex) !important; }"
         } ?? ""
         // The page's scroll bar like the app's ThinScroller: a thin rounded thumb in the syntax grey, no track.
         var thumb = ""
@@ -224,7 +227,7 @@ final class PreviewViewController: NSViewController {
         let scrollbar = printing ? "" : " ::-webkit-scrollbar { width: 10px; background: transparent; }"
             + " ::-webkit-scrollbar-track { background: transparent; }"
             + " ::-webkit-scrollbar-thumb { background-color: \(thumb)99; border-radius: 5px; border: 3px solid transparent; background-clip: content-box; }"
-        let css = paletteCSS + scrollbar
+        let css = paletteCSS + paletteVars + scrollbar
         js("(function(){var s=document.getElementById('draft-palette');if(!s){s=document.createElement('style');s.id='draft-palette';document.head.appendChild(s);}s.textContent=JSON.parse(decodeURIComponent(\"\(Self.encode([css]))\"))[0];})()")
     }
 
@@ -263,7 +266,7 @@ final class PreviewViewController: NSViewController {
                 guard let self, gen == self.generation else { return }
                 let data = Self.encode(["document": html])
                 let options = Self.encode(["useDiffHTML": true])
-                self.webView.evaluateJavaScript("Template.updateContent(\"\(data)\", \"\(options)\"); Template.updateMath(); Template.updateSmartTables(); draftContentDidChange()") { _, _ in
+                self.webView.evaluateJavaScript("Template.updateContent(\"\(data)\", \"\(options)\"); Template.updateMath(); Template.updateSmartTables(); Template.updateMermaid(); draftContentDidChange()") { _, _ in
                     self.renderedGeneration = gen
                     if let line = self.pendingScrollLine { self.pendingScrollLine = nil; self.scroll(toSourceLine: line) }
                     let waiters = self.renderWaiters

@@ -2,7 +2,8 @@ import AppKit
 
 // Draws iA's backgrounds: inline code, code blocks and ==highlight== (docs/markdown-styling.md).
 // Geometry is iA's at content size M (28.16 pt lines), scaled with the line height for other sizes.
-// Also hides inline markers (** * ~~ ` ==) as zero-width glyphs, except on the span in `revealed` (Draft addition).
+// Also hides inline markers (** * ~~ ` ==) as zero-width glyphs, except on the span in `revealed` (Draft addition),
+// and lays out and draws ```mermaid diagrams (Draft addition).
 final class EditorLayoutManager: NSLayoutManager, NSLayoutManagerDelegate {
     var documentCodeBlocks: [NSRange] = []   // all of them; `codeBlocks` below is only the visible ones
     var revealed: NSRange?                   // a span whose markers show, after a Backspace next to them
@@ -28,6 +29,27 @@ final class EditorLayoutManager: NSLayoutManager, NSLayoutManagerDelegate {
             setGlyphs(glyphs, properties: $0.baseAddress!, characterIndexes: charIndexes, font: aFont, forGlyphRange: glyphRange)
         }
         return count
+    }
+
+    // Room for the diagrams: a collapsed block's first line takes the toggle row and the diagram, its other lines
+    // nothing; a block showing both gets the diagram under its closing fence. A collapsed block's text is coloured
+    // clear (EditorTextView), not hidden: TextKit folds a line of null glyphs into the line before.
+    func layoutManager(_ layoutManager: NSLayoutManager, shouldSetLineFragmentRect lineFragmentRect: UnsafeMutablePointer<NSRect>,
+                       lineFragmentUsedRect: UnsafeMutablePointer<NSRect>, baselineOffset: UnsafeMutablePointer<CGFloat>,
+                       in textContainer: NSTextContainer, forGlyphRange glyphRange: NSRange) -> Bool {
+        let chars = characterRange(forGlyphRange: glyphRange, actualGlyphRange: nil)
+        guard let diagram = diagrams.first(where: { $0.image != nil && $0.mode != .source
+            && chars.location >= $0.block.location && chars.location <= NSMaxRange($0.block) }) else { return false }
+        let height: CGFloat
+        if diagram.collapsed {
+            height = chars.location == diagram.block.location ? diagram.reserved : 0
+        } else {
+            guard NSMaxRange(chars) >= NSMaxRange(diagram.block) else { return false }
+            height = lineFragmentRect.pointee.height + diagram.reserved
+        }
+        lineFragmentRect.pointee.size.height = height
+        lineFragmentUsedRect.pointee.size.height = min(lineFragmentUsedRect.pointee.height, height)
+        return true
     }
 
     // Opener and closer of each inline span in the paragraphs touching `range`.
@@ -63,15 +85,34 @@ final class EditorLayoutManager: NSLayoutManager, NSLayoutManagerDelegate {
     }
     var headingLabels: [HeadingLabel] = []
     var columnInset: CGFloat = 0   // margin columns inside the container (E × marginChars)
+    var lineHeight: CGFloat = 28   // one text line; the toggle row of a diagram is this tall
+
+    // ```mermaid blocks with a diagram (Draft addition), set by EditorTextView. `image` is nil when the source doesn't
+    // parse; such a block shows as source with no toggle.
+    struct Diagram: Equatable {
+        enum Mode: CaseIterable { case diagram, source, both }
+        let block: NSRange      // the whole block, fences included
+        let mode: Mode
+        let image: NSImage?
+        let size: NSSize        // the image fitted to the column
+        let reserved: CGFloat   // height added for it, whole lines
+        var collapsed: Bool { mode == .diagram && image != nil }
+    }
+    var diagrams: [Diagram] = [] { didSet { toggles = [] } }
+    // The toggles drawn last time, in container coordinates: clicking one sets that block's mode.
+    private(set) var toggles: [(rect: NSRect, block: Int, mode: Diagram.Mode)] = []
 
     override func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: NSPoint) {
         super.drawBackground(forGlyphRange: glyphsToShow, at: origin)
         guard let container = textContainers.first else { return }
         let visible = characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
+        let shown = diagrams.filter { $0.image != nil }
 
         Theme.codeBackground.setFill()
         for block in codeBlocks where NSIntersectionRange(block, visible).length > 0 {
-            var rect = boundingRect(forGlyphRange: glyphRange(forCharacterRange: block, actualCharacterRange: nil), in: container)
+            // Around a diagram, the line fragments: its glyphs may be hidden or end above the room under them.
+            var rect = shown.contains { $0.block == block && $0.mode != .source } ? fragments(of: block)
+                : boundingRect(forGlyphRange: glyphRange(forCharacterRange: block, actualCharacterRange: nil), in: container)
             rect.origin.x = columnInset
             rect.size.width = container.size.width - 2 * columnInset
             NSBezierPath(roundedRect: rect.offsetBy(dx: origin.x, dy: origin.y).integral, xRadius: 3, yRadius: 3).fill()
@@ -94,6 +135,47 @@ final class EditorLayoutManager: NSLayoutManager, NSLayoutManagerDelegate {
                 NSBezierPath(roundedRect: NSRect(x: rect.minX, y: rect.maxY - 1.84, width: rect.width, height: 1.84), xRadius: 1, yRadius: 1).fill()
             }
         }
+        // Last: drawing the toggles' text changes the fill colour.
+        drawDiagrams(shown.filter { NSIntersectionRange($0.block, visible).length > 0 }, in: container, origin: origin)
+    }
+
+    private func drawDiagrams(_ list: [Diagram], in container: NSTextContainer, origin: NSPoint) {
+        toggles.removeAll { t in list.contains { $0.block.location == t.block } }
+        let font = NSFont.systemFont(ofSize: max(10, round(lineHeight * 0.4)), weight: .medium)
+        for diagram in list {
+            let rect = fragments(of: diagram.block)
+            if let image = diagram.image, diagram.mode != .source {
+                // The room: a collapsed block's first line under the toggle row, or what was added under the closing fence.
+                let room = diagram.collapsed ? NSRect(x: rect.minX, y: rect.minY + lineHeight, width: rect.width, height: diagram.reserved - lineHeight)
+                    : NSRect(x: rect.minX, y: rect.maxY - diagram.reserved, width: rect.width, height: diagram.reserved)
+                let box = NSRect(x: (container.size.width - diagram.size.width) / 2, y: room.midY - diagram.size.height / 2,
+                                 width: diagram.size.width, height: diagram.size.height)
+                image.draw(in: box.offsetBy(dx: origin.x, dy: origin.y), from: .zero, operation: .sourceOver, fraction: 1,
+                           respectFlipped: true, hints: nil)
+            }
+            // Diagram · Source · Both, right-aligned in the first line; the current one in the text colour.
+            var x = container.size.width - columnInset - lineHeight * 0.4
+            for mode in Diagram.Mode.allCases.reversed() {
+                let title = [Diagram.Mode.diagram: L("Mermaid|Diagram"), .source: L("Mermaid|Source"), .both: L("Mermaid|Both")][mode]!
+                let text = NSAttributedString(string: title, attributes: [.font: font,
+                    .foregroundColor: mode == diagram.mode ? Theme.text : Theme.syntax])
+                let size = text.size()
+                x -= size.width
+                let label = NSRect(x: x, y: rect.minY + (lineHeight - size.height) / 2, width: size.width, height: size.height)
+                text.draw(at: NSPoint(x: label.minX + origin.x, y: label.minY + origin.y))
+                toggles.append((label.insetBy(dx: -4, dy: -4), diagram.block.location, mode))
+                x -= lineHeight * 0.5
+            }
+        }
+    }
+
+    // The union of the line fragments `range` lies in, container coordinates.
+    private func fragments(of range: NSRange) -> NSRect {
+        var rect = NSRect.null
+        enumerateLineFragments(forGlyphRange: glyphRange(forCharacterRange: range, actualCharacterRange: nil)) { fragment, _, _, _, _ in
+            rect = rect.union(fragment)
+        }
+        return rect
     }
 
     // One rect per line fragment the span crosses, full line height, in view coordinates.

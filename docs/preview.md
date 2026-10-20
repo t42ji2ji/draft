@@ -104,6 +104,7 @@ So Draft uses a small in-repo renderer (`PreviewRenderer.swift`) that follows Mu
 | Autolinks | `<url>` → `<a href>`; bare URLs → `<a class="autolink" href>` | extracted (`class="autolink"`) |
 | TOC | `{{TOC}}` → `<div class="TOC"><ul>…` nested by level | extracted (`<div class="TOC">`) |
 | Code | fenced (`<pre><code class="lang">`) and indented | extracted |
+| Mermaid (Draft addition, 2026-10-20, Dora's request) | ```` ```mermaid ```` stays `<pre><code class="mermaid">`; `Template.updateMermaid()` draws it with Pele (`Kit/Pele.js`, obsidianmd/pele 1.7.0) into a `div.mermaid-diagram` after the `<code>`, which the CSS then hides. Colours come from `--page` / `--text` (a palette overrides both). A source with an error shows Pele's error instead of the diagram. HTML/PDF export not yet checked | — |
 | Front matter | a leading YAML block is not rendered | inferred |
 
 Not implemented: MMD metadata, smart quotes, CriticMarkup, citations/glossary, abbreviations, definition lists, sub/superscript, hashtag links (iA has `hashtagPreviewOutput` settings; default unknown).

@@ -4,6 +4,10 @@ extension L10n {
         "Preview|Web": "網頁",
         "Preview|Split": "分割",
         "Preview|Full": "全頁",
+        // ```mermaid blocks in the editor
+        "Mermaid|Diagram": "圖",
+        "Mermaid|Source": "源碼",
+        "Mermaid|Both": "兩者",
         // Export
         "Format:": "格式：",
         "Untitled": "未命名",

@@ -24,6 +24,9 @@ final class EditorTextView: NSTextView {
     private var pendingEdit: NSRange?
     private var restyled = false
     private var codeBlocks: [NSRange] = [] { didSet { editorLayoutManager?.documentCodeBlocks = codeBlocks } }
+    // How each ```mermaid block shows, keyed by where it starts; moved along by edits, cleared by a new document.
+    private var diagramModes: [Int: EditorLayoutManager.Diagram.Mode] = [:]
+    private var replacingAll = false
     private var editorLayoutManager: EditorLayoutManager? { layoutManager as? EditorLayoutManager }
     static let tabWidth = 2      // iA defaults: tab width 2, indent width 4, indent with tabs
 
@@ -113,6 +116,7 @@ final class EditorTextView: NSTextView {
         textContainerInset = NSSize(width: typography.insetWidth, height: insetHeight)
         minSize.height = viewport.height   // short documents still fill the page, so the paper lines do too
         editorLayoutManager?.columnInset = typography.en * typography.marginChars
+        editorLayoutManager?.lineHeight = typography.lineHeight
         // Reapplying attributes relayouts the whole document; skip it during live resize unless the type changed.
         if !restyled || typography.font != old.font || typography.marginChars != old.marginChars {
             restyled = true
@@ -122,6 +126,7 @@ final class EditorTextView: NSTextView {
             defaultParagraphStyle = typingAttributes[.paragraphStyle] as? NSParagraphStyle
             applyStyles(in: NSRange(location: 0, length: (string as NSString).length))
         }
+        updateDiagrams()   // the column width and the colours may have changed
         if typewriter != nil { centerCaret(animated: false) }
     }
 
@@ -314,6 +319,15 @@ final class EditorTextView: NSTextView {
                 }
             }
         }
+        // Code blocks are tokenised whole, so a string or comment that opens above the screen still colours what's on it.
+        for block in blocks {
+            for (span, kind) in CodeHighlight.spans(in: ns.substring(with: block)) {
+                let span = NSIntersectionRange(NSRange(location: span.location + block.location, length: span.length), visible)
+                guard span.length > 0 else { continue }
+                layoutManager.addTemporaryAttribute(.foregroundColor, value: Theme.code(kind), forCharacterRange: span)
+                if kind == .fence || kind == .comment { grey.append(span) }
+            }
+        }
         if let focus {
             for outside in [NSRange(location: visible.location, length: max(0, focus.location - visible.location)),
                             NSRange(location: NSMaxRange(focus), length: max(0, NSMaxRange(visible) - NSMaxRange(focus)))]
@@ -324,9 +338,14 @@ final class EditorTextView: NSTextView {
                 layoutManager.addTemporaryAttribute(.foregroundColor, value: Theme.focusDimSyntax, forCharacterRange: span)
             }
         }
-        // Dimming recoloured everything outside the focus; hidden heading marks stay hidden under their "H2".
+        // Dimming recoloured everything outside the focus; hidden heading marks stay hidden under their "H2",
+        // and a block showing only its diagram keeps its text out of sight.
         for label in headingLabels {
             layoutManager.addTemporaryAttribute(.foregroundColor, value: NSColor.clear, forCharacterRange: label.range)
+        }
+        for diagram in editorLayoutManager?.diagrams ?? [] where diagram.collapsed {
+            let range = NSIntersectionRange(diagram.block, visible)
+            if range.length > 0 { layoutManager.addTemporaryAttribute(.foregroundColor, value: NSColor.clear, forCharacterRange: range) }
         }
         if let editorLayoutManager {
             editorLayoutManager.inlineCode = inlineCode
@@ -360,6 +379,13 @@ final class EditorTextView: NSTextView {
 
     override func shouldChangeText(in range: NSRange, replacementString: String?) -> Bool {
         pendingEdit = NSRange(location: range.location, length: (replacementString as NSString?)?.length ?? 0)
+        replacingAll = range.location == 0 && range.length == ns.length
+        if replacingAll {
+            diagramModes = [:]
+        } else {
+            let delta = ((replacementString as NSString?)?.length ?? 0) - range.length
+            diagramModes = Dictionary(uniqueKeysWithValues: diagramModes.map { ($0.key >= NSMaxRange(range) ? $0.key + delta : $0.key, $0.value) })
+        }
         return super.shouldChangeText(in: range, replacementString: replacementString)
     }
 
@@ -370,6 +396,7 @@ final class EditorTextView: NSTextView {
         codeBlocks = blocks
         // Setting attributes during 注音 composition would wipe the marked-text underline.
         guard !hasMarkedText() else { setNeedsRecolor(); return }
+        updateDiagrams(edited: replacingAll ? nil : pendingEdit)
         if blocksChanged {
             applyStyles(in: NSRange(location: 0, length: (string as NSString).length))
         } else if let edit = pendingEdit {
@@ -378,6 +405,63 @@ final class EditorTextView: NSTextView {
         pendingEdit = nil
         // Typing inside a revealed span keeps it revealed; its range has moved.
         if editorLayoutManager?.revealed != nil { reveal(inlineSpan(at: selectedRange().location)) }
+    }
+
+    // MARK: - Mermaid diagrams (Draft addition)
+
+    // The diagram for each closed ```mermaid block. A block opened with the document shows only its diagram; one
+    // being written shows both, so the text being typed doesn't vanish. A source that doesn't parse keeps the last
+    // diagram that did, or shows as source.
+    private func updateDiagrams(edited: NSRange? = nil) {
+        guard let layoutManager = editorLayoutManager, let textContainer else { return }
+        typealias Diagram = EditorLayoutManager.Diagram
+        var colors: MermaidImage.Colors = [:]
+        effectiveAppearance.performAsCurrentDrawingAppearance {
+            let bg = Theme.background.usingColorSpace(.sRGB)!, text = Theme.text.usingColorSpace(.sRGB)!
+            colors = ["bg": bg.cssHex, "fg": text.cssHex, "line": text.cssHex, "muted": Theme.syntax.cssHex, "border": Theme.syntax.cssHex,
+                      "surface": bg.blended(withFraction: 0.06, of: text)!.cssHex, "surface-alt": bg.blended(withFraction: 0.12, of: text)!.cssHex]
+        }
+        let old = layoutManager.diagrams
+        let width = textContainer.size.width - 2 * layoutManager.columnInset - 2 * typography.en
+        let row = typography.lineHeight
+        var diagrams: [Diagram] = []
+        for block in codeBlocks {
+            guard let source = CodeHighlight.mermaidSource(in: ns.substring(with: block)) else { continue }
+            let typing = edited.map { NSLocationInRange($0.location, NSRange(location: block.location, length: block.length + 1)) } ?? false
+            let mode = diagramModes[block.location] ?? (typing ? .both : .diagram)
+            diagramModes[block.location] = mode
+            let image = MermaidImage.image(for: source, colors: colors) ?? old.first { $0.block.location == block.location }?.image
+            let scale = image.map { min(1, width / max($0.size.width, 1)) } ?? 1
+            let size = NSSize(width: (image?.size.width ?? 0) * scale, height: (image?.size.height ?? 0) * scale)
+            // Whole lines, so the paper lines below stay in step; half a line of space around the diagram.
+            let room = (mode == .diagram ? row : 0) + size.height + row
+            diagrams.append(Diagram(block: block, mode: mode, image: image, size: size, reserved: ceil(room / row) * row))
+        }
+        diagramModes = diagramModes.filter { key, _ in diagrams.contains { $0.block.location == key } }
+        guard diagrams != old else { return }
+        layoutManager.diagrams = diagrams
+        for diagram in old + diagrams {
+            let range = NSIntersectionRange(NSRange(location: diagram.block.location, length: diagram.block.length + 1),
+                                            NSRange(location: 0, length: ns.length))
+            layoutManager.invalidateLayout(forCharacterRange: range, actualCharacterRange: nil)
+        }
+        needsDisplay = true
+        setNeedsRecolor()   // a collapsed block's text is coloured clear
+    }
+
+    // The block showing only its diagram that `location` falls in, fences and edges included.
+    private func collapsedDiagram(at location: Int) -> EditorLayoutManager.Diagram? {
+        editorLayoutManager?.diagrams.first { $0.collapsed && location >= $0.block.location && location <= NSMaxRange($0.block) }
+    }
+
+    override func mouseDown(with event: NSEvent) {
+        let point = convert(event.locationInWindow, from: nil)
+        let inContainer = NSPoint(x: point.x - textContainerOrigin.x, y: point.y - textContainerOrigin.y)
+        if let toggle = editorLayoutManager?.toggles.first(where: { $0.rect.contains(inContainer) }) {
+            diagramModes[toggle.block] = toggle.mode
+            return updateDiagrams()
+        }
+        super.mouseDown(with: event)
     }
 
     // Shows the markers of `span` (nil: hides them again).
@@ -420,7 +504,14 @@ final class EditorTextView: NSTextView {
     }
 
     override func setSelectedRanges(_ ranges: [NSValue], affinity: NSSelectionAffinity, stillSelecting: Bool) {
+        let before = selectedRange().location
         super.setSelectedRanges(ranges, affinity: affinity, stillSelecting: stillSelecting)
+        // A block showing only its diagram can't hold the caret: it goes on to the next line, or back to the one before.
+        if selectedRange().length == 0, let diagram = collapsedDiagram(at: selectedRange().location) {
+            let forward = before <= diagram.block.location
+            let target = forward ? min(NSMaxRange(diagram.block) + 1, ns.length) : max(diagram.block.location - 1, 0)
+            super.setSelectedRanges([NSValue(range: NSRange(location: target, length: 0))], affinity: affinity, stillSelecting: stillSelecting)
+        }
         // Moving to another line swaps a heading's "H2" and its "##".
         // The selection can point past the text mid-replacement (loading another document); clamp it.
         let ns = string as NSString
@@ -558,6 +649,10 @@ final class EditorTextView: NSTextView {
     override func deleteBackward(_ sender: Any?) {
         let caret = selectedRange()
         guard caret.length == 0, !hasMarkedText(), caret.location > 0 else { return super.deleteBackward(sender) }
+        // Right after a block showing only its diagram, Backspace steps over it rather than joining the line to its fence.
+        if let diagram = collapsedDiagram(at: caret.location - 1), caret.location == NSMaxRange(diagram.block) + 1 {
+            return setSelectedRange(NSRange(location: max(diagram.block.location - 1, 0), length: 0))
+        }
         guard !caretInCodeBlock else { return super.deleteBackward(sender) }
         let line = currentLine()
         let leading = ns.substring(with: line).prefix { $0 == " " || $0 == "\t" }

@@ -32,6 +32,17 @@ enum Welcome {
 
     > A quote looks like this.
 
+    Code blocks are coloured by their language, and a `mermaid` block becomes a diagram in the preview:
+
+    ```swift
+    let greeting = "Hello, Draft"   // a comment
+    ```
+
+    ```mermaid
+    flowchart LR
+      A[Write] --> B[Preview] --> C[Export]
+    ```
+
     ## Getting around
 
     - ⌃⌘S shows the library, ⇧⌘O the outline of this document
@@ -56,6 +67,17 @@ enum Welcome {
     - 寫上 #草稿 這樣的標籤，文件庫的標籤區就會出現它
 
     > 引文長這樣。
+
+    程式碼區塊會依語言上色，`mermaid` 區塊在預覽裡會畫成圖：
+
+    ```swift
+    let greeting = "你好，Draft"   // 註解
+    ```
+
+    ```mermaid
+    flowchart LR
+      A[寫作] --> B[預覽] --> C[匯出]
+    ```
 
     ## 操作
 

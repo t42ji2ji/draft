@@ -508,6 +508,32 @@ pre :is(code, kbd, samp) {
     line-height: normal;
 }
 
+/* ```mermaid: the diagram (Template.updateMermaid) stands in for its source, in the page's colours.
+   !important beats the palette's pre background. */
+pre:has(> .mermaid-diagram) {
+    padding: 0;
+    overflow: visible;
+    background: none !important;
+}
+
+pre:has(> .mermaid-diagram) > code {
+    display: none;
+}
+
+.mermaid-diagram {
+    --pele-bg: var(--page);
+    --pele-fg: var(--text);
+    --pele-line: var(--text);
+    --pele-muted: color-mix(in srgb, var(--text) 60%, var(--page));
+    --pele-border: color-mix(in srgb, var(--text) 45%, var(--page));
+    --pele-surface: color-mix(in srgb, var(--text) 6%, var(--page));
+    --pele-surface-alt: color-mix(in srgb, var(--text) 12%, var(--page));
+    --pele-font: var(--face);
+    --pele-font-mono: var(--code-face);
+    white-space: normal;
+    text-align: center;
+}
+
 
 /* ── Inline ───────────────────────────────────────────────────────────────── */
 

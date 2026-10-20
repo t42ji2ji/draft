@@ -6,6 +6,23 @@
 html { background: #ffffff; }
 html.night-mode { background: #0d1117; }
 
+/* ```mermaid diagrams (Template.updateMermaid), as base.css draws them for the other templates. */
+html { --page: #ffffff; --text: #1f2328; }
+html.night-mode { --page: #0d1117; --text: #f0f6fc; }
+.markdown-body pre:has(> .mermaid-diagram) { padding: 0; overflow: visible; background: none !important; }
+.markdown-body pre:has(> .mermaid-diagram) > code { display: none; }
+.mermaid-diagram {
+  --pele-bg: var(--page);
+  --pele-fg: var(--text);
+  --pele-line: var(--text);
+  --pele-muted: color-mix(in srgb, var(--text) 60%, var(--page));
+  --pele-border: color-mix(in srgb, var(--text) 45%, var(--page));
+  --pele-surface: color-mix(in srgb, var(--text) 6%, var(--page));
+  --pele-surface-alt: color-mix(in srgb, var(--text) 12%, var(--page));
+  white-space: normal;
+  text-align: center;
+}
+
 .markdown-body {
   box-sizing: border-box;
   max-width: 830px;
